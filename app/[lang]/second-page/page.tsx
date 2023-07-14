@@ -10,10 +10,11 @@ interface Props{
 }
 
 const Page = async ({ params: { lang } }: Props) => {
-  const d = await getDictionary(lang).then(dict=> dict["server-component"])
+  const dict = await getDictionary(lang)
+  const d = dict["server-component"]
   return (
     <>
-      <LocaleSwitcher  locale={lang}/>
+      <LocaleSwitcher language={lang} dictionary={dict.switcher}/>
       <h1>{d.welcomeNext}</h1>
       <Link href={`/${lang}`}>
         {d.back}

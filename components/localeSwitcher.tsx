@@ -5,11 +5,16 @@ import Link from 'next/link'
 import {languages} from "@/locale/settings";
 import {Dict} from "@/dictionaries/get-dictionary";
 
-interface Props {
-  locale: Dict
+interface Dictionary{
+  localeSwitcher: string
+}
+interface Props{
+  language: Dict
+  dictionary: Dictionary
 }
 
-export default function LocaleSwitcher({locale: currentLocale}: Props) {
+
+export default function LocaleSwitcher({language, dictionary}: Props) {
   const pathName = usePathname()
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/'
@@ -20,10 +25,10 @@ export default function LocaleSwitcher({locale: currentLocale}: Props) {
 
   return (
     <div>
-      <p>Locale switcher:</p>
+      <p>{dictionary.localeSwitcher}</p>
       <ul>
         {languages.map((locale) => {
-          if (locale !== currentLocale)
+          if (locale !== language)
             return (
               <li key={locale}>
                 <Link href={redirectedPathName(locale)}>{locale}</Link>

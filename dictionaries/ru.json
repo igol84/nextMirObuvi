@@ -5,6 +5,9 @@
     "welcomeNext": "Привет из следующей страницы!",
     "back": "назад"
   },
+  "switcher": {
+    "localeSwitcher": "Переключатель язака:"
+  },
   "counter": {
     "increment": "Увеличить",
     "decrement": "Уменьшить"
