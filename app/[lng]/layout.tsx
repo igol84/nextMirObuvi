@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import React from "react";
-import { dir } from 'i18next'
 import {languages} from "@/app/locale/settings";
 
 
@@ -25,7 +24,7 @@ interface Props {
 
 export default function RootLayout({ children, params: {lng}}: Props) {
   return (
-    <html lang={lng} dir={dir(lng)}>
+    <html lang={lng}>
       <body className={inter.className}>{children}</body>
     </html>
   )
