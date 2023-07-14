@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 import {Dict, getDictionary} from "@/dictionaries/get-dictionary";
-import LocaleSwitcher from "@/components/localeSwitcher";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 interface Params{
   lang: Dict
 }
