@@ -1,0 +1,12 @@
+{
+  "server-component": {
+    "welcome": "Добро пожаловать!",
+    "secondPage": "следующая страница",
+    "welcomeNext": "Привет из следующей страницы!",
+    "back": "назад"
+  },
+  "counter": {
+    "increment": "Увеличить",
+    "decrement": "Уменьшить"
+  }
+}

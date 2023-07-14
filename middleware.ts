@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from 'next/server'
 import acceptLanguage from 'accept-language'
-import {defaultLanguage, languages} from "@/app/locale/settings";
+import {defaultLanguage, languages} from "@/locale/settings";
 
 
 
