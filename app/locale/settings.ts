@@ -1,2 +1,2 @@
-export const fallbackLng = 'ua'
-export const languages = [fallbackLng, 'ru']
+export const defaultLanguage = 'ua'
+export const languages = [defaultLanguage, 'ru']

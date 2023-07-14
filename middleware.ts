@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from 'next/server'
 import acceptLanguage from 'accept-language'
-import {fallbackLng, languages} from "@/app/locale/settings";
+import {defaultLanguage, languages} from "@/app/locale/settings";
 
 
 
@@ -16,17 +16,17 @@ export const config = {
 const cookieName = 'i18next'
 
 export function middleware(req: NextRequest) {
-  let lng
-  if (req.cookies.has(cookieName)) lng = acceptLanguage.get(req.cookies.get(cookieName)?.value)
-  if (!lng) lng = acceptLanguage.get(req.headers.get('Accept-Language'))
-  if (!lng) lng = fallbackLng
+  let language
+  if (req.cookies.has(cookieName)) language = acceptLanguage.get(req.cookies.get(cookieName)?.value)
+  if (!language) language = acceptLanguage.get(req.headers.get('Accept-Language'))
+  if (!language) language = defaultLanguage
 
   // Redirect if lng in path is not supported
   if (
     !languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !req.nextUrl.pathname.startsWith('/_next')
   ) {
-    return NextResponse.redirect(new URL(`/${lng}${req.nextUrl.pathname}`, req.url))
+    return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
   }
 
   if (req.headers.has('referer')) {

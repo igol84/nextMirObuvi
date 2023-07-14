@@ -1,18 +1,18 @@
 import React from 'react';
 import Link from "next/link";
 interface Params{
-  lng: string
+  lang: string
 }
 interface Props{
   params: Params
 }
 
-const Page = ({ params: { lng } }: Props) => {
+const Page = ({ params: { lang } }: Props) => {
   return (
     <>
-      <h1>Hi there!</h1>
-      <Link href={`/${lng}/second-page`}>
-        second page
+      <h1>Hi from second page!</h1>
+      <Link href={`/${lang}`}>
+        back
       </Link>
     </>
   );
