@@ -3,9 +3,6 @@ import acceptLanguage from 'accept-language'
 import {defaultLanguage, languages} from "@/locale/settings";
 
 
-
-
-
 acceptLanguage.languages(languages)
 
 export const config = {
@@ -22,10 +19,8 @@ export function middleware(req: NextRequest) {
   if (!language) language = defaultLanguage
 
   // Redirect if lng in path is not supported
-  if (
-    !languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
-    !req.nextUrl.pathname.startsWith('/_next')
-  ) {
+  if (!languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`))) {
+    console.log('redirect')
     return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
   }
 
