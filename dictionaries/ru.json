@@ -1,5 +1,5 @@
 {
-  "server-component": {
+  "serverComponent": {
     "welcome": "Добро пожаловать!",
     "secondPage": "следующая страница",
     "welcomeNext": "Привет из следующей страницы!",

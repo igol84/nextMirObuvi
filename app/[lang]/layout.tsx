@@ -2,6 +2,8 @@ import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import React from "react";
 import {languages} from "@/locale/settings";
+import {Providers} from "@/app/providers";
+import {Lang, getDictionary} from "@/dictionaries/get-dictionary";
 
 
 const inter = Inter({subsets: ['latin']})
@@ -16,17 +18,22 @@ export const metadata: Metadata = {
 }
 
 
-export default function RootLayout(
+export default async function RootLayout(
   {
     children,
     params: {lang},
   }: {
     children: React.ReactNode
-    params: { lang: string }
+    params: { lang: Lang }
   }) {
+  const dict = await getDictionary(lang)
   return (
     <html lang={lang}>
-    <body className={inter.className}>{children}</body>
+    <body className={inter.className}>
+    <Providers dict={dict} lang={lang}>
+      {children}
+    </Providers>
+    </body>
     </html>
   )
 }

@@ -1,4 +1,4 @@
-import {Dict} from "@/dictionaries/get-dictionary";
+import {Lang} from "@/dictionaries/get-dictionary";
 
 export const defaultLanguage = 'ua'
-export const languages: Dict[] = [defaultLanguage, 'ru']
+export const languages: Lang[] = [defaultLanguage, 'ru']

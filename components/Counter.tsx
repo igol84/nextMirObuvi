@@ -1,29 +1,21 @@
 'use client'
 
 import {useState} from 'react'
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
-interface Dictionary{
-  label:string
-  increment: string
-  decrement: string
-}
-
-interface Props{
-  dictionary: Dictionary
-}
-
-export default function Counter({dictionary}: Props) {
+export default function Counter() {
   const [count, setCount] = useState(0)
+  const d = useDictionaryTranslate("counter")
   return (
     <p>
-      {dictionary.label}{' '}
+      {d('label')}{' '}
       <button onClick={() => setCount((n) => n - 1)}>
-        {dictionary.decrement}
+        {d('decrement')}
       </button>
       {' '}
       {count}{' '}
       <button onClick={() => setCount((n) => n + 1)}>
-        {dictionary.increment}
+        {d('increment')}
       </button>
     </p>
   )

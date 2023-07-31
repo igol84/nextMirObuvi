@@ -6,7 +6,7 @@ const dictionaries = {
   ua: async () => await import('./ua.json').then((module) => module.default),
   ru: async () => await import('./ru.json').then((module) => module.default)
 }
-export type Dict = keyof typeof dictionaries
-export const getDictionary = async (locale: Dict) => {
+export type Lang = keyof typeof dictionaries
+export const getDictionary = async (locale: Lang) => {
   return dictionaries[Object.keys(dictionaries).includes(locale) ? locale : defaultLanguage]()
 };

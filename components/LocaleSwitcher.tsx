@@ -3,18 +3,12 @@
 import {usePathname} from 'next/navigation'
 import Link from 'next/link'
 import {languages} from "@/locale/settings";
-import {Dict} from "@/dictionaries/get-dictionary";
-
-interface Dictionary{
-  localeSwitcher: string
-}
-interface Props{
-  language: Dict
-  dictionary: Dictionary
-}
+import {useContext} from "react";
+import {LangContext} from "@/locale/LangProvider";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 
-export default function LocaleSwitcher({language, dictionary}: Props) {
+export default function LocaleSwitcher() {
   const pathName = usePathname()
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/'
@@ -22,13 +16,14 @@ export default function LocaleSwitcher({language, dictionary}: Props) {
     segments[1] = locale
     return segments.join('/')
   }
-
+  const lang = useContext(LangContext)
+  const d = useDictionaryTranslate("switcher")
   return (
     <div>
-      <p>{dictionary.localeSwitcher}</p>
+      <p>{d('localeSwitcher')}</p>
       <ul>
         {languages.map((locale) => {
-          if (locale !== language)
+          if (locale !== lang)
             return (
               <li key={locale}>
                 <Link href={redirectedPathName(locale)}>{locale}</Link>
