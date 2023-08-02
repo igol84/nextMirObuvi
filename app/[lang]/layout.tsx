@@ -4,6 +4,8 @@ import React from "react";
 import {languages} from "@/locale/settings";
 import {Providers} from "@/app/providers";
 import {Lang, getDictionary} from "@/dictionaries/get-dictionary";
+import ChakraLayout from "@/app/[lang]/ChakraLayout";
+import './globals.css'
 
 
 const inter = Inter({subsets: ['latin']})
@@ -31,7 +33,9 @@ export default async function RootLayout(
     <html lang={lang}>
     <body className={inter.className}>
     <Providers dict={dict} lang={lang}>
-      {children}
+      <ChakraLayout>
+        {children}
+      </ChakraLayout>
     </Providers>
     </body>
     </html>

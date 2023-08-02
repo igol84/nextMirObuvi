@@ -9,14 +9,16 @@ import LangProvider from "@/locale/LangProvider";
 import {Lang} from "@/dictionaries/get-dictionary";
 
 
-const colors = {
+const config  = {
   brand: {
     900: '#1a365d',
     800: '#153e75',
     700: '#2a69ac',
   },
+  initialColorMode: 'system',
+  useSystemColorMode: true,
 }
-export const theme = extendTheme({colors})
+export const theme = extendTheme({config })
 
 export async function Providers({lang, dict, children}: { lang: Lang, dict: Dictionary, children: React.ReactNode }) {
   return (

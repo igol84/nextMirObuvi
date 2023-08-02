@@ -4,17 +4,21 @@ import LocaleSwitcher from "@/components/LocaleSwitcher";
 import Link from "next/link";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {Button, Heading, Link as ChakraLink, useColorMode} from "@chakra-ui/react";
 
 const Home = () => {
   const lang = useContext(LangContext)
   const d = useDictionaryTranslate("serverComponent")
+  const {toggleColorMode} = useColorMode()
+
   return (
     <>
       <LocaleSwitcher/>
-      <h1>asd</h1>
-      <Link href={`/${lang}/second-page`}>
+      <Heading>asd</Heading>
+      <ChakraLink as={Link} href={`/${lang}/second-page`}>
         {d('secondPage')}
-      </Link>
+      </ChakraLink>
+      <Button onClick={toggleColorMode}>Theme</Button>
     </>
   );
 };
