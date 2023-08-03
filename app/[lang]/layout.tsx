@@ -8,6 +8,7 @@ import ChakraLayout from "@/app/[lang]/ChakraLayout";
 import './globals.css'
 
 
+
 const inter = Inter({subsets: ['latin']})
 
 export async function generateStaticParams() {
