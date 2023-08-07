@@ -4,7 +4,9 @@ import LocaleSwitcher from "@/components/LocaleSwitcher";
 import Link from "next/link";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {Box, Button, Heading, Link as ChakraLink, Text, useColorMode} from "@chakra-ui/react";
+import {Box, Button, Heading, Link as ChakraLink, Text, useColorMode, VisuallyHidden} from "@chakra-ui/react";
+import AirbnbCard from "@/components/demo/BoxDemoi";
+
 
 const Home = () => {
   const lang = useContext(LangContext)
@@ -15,7 +17,7 @@ const Home = () => {
   return (
     <>
       <LocaleSwitcher/>
-      <Heading>asd</Heading>
+      <Heading>Првет</Heading>
       <ChakraLink as={Link} href={`/${lang}/second-page`}>
         {d('secondPage')}
       </ChakraLink>
@@ -38,9 +40,11 @@ const Home = () => {
       />
       <Box layerStyle={layerStyle}>This is a box</Box>
       <Button onClick={()=>setIsSelected(!isSelected)}>layer Style</Button>
-      <Button colorScheme='lime' onClick={toggleColorMode}>Theme</Button>
-      <Button size='xl' variant='my'>
-        Welcome
+      <Button variant='colorful' onClick={toggleColorMode}>Theme</Button>
+      <AirbnbCard/>
+      <Button>
+        <VisuallyHidden>Checkmark</VisuallyHidden>
+
       </Button>
     </>
   );

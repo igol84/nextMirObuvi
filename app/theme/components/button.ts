@@ -1,5 +1,17 @@
-import { defineStyleConfig } from '@chakra-ui/react'
-
+import {defineStyle, defineStyleConfig} from '@chakra-ui/react'
+const colorfulVariant = defineStyle((props) => {
+  const { colorScheme: c } = props // add color scheme as a prop
+  return {
+    _light: {
+      bg: `${c}.200`,
+      color: `${c}.800`,
+    },
+    _dark: {
+      bg: `${c}.700`,
+      color: `${c}.200`,
+    },
+  }
+})
 const Button = defineStyleConfig({
   // The styles all button have in common
   baseStyle: ({ colorMode }) =>({
@@ -35,6 +47,7 @@ const Button = defineStyleConfig({
       bg: 'red.500',
       color: 'white',
     },
+    colorful: colorfulVariant,
   },
   // The default size and variant values
   defaultProps: {

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.0",
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
@@ -29,6 +30,7 @@
     "react-dom": "18.2.0",
     "react-i18next": "^13.0.2",
     "react-icons": "^4.10.1",
+    "swiper": "^10.1.0",
     "typescript": "5.1.6"
   },
   "devDependencies": {
