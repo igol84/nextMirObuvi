@@ -1,14 +1,18 @@
+import semanticTokens from "@/app/theme/foundations/semanticTokens";
+
 const styles = {
   global: {
     // styles for the `body`
     body: {
-      bg: 'gray.400',
+      bg: semanticTokens.colors.bgBodyColor.default,
+      _dark: {
+        bg: semanticTokens.colors.bgBodyColor._dark,
+      }
     },
     // styles for the `a`
     a: {
-      color: 'teal.500',
       _hover: {
-        textDecoration: 'underline',
+        textDecoration: 'none',
       },
     },
   },

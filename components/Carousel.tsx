@@ -53,7 +53,7 @@ const CarouselComponent = () => {
           return (
             <SwiperSlide key={index}>
               <Link href='/'>
-              <Image src={sled.img}/>
+              <Image src={sled.img} alt='Imajes shous'/>
               </Link>
             </SwiperSlide>
           )

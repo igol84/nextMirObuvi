@@ -1,11 +1,11 @@
 'use client'
 import React, {useContext, useState} from 'react';
-import LocaleSwitcher from "@/components/LocaleSwitcher";
 import Link from "next/link";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {Box, Button, Heading, Link as ChakraLink, Text, useColorMode, VisuallyHidden} from "@chakra-ui/react";
+import {Box, Button, Flex, Link as ChakraLink, Text, useColorMode, VisuallyHidden} from "@chakra-ui/react";
 import AirbnbCard from "@/components/demo/BoxDemoi";
+import Carousel from "@/components/Carousel";
 
 
 const Home = () => {
@@ -16,8 +16,11 @@ const Home = () => {
   const layerStyle = isSelected ? 'selected' : 'base'
   return (
     <>
-      <LocaleSwitcher/>
-      <Heading>Првет</Heading>
+      <Flex justifyContent='center' alignItems='center' >
+        <Box w={[200, 400, 570]}>
+          <Carousel/>
+        </Box>
+      </Flex>
       <ChakraLink as={Link} href={`/${lang}/second-page`}>
         {d('secondPage')}
       </ChakraLink>

@@ -5,7 +5,6 @@ import layerStyles from "@/app/theme/foundations/layerStyles";
 import semanticTokens from "@/app/theme/foundations/semanticTokens";
 import config from "@/app/theme/foundations/config";
 import Button from "@/app/theme/components/button";
-import {buttonTheme} from "@/app/theme/components/iconButton";
 
 const themeConfig = {
   fonts: {
@@ -18,8 +17,7 @@ const themeConfig = {
   semanticTokens,
   layerStyles,
   components: {
-    Button,
-    buttonTheme
+    Button
   },
 }
 

@@ -1,15 +1,18 @@
 import type {Metadata} from 'next'
-import {Inter} from 'next/font/google'
+import {Roboto} from 'next/font/google'
 import React from "react";
 import {languages} from "@/locale/settings";
 import {Providers} from "@/app/providers";
 import {Lang, getDictionary} from "@/dictionaries/get-dictionary";
-import ChakraLayout from "@/app/[lang]/ChakraLayout";
-import './globals.css'
+import './globals.scss'
+import Container from "@/components/Container";
 
-
-
-const inter = Inter({subsets: ['latin']})
+const roboto = Roboto({
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export async function generateStaticParams() {
   return languages.map((lang) => ({lang}))
@@ -32,11 +35,11 @@ export default async function RootLayout(
   const dict = await getDictionary(lang)
   return (
     <html lang={lang}>
-    <body className={inter.className}>
+    <body className={roboto.className}>
     <Providers dict={dict} lang={lang}>
-      <ChakraLayout>
+      <Container>
         {children}
-      </ChakraLayout>
+      </Container>
     </Providers>
     </body>
     </html>

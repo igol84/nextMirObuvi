@@ -1,6 +1,7 @@
 import {defineStyle, defineStyleConfig} from '@chakra-ui/react'
+
 const colorfulVariant = defineStyle((props) => {
-  const { colorScheme: c } = props // add color scheme as a prop
+  const {colorScheme: c} = props // add color scheme as a prop
   return {
     _light: {
       bg: `${c}.200`,
@@ -14,11 +15,14 @@ const colorfulVariant = defineStyle((props) => {
 })
 const Button = defineStyleConfig({
   // The styles all button have in common
-  baseStyle: ({ colorMode }) =>({
+  baseStyle: {
     fontWeight: 'bold',
-    textTransform: colorMode === "dark" ? 'uppercase' : 'lowercase',
+    textTransform: 'lowercase',
     borderRadius: 'base', // <-- border radius is same for all variants and sizes
-  }),
+    _dark: {
+      textTransform: 'uppercase',
+    }
+  },
   // Two sizes: sm and md
   sizes: {
     sm: {
@@ -35,16 +39,23 @@ const Button = defineStyleConfig({
   // Two variants: outline and solid
   variants: {
     outline: {
-      border: '2px solid',
-      borderColor: 'purple.500',
-      color: 'purple.500',
+      border: 'none',
+      color: 'primary.700',
+      _hover: {
+        bg: 'primary.50',
+        color: 'primary.900',
+      },
+      _dark: {
+        color: 'primary.200',
+        _hover: {
+          bg: 'primary.900',
+          color: 'primary.100',
+        },
+
+      }
     },
     solid: {
       bg: 'purple.500',
-      color: 'white',
-    },
-    my: {
-      bg: 'red.500',
       color: 'white',
     },
     colorful: colorfulVariant,
