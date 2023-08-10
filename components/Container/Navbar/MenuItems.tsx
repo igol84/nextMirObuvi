@@ -7,9 +7,11 @@ import {Box, Button, Text} from "@chakra-ui/react";
 type Props = {
   items: Item
   depthLevel: number
+  isMobile?: boolean
+  onClose: ()=>void
 }
 
-const MenuItems = ({items, depthLevel}: Props) => {
+const MenuItems = ({items, depthLevel, isMobile, onClose}: Props) => {
   const [dropdown, setDropdown] = useState(false);
   let ref = useRef<HTMLLIElement>(null);
   useEffect(() => {
@@ -34,7 +36,7 @@ const MenuItems = ({items, depthLevel}: Props) => {
     window.innerWidth > 960 && setDropdown(false);
   };
   const closeDropdown = () => {
-    dropdown && setDropdown(false);
+    !isMobile && dropdown && setDropdown(false);
   };
   return (
     <Box as={'li'} position='relative' className="menu-items" ref={ref} onMouseEnter={onMouseEnter}
@@ -42,27 +44,28 @@ const MenuItems = ({items, depthLevel}: Props) => {
       {items.submenu && items.url ? (
         <>
           <Button variant='navButton'
-                  aria-haspopup="menu"
+                  aria-haspopup="menu" pl={2}
                   aria-expanded={dropdown ? "true" : "false"}
                   onClick={() => setDropdown(prev => !prev)}
           >
-            <Text as={NextLink} href={items.url}>{items.title}</Text>
+            <Text as={NextLink} href={items.url} onClick={onClose}>{items.title}</Text>
             {depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow"/>}
           </Button>
-          <Dropdown submenus={items.submenu} dropdown={dropdown} depthLevel={depthLevel}/>
+          <Dropdown submenus={items.submenu} dropdown={dropdown} depthLevel={depthLevel} isMobile={isMobile} onClose={onClose}/>
         </>
       ) : !items.url && items.submenu ? (
         <>
           <Button variant='navButton' aria-haspopup="menu" textAlign='left'
                   aria-expanded={dropdown ? "true" : "false"}
                   onClick={() => setDropdown(prev => !prev)}
+                  pl={isMobile ? 2*(depthLevel+1): 2}
           >
-            {items.title}{' '}{depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow"/>}
+            {items.title}{' '}{!isMobile && depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow"/>}
           </Button>
-          <Dropdown submenus={items.submenu} dropdown={dropdown} depthLevel={depthLevel}/>
+          <Dropdown submenus={items.submenu} dropdown={dropdown} depthLevel={depthLevel} isMobile={isMobile} onClose={onClose}/>
         </>
       ) : items.url ? (
-        <Button variant='navButton' as={NextLink} href={items.url}>{items.title}</Button>
+        <Button onClick={onClose} variant='navButton' pl={isMobile && depthLevel>0 ? 2*(depthLevel+1) : 2} as={NextLink} href={items.url}>{items.title}</Button>
       ) : ''}
     </Box>
   );

@@ -5,15 +5,22 @@ import {Box} from "@chakra-ui/react";
 type Props = {
   submenus: Item[],
   dropdown: boolean,
-  depthLevel: number
+  depthLevel: number,
+  isMobile?: boolean
+  onClose: () => void
 }
-const Dropdown = ({ submenus, dropdown, depthLevel }: Props) => {
+const Dropdown = ({ submenus, dropdown, depthLevel, isMobile, onClose}: Props) => {
   depthLevel = depthLevel + 1;
-  const dropdownClass = depthLevel > 1 ? "dropdown-submenu" : "";
+  const dropdownClass = !isMobile && depthLevel > 1 ? "dropdown-submenu" : "";
+  const boxShadow = isMobile ? 'none': 'base'
+  const darkBoxShadow = isMobile ? 'none': 'dark-lg'
+  const position = isMobile ? 'inherit': 'absolute'
   return (
-    <Box as={'ul'} bg={'bodyColor'} boxShadow='base' _dark={{bg:'bodyColor', boxShadow: 'dark-lg'}} className={`dropdown ${dropdownClass} ${dropdown ? "show" : ""}`}>
+    <Box as={'ul'}  position={position} boxShadow={boxShadow}
+         _dark={{bg:'bodyColor', boxShadow: darkBoxShadow}}
+         className={`dropdown ${dropdownClass} ${dropdown ? "show" : ""}`}>
       {submenus.map((submenu, index) => (
-        <MenuItems items={submenu} key={index} depthLevel={depthLevel}/>
+        <MenuItems items={submenu} key={index} depthLevel={depthLevel} isMobile={isMobile} onClose={onClose}/>
       ))}
     </Box>
   );

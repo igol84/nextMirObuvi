@@ -12,11 +12,9 @@ button span {
 }
 
 .dropdown {
-    position: absolute;
     left: 0;
     z-index: 9999;
     min-width: 10rem;
-    padding: 0.5rem 0;
     list-style: none;
     border-radius: 0.5rem;
     display: none;
@@ -28,8 +26,7 @@ button span {
 }
 
 .dropdown .dropdown-submenu {
-    position: absolute;
     left: 100%;
-    top: -7px;
+    top: 0;
 }
 
