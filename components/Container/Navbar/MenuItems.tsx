@@ -33,10 +33,12 @@ const MenuItems = ({items, depthLevel}: Props) => {
   const onMouseLeave = () => {
     window.innerWidth > 960 && setDropdown(false);
   };
-
+  const closeDropdown = () => {
+    dropdown && setDropdown(false);
+  };
   return (
     <Box as={'li'} position='relative' className="menu-items" ref={ref} onMouseEnter={onMouseEnter}
-         onMouseLeave={onMouseLeave}>
+         onMouseLeave={onMouseLeave} onClick={closeDropdown}>
       {items.submenu && items.url ? (
         <>
           <Button variant='navButton'
