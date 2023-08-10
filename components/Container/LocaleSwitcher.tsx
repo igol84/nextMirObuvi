@@ -18,6 +18,6 @@ export default function LocaleSwitcher() {
   const lang = useContext(LangContext)
   const locale = lang === 'ru' ? 'ua' : 'ru'
   return (
-    <Button as={Link} px={1} href={redirectedPathName(locale)} fontSize={[15, 20, 25, 30]}>{locale}</Button>
+    <Button as={Link} px={1} href={redirectedPathName(locale)} fontSize={[15, 20, 25, 30]}>{lang}</Button>
   )
 }

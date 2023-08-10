@@ -1,4 +1,5 @@
 import {defineStyle, defineStyleConfig} from '@chakra-ui/react'
+import semanticTokens from "@/app/theme/foundations/semanticTokens";
 
 const colorfulVariant = defineStyle((props) => {
   const {colorScheme: c} = props // add color scheme as a prop
@@ -16,12 +17,7 @@ const colorfulVariant = defineStyle((props) => {
 const Button = defineStyleConfig({
   // The styles all button have in common
   baseStyle: {
-    fontWeight: 'bold',
-    textTransform: 'lowercase',
-    borderRadius: 'base', // <-- border radius is same for all variants and sizes
-    _dark: {
-      textTransform: 'uppercase',
-    }
+
   },
   // Two sizes: sm and md
   sizes: {
@@ -39,6 +35,9 @@ const Button = defineStyleConfig({
   // Two variants: outline and solid
   variants: {
     outline: {
+      fontWeight: 'bold',
+      textTransform: 'lowercase',
+      borderRadius: 'base', // <-- border radius is same for all variants and sizes
       border: 'none',
       color: 'primary.700',
       _hover: {
@@ -46,6 +45,7 @@ const Button = defineStyleConfig({
         color: 'primary.900',
       },
       _dark: {
+        textTransform: 'uppercase',
         color: 'primary.200',
         _hover: {
           bg: 'primary.900',
@@ -57,6 +57,31 @@ const Button = defineStyleConfig({
     solid: {
       bg: 'purple.500',
       color: 'white',
+    },
+    navButton:{
+      w: '100%',
+      justifyContent: 'left',
+      fontWeight: 'inherit',
+      h:'100%',
+      borderRadius: "none",
+      px: 3,
+      py: 4,
+      bg: semanticTokens.colors.bodyColor.default,
+      color: 'primary.900',
+      _hover:{
+        bg: 'primary.300',
+        color: 'primary.900',
+        textDecoration: 'none',
+      },
+      _dark: {
+        bg: semanticTokens.colors.bodyColor._dark,
+        color: 'primary.200',
+        _hover: {
+          bg: 'primary.200',
+          color: 'primary.900',
+        },
+
+      }
     },
     colorful: colorfulVariant,
   },

@@ -1,7 +1,8 @@
 import Dropdown from "@/components/Container/Navbar/Dropdown";
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
+import {useEffect, useRef, useState} from "react";
+import NextLink from "next/link";
 import {Item} from "@/components/Container/Navbar/items";
+import {Box, Button, Text} from "@chakra-ui/react";
 
 type Props = {
   items: Item
@@ -10,11 +11,10 @@ type Props = {
 
 const MenuItems = ({items, depthLevel}: Props) => {
   const [dropdown, setDropdown] = useState(false);
-  let ref = useRef< HTMLLIElement>(null);
+  let ref = useRef<HTMLLIElement>(null);
   useEffect(() => {
     const handler = (event: TouchEvent | MouseEvent) => {
-      // @ts-ignore
-      if (dropdown && ref.current && !ref.current.contains(event.target)) {
+      if (dropdown && ref.current && !ref.current.contains(event.target as Node)) {
         setDropdown(false);
       }
     };
@@ -35,35 +35,34 @@ const MenuItems = ({items, depthLevel}: Props) => {
   };
 
   return (
-    <li className="menu-items" ref={ref} onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave} >
+    <Box as={'li'} position='relative' className="menu-items" ref={ref} onMouseEnter={onMouseEnter}
+         onMouseLeave={onMouseLeave}>
       {items.submenu && items.url ? (
         <>
-          <button
-            type="button" aria-haspopup="menu"
-            aria-expanded={dropdown ? "true" : "false"}
-            onClick={() => setDropdown(prev => !prev)}
+          <Button variant='navButton'
+                  aria-haspopup="menu"
+                  aria-expanded={dropdown ? "true" : "false"}
+                  onClick={() => setDropdown(prev => !prev)}
           >
-            <Link href={items.url}>{items.title}</Link>
-            {depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow" />}
-          </button>
+            <Text as={NextLink} href={items.url}>{items.title}</Text>
+            {depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow"/>}
+          </Button>
           <Dropdown submenus={items.submenu} dropdown={dropdown} depthLevel={depthLevel}/>
         </>
       ) : !items.url && items.submenu ? (
         <>
-          <button
-            type="button" aria-haspopup="menu"
-            aria-expanded={dropdown ? "true" : "false"}
-            onClick={() => setDropdown(prev => !prev)}
+          <Button variant='navButton' aria-haspopup="menu" textAlign='left'
+                  aria-expanded={dropdown ? "true" : "false"}
+                  onClick={() => setDropdown(prev => !prev)}
           >
-            {items.title}{' '}{depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow" />}
-          </button>
+            {items.title}{' '}{depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow"/>}
+          </Button>
           <Dropdown submenus={items.submenu} dropdown={dropdown} depthLevel={depthLevel}/>
         </>
-      ): items.url ? (
-        <Link href={items.url}>{items.title}</Link>
+      ) : items.url ? (
+        <Button variant='navButton' as={NextLink} href={items.url}>{items.title}</Button>
       ) : ''}
-    </li>
+    </Box>
   );
 };
 

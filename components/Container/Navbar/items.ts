@@ -34,7 +34,7 @@ export const menuItems = [
   },
   {
     title: 'web development',
-    url: 'web-dev',
+    url: '/second-page',
     submenu: [
       {
         title: 'Frontend',
@@ -45,7 +45,7 @@ export const menuItems = [
         submenu: [
           {
             title: 'NodeJS',
-            url: '/second-page',
+            url: '/',
           },
           {
             title: 'PHP',
