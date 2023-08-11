@@ -1,12 +1,13 @@
 'use client'
 import React, {ReactNode} from 'react';
 import styled from '@emotion/styled'
-import {Box, Flex, IconButton, Link, Link as NextLink, useColorMode, useDisclosure} from "@chakra-ui/react";
+import {Box, Flex, IconButton, useColorMode, useDisclosure} from "@chakra-ui/react";
 import {MoonIcon, SunIcon} from '@chakra-ui/icons'
 import LocaleSwitcher from "@/components/Container/LocaleSwitcher";
 import Navbar from "@/components/Container/Navbar";
 import {HiMenu} from "react-icons/hi";
 import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
+import Link from "next/link";
 
 
 const Container = ({children}: { children: ReactNode }) => {
@@ -32,7 +33,7 @@ const Container = ({children}: { children: ReactNode }) => {
               <IconButton onClick={onMenuOpen} fontSize={[28, 36, 48, 56]} display={{base: "inherit", lg: "none"}}
                           icon={<HiMenu/>} aria-label="Toggle Chat History Drawer"
               />
-              <Link as={NextLink} href={'/'} className="_icon-logo" aria-label="Home page" fontSize={[28, 36, 48, 56]}
+              <Box as={Link} href={'/'} className="_icon-logo" aria-label="Home page" fontSize={[28, 36, 48, 56]}
                     sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}}
               />
               <Flex justifyContent='center' alignItems='center' gap={[1, 2, 3, 4]}>

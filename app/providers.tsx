@@ -9,7 +9,7 @@ import LangProvider from "@/locale/LangProvider";
 import {Lang} from "@/dictionaries/get-dictionary";
 import index from "@/app/theme";
 
-export async function Providers({lang, dict, children}: { lang: Lang, dict: Dictionary, children: React.ReactNode }) {
+export function Providers({lang, dict, children}: { lang: Lang, dict: Dictionary, children: React.ReactNode }) {
   return (
     <LangProvider lang={lang}>
       <DictProvider dict={dict}>
