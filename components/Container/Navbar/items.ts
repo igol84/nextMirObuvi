@@ -5,51 +5,51 @@ export type Item = {
 }
 
 
-export const menuItems = [
+export const menuItems: Item[] = [
   {
     title: 'Home',
-    url: '/',
+    url: '',
   },
   {
     title: 'Services',
-    url: '/second-page',
+    url: 'second-page',
     submenu: [
       {
         title: 'web design',
-        url: '/',
+        url: '',
       },
       {
         title: 'web development',
-        url: '/',
+        url: '',
       },
       {
         title: 'SEO',
-        url: '/',
+        url: '',
       },
     ],
   },
   {
     title: 'About',
-    url: '/second-page',
+    url: 'second-page',
   },
   {
     title: 'web development',
-    url: '/second-page',
+    url: 'second-page',
     submenu: [
       {
         title: 'Frontend',
-        url: '/second-page',
+        url: 'second-page',
       },
       {
         title: 'Backend',
         submenu: [
           {
             title: 'NodeJS',
-            url: '/',
+            url: '',
           },
           {
             title: 'PHP',
-            url: '/second-page',
+            url: 'second-page',
           },
         ],
       },

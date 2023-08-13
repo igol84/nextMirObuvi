@@ -9,8 +9,24 @@ import {HiMenu} from "react-icons/hi";
 import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
 import Link from "next/link";
 
+interface Brand {
+  name: string
+  title: string
+  desc: string
+  url: string
+  title_ua: string
+  id: number
+  desc_ua: string
+  active: boolean
+}
 
-const Container = ({children}: { children: ReactNode }) => {
+type Props = {
+  children: ReactNode
+  brands: Brand[]
+}
+
+
+const Container = ({children, brands}: Props) => {
   const StickNav = styled(Flex)`
     position: sticky;
     z-index: 10;
@@ -50,7 +66,7 @@ const Container = ({children}: { children: ReactNode }) => {
               </Flex>
             </Flex>
             <Flex px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor' boxShadow={'base'}>
-              <Navbar isMobile={false} onClose={onMenuClose}/>
+              <Navbar brands={brands} isMobile={false} onClose={onMenuClose}/>
             </Flex>
           </Flex>
         </Flex>
@@ -62,7 +78,7 @@ const Container = ({children}: { children: ReactNode }) => {
           {children}
         </Flex>
       </Flex>
-      <DrawerExample isOpen={isMenuOpen} onClose={onMenuClose}/>
+      <DrawerExample brands={brands}  isOpen={isMenuOpen} onClose={onMenuClose}/>
     </Box>
   );
 };

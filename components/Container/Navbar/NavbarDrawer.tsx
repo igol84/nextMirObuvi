@@ -9,13 +9,23 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "@/components/Container/Navbar/index";
-
+interface Brand {
+  name: string
+  title: string
+  desc: string
+  url: string
+  title_ua: string
+  id: number
+  desc_ua: string
+  active: boolean
+}
 type Props = {
   isOpen: boolean,
   onClose: () => void
+  brands: Brand[]
 }
 
-const DrawerExample = ({isOpen, onClose}: Props) => {
+const DrawerExample = ({isOpen, onClose, brands}: Props) => {
   const btnRef = React.useRef(null)
 
   return (
@@ -32,7 +42,7 @@ const DrawerExample = ({isOpen, onClose}: Props) => {
           <DrawerHeader>Menu</DrawerHeader>
 
           <DrawerBody>
-            <Navbar isMobile={true} onClose={onClose}/>
+            <Navbar brands={brands} isMobile={true} onClose={onClose}/>
           </DrawerBody>
 
           <DrawerFooter>

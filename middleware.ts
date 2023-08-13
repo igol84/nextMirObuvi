@@ -7,7 +7,7 @@ acceptLanguage.languages(languages)
 
 export const config = {
   // matcher: '/:lng*'
-  matcher: ['/((?!api|_next/static|_next/image|images|images|favicon.ico).*)']
+  matcher: ['/((?!api|_next/static|_next/image|assets|images|favicon.ico).*)']
 }
 
 const cookieName = 'i18next'
@@ -20,7 +20,6 @@ export function middleware(req: NextRequest) {
 
   // Redirect if lng in path is not supported
   if (!languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`))) {
-    console.log('redirect')
     return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
   }
 
