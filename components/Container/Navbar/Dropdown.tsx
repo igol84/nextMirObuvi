@@ -1,6 +1,6 @@
 import MenuItems from "@/components/Container/Navbar/MenuItems";
-import {Item} from "@/components/Container/Navbar/items";
 import {Box} from "@chakra-ui/react";
+import {Item} from "@/components/Container/Navbar/types";
 
 type Props = {
   submenus: Item[],
