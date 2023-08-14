@@ -67,8 +67,8 @@ const MenuItems = ({items, depthLevel, isMobile, onClose}: Props) => {
                     onClose={onClose}
           />
         </>
-      ) : items.url ? (
-        <Button onClick={onClose} variant='navButton' pl={isMobile && depthLevel>0 ? 2*(depthLevel+2) : 2} as={NextLink}
+      ) : items.url !== undefined ? (
+        <Button h={!isMobile && depthLevel > 0 ? 1: 'none'} onClick={onClose} variant='navButton' pl={isMobile && depthLevel>0 ? 2*(depthLevel+2) : 2} as={NextLink}
                 href={`/${lang}/${items.url}`}>{items.title}</Button
         >
       ) : ''}

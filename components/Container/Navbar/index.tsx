@@ -3,17 +3,7 @@ import {Item, menuItems} from "@/components/Container/Navbar/items";
 import {Box, Flex} from "@chakra-ui/react";
 import MenuItems from "@/components/Container/Navbar/MenuItems";
 import './style.css'
-
-interface Brand {
-  name: string
-  title: string
-  desc: string
-  url: string
-  title_ua: string
-  id: number
-  desc_ua: string
-  active: boolean
-}
+import {Brand} from "@/schemas/brands";
 
 type Props = {
   brands: Brand[]
@@ -25,7 +15,7 @@ const Navbar = ({brands, isMobile, onClose}: Props) => {
   const brandsSub:Item[] = brands.map(brand=>(
     {title: brand.name, url: brand.url}
   ))
-  const brandsItems: Item = {title: 'Brands', url: '/', submenu: brandsSub}
+  const brandsItems: Item = {title: 'Brands', url: '/brands', submenu: brandsSub}
   const allBrands = menuItems.concat(brandsItems)
   return (
     <Box as='nav'>

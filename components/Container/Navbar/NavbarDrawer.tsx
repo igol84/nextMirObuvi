@@ -1,24 +1,9 @@
 import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent, DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay
+  Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay
 } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "@/components/Container/Navbar/index";
-interface Brand {
-  name: string
-  title: string
-  desc: string
-  url: string
-  title_ua: string
-  id: number
-  desc_ua: string
-  active: boolean
-}
+import {Brand} from "@/schemas/brands";
 type Props = {
   isOpen: boolean,
   onClose: () => void
