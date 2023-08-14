@@ -1,8 +1,9 @@
 import React from 'react';
-import {Item, menuItems} from "@/components/Container/Navbar/items";
+import {menuItems} from "@/components/Container/Navbar/items";
 import {Box, Flex} from "@chakra-ui/react";
 import MenuItems from "@/components/Container/Navbar/MenuItems";
 import './style.css'
+import {Item} from "@/components/Container/Navbar/types";
 
 type Props = {
   brandsItems: Item[]
