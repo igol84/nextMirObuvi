@@ -1,9 +1,9 @@
 import Dropdown from "@/components/Container/Navbar/Dropdown";
 import {useContext, useEffect, useRef, useState} from "react";
 import NextLink from "next/link";
-import {type Item} from "@/components/Container/Navbar/items";
 import {Box, Button, Text} from "@chakra-ui/react";
 import {LangContext} from "@/locale/LangProvider";
+import {Item} from "@/components/Container/Navbar/types";
 
 type Props = {
   items: Item
