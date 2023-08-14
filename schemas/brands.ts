@@ -1,4 +1,4 @@
-export interface Brand {
+export interface BrandSchema {
   id: number
   name: string
   title: string

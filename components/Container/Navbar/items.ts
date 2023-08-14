@@ -1,9 +1,4 @@
-export type Item = {
-  title: string,
-  url?: string,
-  submenu?: Item[]
-}
-
+import {Item} from "@/components/Container/Navbar/types";
 
 export const menuItems: Item[] = [
   {

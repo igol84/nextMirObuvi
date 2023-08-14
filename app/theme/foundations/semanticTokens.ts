@@ -19,7 +19,7 @@ const semanticTokens = {
       _dark: 'gray.800',
     },
     bodyColor: {
-      default: 'gray.50',
+      default: 'white',
       _dark: 'gray.700',
     }
   },

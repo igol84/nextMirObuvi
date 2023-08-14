@@ -1,7 +1,7 @@
 import Dropdown from "@/components/Container/Navbar/Dropdown";
 import {useContext, useEffect, useRef, useState} from "react";
 import NextLink from "next/link";
-import {Item} from "@/components/Container/Navbar/items";
+import {type Item} from "@/components/Container/Navbar/items";
 import {Box, Button, Text} from "@chakra-ui/react";
 import {LangContext} from "@/locale/LangProvider";
 
@@ -68,7 +68,8 @@ const MenuItems = ({items, depthLevel, isMobile, onClose}: Props) => {
           />
         </>
       ) : items.url !== undefined ? (
-        <Button h={!isMobile && depthLevel > 0 ? 1: 'none'} onClick={onClose} variant='navButton' pl={isMobile && depthLevel>0 ? 2*(depthLevel+2) : 2} as={NextLink}
+        <Button h={!isMobile && depthLevel > 0 ? 1: 'none'} onClick={onClose} variant='navButton'
+                pl={isMobile && depthLevel>0 ? 2*(depthLevel+2) : 2} as={NextLink}
                 href={`/${lang}/${items.url}`}>{items.title}</Button
         >
       ) : ''}

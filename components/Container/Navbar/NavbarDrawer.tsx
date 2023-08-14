@@ -3,14 +3,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "@/components/Container/Navbar/index";
-import {Brand} from "@/schemas/brands";
+import {Item} from "@/components/Container/Navbar/types";
 type Props = {
   isOpen: boolean,
   onClose: () => void
-  brands: Brand[]
+  brandsItems: Item[]
 }
 
-const DrawerExample = ({isOpen, onClose, brands}: Props) => {
+const DrawerExample = ({isOpen, onClose, brandsItems}: Props) => {
   const btnRef = React.useRef(null)
 
   return (
@@ -27,7 +27,7 @@ const DrawerExample = ({isOpen, onClose, brands}: Props) => {
           <DrawerHeader>Menu</DrawerHeader>
 
           <DrawerBody>
-            <Navbar brands={brands} isMobile={true} onClose={onClose}/>
+            <Navbar brandsItems={brandsItems} isMobile={true} onClose={onClose}/>
           </DrawerBody>
 
           <DrawerFooter>

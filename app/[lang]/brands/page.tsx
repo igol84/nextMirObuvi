@@ -1,6 +1,7 @@
 import React from 'react';
 import Brands from "@/components/Brands";
-import {Brand} from "@/schemas/brands";
+import {BrandSchema} from "@/schemas/brands";
+import {BrandProps} from "@/components/Brands/types";
 
 async function getBrandsData(){
   const result = await fetch('https://mirobuvi.com.ua/xml_ftp/brands.json')
@@ -12,7 +13,10 @@ async function getBrandsData(){
 
 
 const Page = async () => {
-  const brands: Brand[] = await getBrandsData()
+  const brandsData: BrandSchema[] = await getBrandsData()
+  const brands: BrandProps[] = brandsData.map(brand=>({
+    brandId: brand.id, brandName: brand.name, url: brand.url
+  }))
   return (
     <Brands brands={brands}/>
   );

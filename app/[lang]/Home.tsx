@@ -2,15 +2,16 @@
 import React from 'react';
 import {Box, Flex} from "@chakra-ui/react";
 import Carousel from "@/components/Carousel";
-import {Brand} from "@/schemas/brands";
 import Brands from "@/components/Brands";
+import {BrandProps} from "@/components/Brands/types";
 
 
 type Props = {
-  brands: Brand[]
+  brands: BrandProps[]
 }
 
 const Home = ({brands}: Props) => {
+
   return (
     <>
       <Flex justifyContent='center' alignItems='center'>

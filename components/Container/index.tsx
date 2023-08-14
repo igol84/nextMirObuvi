@@ -1,18 +1,19 @@
 'use client'
 import React, {ReactNode} from 'react';
-import styled from '@emotion/styled'
+import Link from "next/link";
+import {HiMenu} from "react-icons/hi";
 import {Box, Flex, IconButton, useColorMode, useDisclosure} from "@chakra-ui/react";
+import styled from '@emotion/styled'
 import {MoonIcon, SunIcon} from '@chakra-ui/icons'
 import LocaleSwitcher from "@/components/Container/LocaleSwitcher";
 import Navbar from "@/components/Container/Navbar";
-import {HiMenu} from "react-icons/hi";
 import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
-import Link from "next/link";
-import {Brand} from "@/schemas/brands";
+import {BrandSchema} from "@/schemas/brands";
+import {Item} from "@/components/Container/Navbar/types";
 
 type Props = {
   children: ReactNode
-  brands: Brand[]
+  brands: BrandSchema[]
 }
 
 
@@ -29,6 +30,9 @@ const Container = ({children, brands}: Props) => {
     onOpen: onMenuOpen,
     onClose: onMenuClose,
   } = useDisclosure();
+  const brandsItems:Item[] = brands.map(brand=>(
+    {title: brand.name, url: brand.url}
+  ))
   return (
     <Box h='100%' mx={[2, 4, 8, 16, 24]}>
       <StickNav flexDirection='column' justifyContent='center' alignItems='center'>
@@ -56,7 +60,7 @@ const Container = ({children, brands}: Props) => {
               </Flex>
             </Flex>
             <Flex px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor' boxShadow={'base'}>
-              <Navbar brands={brands} isMobile={false} onClose={onMenuClose}/>
+              <Navbar brandsItems={brandsItems} isMobile={false} onClose={onMenuClose}/>
             </Flex>
           </Flex>
         </Flex>
@@ -68,7 +72,7 @@ const Container = ({children, brands}: Props) => {
           {children}
         </Flex>
       </Flex>
-      <DrawerExample brands={brands}  isOpen={isMenuOpen} onClose={onMenuClose}/>
+      <DrawerExample brandsItems={brandsItems}  isOpen={isMenuOpen} onClose={onMenuClose}/>
     </Box>
   );
 };
