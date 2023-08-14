@@ -8,17 +8,7 @@ import Navbar from "@/components/Container/Navbar";
 import {HiMenu} from "react-icons/hi";
 import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
 import Link from "next/link";
-
-interface Brand {
-  name: string
-  title: string
-  desc: string
-  url: string
-  title_ua: string
-  id: number
-  desc_ua: string
-  active: boolean
-}
+import {Brand} from "@/schemas/brands";
 
 type Props = {
   children: ReactNode

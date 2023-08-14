@@ -1,7 +1,8 @@
 import React from 'react';
-import Home from "@/app/[lang]/Home";
+import Brands from "@/components/Brands";
+import {Brand} from "@/schemas/brands";
 
-async function getData(){
+async function getBrandsData(){
   const result = await fetch('https://mirobuvi.com.ua/xml_ftp/brands.json')
   if(!result.ok){
     throw new Error('Fail to fetch brands data')
@@ -9,10 +10,11 @@ async function getData(){
   return result.json()
 }
 
+
 const Page = async () => {
-  const brands = await getData()
+  const brands: Brand[] = await getBrandsData()
   return (
-    <Home brands={brands}/>
+    <Brands brands={brands}/>
   );
 };
 
