@@ -14,11 +14,11 @@ const semanticTokens = {
       default: 'red.600',
       _dark: 'red.100',
     },
-    bgBodyColor:{
+    bgBodyColor: {
       default: 'gray.100',
       _dark: 'gray.800',
     },
-    bodyColor:{
+    bodyColor: {
       default: 'gray.50',
       _dark: 'gray.700',
     }

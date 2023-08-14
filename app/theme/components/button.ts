@@ -16,9 +16,7 @@ const colorfulVariant = defineStyle((props) => {
 })
 const Button = defineStyleConfig({
   // The styles all button have in common
-  baseStyle: {
-
-  },
+  baseStyle: {},
   // Two sizes: sm and md
   sizes: {
     sm: {
@@ -58,17 +56,17 @@ const Button = defineStyleConfig({
       bg: 'purple.500',
       color: 'white',
     },
-    navButton:{
+    navButton: {
       w: '100%',
       justifyContent: 'left',
       fontWeight: 'inherit',
-      h:'100%',
+      h: '100%',
       borderRadius: "none",
       px: 3,
       py: 4,
       bg: semanticTokens.colors.bodyColor.default,
       color: 'primary.900',
-      _hover:{
+      _hover: {
         bg: 'primary.300',
         color: 'primary.900',
         textDecoration: 'none',

@@ -1,5 +1,5 @@
 const config = {
   initialColorMode: 'dark',
-    useSystemColorMode: true,
+  useSystemColorMode: true,
 }
 export default config
