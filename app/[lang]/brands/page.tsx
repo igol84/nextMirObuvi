@@ -3,7 +3,7 @@ import Brands from "@/components/Brands";
 import {BrandSchema} from "@/schemas/brands";
 import {BrandProps} from "@/components/Brands/types";
 
-async function getBrandsData(){
+export async function getBrandsData(){
   const result = await fetch('https://mirobuvi.com.ua/xml_ftp/brands.json')
   if(!result.ok){
     throw new Error('Fail to fetch brands data')
@@ -12,7 +12,7 @@ async function getBrandsData(){
 }
 
 
-const Page = async () => {
+const BrandsPage = async () => {
   const brandsData: BrandSchema[] = await getBrandsData()
   const brands: BrandProps[] = brandsData.map(brand=>({
     brandId: brand.id, brandName: brand.name, url: brand.url
@@ -22,4 +22,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default BrandsPage;

@@ -2,6 +2,11 @@ import React from 'react';
 import Home from "@/app/[lang]/Home";
 import {BrandProps} from "@/components/Brands/types";
 import {BrandSchema} from "@/schemas/brands";
+import {languages} from "@/locale/settings";
+
+export async function generateStaticParams() {
+  return languages.map((lang) => ({lang}))
+}
 
 async function getData(){
   const result = await fetch('https://mirobuvi.com.ua/xml_ftp/brands.json')

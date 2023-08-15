@@ -1,7 +1,6 @@
 import type {Metadata} from 'next'
 import {Roboto} from 'next/font/google'
 import React from "react";
-import {languages} from "@/locale/settings";
 import {Providers} from "@/app/providers";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import './globals.scss'
@@ -15,9 +14,7 @@ const roboto = Roboto({
   display: 'swap',
 })
 
-export async function generateStaticParams() {
-  return languages.map((lang) => ({lang}))
-}
+
 
 export const metadata: Metadata = {
   title: 'Create Next App',
