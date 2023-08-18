@@ -8,7 +8,7 @@ export async function GET() {
     },
   })
   const data: Data = await res.json()
-  const brands = data.brands
+  const products = data.products
 
-  return NextResponse.json(brands)
+  return NextResponse.json(products)
 }
