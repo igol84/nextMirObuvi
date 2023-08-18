@@ -12,9 +12,11 @@ type Props = {
 const BrandPage = ({brandData}: Props) => {
   return (
     <>
-      <ChakraNextImage as={NextImage} width={249} height={249} alt={brandData.name}
+      <ChakraNextImage
+        as={NextImage} shadow='base' borderRadius={[30, 15]} width={249} height={249} alt={brandData.name}
         src={`https://mirobuvi.com.ua/ftp_brands/${brandData.id}.jpg`}
       />
+
       <div className='brand' dangerouslySetInnerHTML={{ __html: brandData.desc_ua }} />
     </>
 
