@@ -1,5 +1,7 @@
 import React from 'react';
 import {ProductProps} from "@/components/Products/types";
+import {Wrap, WrapItem} from "@chakra-ui/react";
+import ProductCard from "@/components/Products/ProductCard";
 
 type Props = {
   products: ProductProps[]
@@ -7,13 +9,15 @@ type Props = {
 
 const Products = ({products}: Props) => {
   return (
-    <div>
+    <Wrap align='center' justify={{base: 'center', lg: 'flex-start'}} spacing={4}>
       {products.map(product=>{
         return (
-          <div key={product.id}>{product.name}</div>
+          <WrapItem key={product.id}>
+            <ProductCard product={product}/>
+          </WrapItem>
         )
       })}
-    </div>
+    </Wrap>
   );
 };
 

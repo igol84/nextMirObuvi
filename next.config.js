@@ -12,6 +12,12 @@ const nextConfig = {
         port: '',
         pathname: '/ftp_brands/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'mirobuvi.com.ua',
+        port: '',
+        pathname: '/ftp_products/**',
+      },
     ],
   },
 }
