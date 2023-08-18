@@ -8,3 +8,7 @@ export interface BrandSchema {
   url: string
   active: boolean
 }
+
+export interface Data {
+  brands: BrandSchema[]
+}

@@ -1,0 +1,28 @@
+.brand h1 {
+    font-size: 6rem
+}
+.brand h2 {
+    font-size: 4rem
+}
+.brand h3 {
+    font-size: 2rem
+}
+.brand ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 40px;
+}
+.brand p {
+    text-indent: 20px;
+}
+.brand p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
