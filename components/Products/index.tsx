@@ -10,7 +10,7 @@ const Products = ({products}: Props) => {
     <div>
       {products.map(product=>{
         return (
-          <div>{product.name}</div>
+          <div key={product.id}>{product.name}</div>
         )
       })}
     </div>
