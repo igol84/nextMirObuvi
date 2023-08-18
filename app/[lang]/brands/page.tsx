@@ -6,7 +6,7 @@ import {BrandProps} from "@/components/Brands/types";
 export const revalidate = 3600
 
 export async function getBrandsData(): Promise<BrandSchema[]> {
-  const res = await fetch(`https://mir-obuvi.vercel.app/api/brands`, {
+  const res = await fetch(`${process.env.HOST}api/brands`, {
     headers: {
       'Content-Type': 'application/json',
     },
