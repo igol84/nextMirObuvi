@@ -12,7 +12,11 @@ type Props = {
 }
 
 const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
-  const brandsNav: Item = {title: 'Brands', url: '/', submenu: brandsItems}
+  const updatedBrandItems = brandsItems.map(item=>{
+    const url = `brands/${item.url}`
+    return {...item, url}
+  })
+  const brandsNav: Item = {title: 'Brands', url: '/', submenu: updatedBrandItems}
   const allItems = menuItems.concat(brandsNav)
   return (
     <Box as='nav'>
