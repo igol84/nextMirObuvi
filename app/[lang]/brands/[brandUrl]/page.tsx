@@ -2,7 +2,8 @@ import React from 'react';
 import {BrandSchema} from "@/schemas/brands";
 import './style.css'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
-import {getBrandData, getBrandsData} from "@/app/api/fetchFunctions";
+import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
+import {ProductProps} from "@/components/Products/types";
 
 type Props = {
   params: {
@@ -17,14 +18,18 @@ export async function generateStaticParams() {
 
 const Page = async ({params: {brandUrl}}: Props) => {
   const brandData = await getBrandData(brandUrl)
-  if (brandData === undefined) {
+  if (!brandData) {
     throw new Error(`Fail to fetch brand data with url ${brandUrl}`)
   }
+  const productsData = await getProductsDataByBrandId(brandData.id)
+  if (!productsData) {
+    throw new Error(`Fail to fetch products data with brand id ${brandData.id}`)
+  }
+  const products:ProductProps[] = productsData.map(product => {
+    return {id: product.id, name: product.name}
+  })
   return (
-    <>
-      <BrandPage brandData={brandData}/>
-    </>
-
+    <BrandPage brandData={brandData} productsData={products}/>
   )
 }
 
