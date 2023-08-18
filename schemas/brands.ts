@@ -22,7 +22,7 @@ export interface ProductSchema {
   name: string
   name_ua: string
   qty:  number | null
-  category_id: number
+  brand_id: number
   price: number
   images: string[]
   brand: string | null

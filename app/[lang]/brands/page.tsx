@@ -3,8 +3,6 @@ import Brands from "@/components/Brands";
 import {BrandProps} from "@/components/Brands/types";
 import {getBrandsData} from "@/app/api/fetchFunctions";
 
-
-
 const BrandsPage = async () => {
   const brandsData = await getBrandsData()
   const brands: BrandProps[] = brandsData.map(brand => ({
