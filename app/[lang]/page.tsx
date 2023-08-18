@@ -2,7 +2,7 @@ import React from 'react';
 import Home from "@/app/[lang]/Home";
 import {BrandProps} from "@/components/Brands/types";
 import {languages} from "@/locale/settings";
-import {getBrandsData} from "@/app/[lang]/brands/page";
+import {getBrandsData} from "@/app/api/fetchFunctions";
 
 export async function generateStaticParams() {
   return languages.map((lang) => ({lang}))

@@ -1,14 +1,8 @@
 import React from 'react';
 import Brands from "@/components/Brands";
-import {BrandSchema} from "@/schemas/brands";
 import {BrandProps} from "@/components/Brands/types";
+import {getBrandsData} from "@/app/api/fetchFunctions";
 
-export const revalidate = 3600
-
-export async function getBrandsData(): Promise<BrandSchema[]> {
-  const res = await fetch(`https://mir-obuvi.vercel.app/api/brands`)
-  return await res.json()
-}
 
 
 const BrandsPage = async () => {

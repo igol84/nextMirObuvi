@@ -5,7 +5,7 @@ import {Providers} from "@/app/providers";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import './globals.scss'
 import Container from "@/components/Container";
-import {getBrandsData} from "@/app/[lang]/brands/page";
+import {getBrandsData} from "@/app/api/fetchFunctions";
 
 const roboto = Roboto({
   weight: ['400', '700'],

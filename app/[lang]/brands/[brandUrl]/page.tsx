@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrandSchema} from "@/schemas/brands";
-import {getBrandsData} from "@/app/[lang]/brands/page";
 import './style.css'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
+import {getBrandsData} from "@/app/api/fetchFunctions";
 
 type Props = {
   params: {
