@@ -1,16 +1,18 @@
 import React from 'react';
 import Brands from "@/components/Brands";
-import {BrandSchema} from "@/schemas/brands";
+import {BrandSchema, Data} from "@/schemas/brands";
 import {BrandProps} from "@/components/Brands/types";
 
 export const revalidate = 3600
 
 export async function getBrandsData(): Promise<BrandSchema[]> {
-  const result = await fetch(`http://localhost:3000/api/brands`)
-  if (!result.ok) {
-    throw new Error('Fail to fetch brands data')
-  }
-  return await result.json()
+  const res = await fetch(`https://mirobuvi.com.ua/xml_ftp/data.json`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  const product: Data = await res.json()
+  return product.brands
 }
 
 
