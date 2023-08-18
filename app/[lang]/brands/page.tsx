@@ -6,7 +6,7 @@ import {BrandProps} from "@/components/Brands/types";
 export const revalidate = 3600
 
 export async function getBrandsData(): Promise<BrandSchema[]> {
-  const result = await fetch(`https://mir-obuvi-3hqczuwlb-igol84.vercel.app/api/brands`)
+  const result = await fetch(`http://localhost:3000/api/brands`)
   if (!result.ok) {
     throw new Error('Fail to fetch brands data')
   }
