@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const path = require('path')
 const nextConfig = {
+  env: {
+    host: 'https://mir-obuvi.vercel.app/',
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
