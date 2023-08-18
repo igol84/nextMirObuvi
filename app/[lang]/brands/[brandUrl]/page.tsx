@@ -25,6 +25,7 @@ const Page = async ({params: {brandUrl}}: Props) => {
   if (!productsData) {
     throw new Error(`Fail to fetch products data with brand id ${brandData.id}`)
   }
+
   const products:ProductProps[] = productsData.map(product => {
     return {id: product.id, name: product.name, url: product.url, product_key: product.product_key}
   })

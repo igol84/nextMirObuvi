@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Box, Center, Flex, Link} from "@chakra-ui/react";
+import {Box, Center, Flex, Link, Text} from "@chakra-ui/react";
 import NextImage from "next/image";
 import NextLink from "next/link";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
@@ -21,7 +21,7 @@ const ProductCard = ({product}: Props) => {
             src={`https://mirobuvi.com.ua/ftp_products/${product_key}/02.jpg`}
           />
         </Box>
-        <Center>{name}</Center>
+        <Center width={249}><Text>{name}</Text>{}</Center>
       </Link>
     </Flex>
   );
