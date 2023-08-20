@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import {Wrap, WrapItem} from "@chakra-ui/react";
-import Brand from "@/components/Brands/Brand";
+import BrandCard from "@/components/Brands/BrandCard";
 import {BrandProps} from "@/components/Brands/types";
 
 
@@ -14,7 +14,7 @@ const Brands = ({brands}: Props) => {
     <Wrap align='center' justify={{base: 'center', lg: 'flex-start'}} spacing={4}>
       {brands.map(brand => (
         <WrapItem key={brand.brandId}>
-          <Brand brandId={brand.brandId} brandName={brand.brandName} url={brand.url}/>
+          <BrandCard brandId={brand.brandId} brandName={brand.brandName} url={brand.url}/>
         </WrapItem>
       ))}
     </Wrap>

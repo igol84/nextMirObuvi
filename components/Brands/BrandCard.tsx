@@ -6,11 +6,11 @@ import ChakraNextImage from "@/components/base/ChakraNextImage";
 import {LangContext} from "@/locale/LangProvider";
 import {BrandProps} from "@/components/Brands/types";
 
-const Brand = ({brandId, brandName, url}: BrandProps) => {
+const BrandCard = ({brandId, brandName, url}: BrandProps) => {
   const lang = useContext(LangContext)
   return (
     <Flex flexDirection='column' alignItems='center' gap={4}>
-      <Link as={NextLink} href={`/${lang}/brands/${url}`}>
+      <Link as={NextLink} href={`/${lang}/brands/${url}`} _hover={{color: 'hoverLinkTextColor'}}>
         <Box borderRadius={50} borderColor={'black'}>
           <ChakraNextImage
             shadow='base' borderRadius={[30, 15]} as={NextImage}
@@ -24,4 +24,4 @@ const Brand = ({brandId, brandName, url}: BrandProps) => {
   );
 };
 
-export default Brand;
+export default BrandCard;

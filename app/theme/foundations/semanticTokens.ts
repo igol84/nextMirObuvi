@@ -21,7 +21,11 @@ const semanticTokens = {
     bodyColor: {
       default: 'white',
       _dark: 'gray.700',
-    }
+    },
+    hoverLinkTextColor: {
+      default: 'primary.500',
+      _dark: 'primary.200',
+    },
   },
 
 }
