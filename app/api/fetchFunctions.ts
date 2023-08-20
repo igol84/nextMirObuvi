@@ -1,3 +1,4 @@
+import 'server-only'
 import {BrandSchema, ProductSchema} from "@/schemas/brands";
 
 export async function getBrandsData(): Promise<BrandSchema[]> {

@@ -4,10 +4,23 @@ import './style.css'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
 import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
 import {ProductProps} from "@/components/Products/types";
+import {Lang} from "@/dictionaries/get-dictionary";
 
 type Props = {
   params: {
     brandUrl: string
+    lang: Lang
+  }
+}
+
+export async function generateMetadata({params: {brandUrl, lang}}: Props) {
+  const brandData = await getBrandData(brandUrl)
+  const title = lang === 'ru' ? brandData.title : brandData.title_ua
+  return {
+    title,
+    openGraph: {
+      images: [`https://mirobuvi.com.ua/ftp_brands/${brandData.id}.jpg`],
+    },
   }
 }
 
@@ -26,7 +39,7 @@ const Page = async ({params: {brandUrl}}: Props) => {
     throw new Error(`Fail to fetch products data with brand id ${brandData.id}`)
   }
 
-  const products:ProductProps[] = productsData.map(product => {
+  const products: ProductProps[] = productsData.map(product => {
     return {id: product.id, name: product.name, url: product.url, product_key: product.product_key}
   })
   return (

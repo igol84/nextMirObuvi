@@ -16,7 +16,7 @@ const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
     const url = `brands/${item.url}`
     return {...item, url}
   })
-  const brandsNav: Item = {title: 'Brands', url: '/', submenu: updatedBrandItems}
+  const brandsNav: Item = {title: 'Brands', url: '/brands/', submenu: updatedBrandItems}
   const allItems = menuItems.concat(brandsNav)
   return (
     <Box as='nav'>
