@@ -26,6 +26,10 @@ const semanticTokens = {
       default: 'primary.500',
       _dark: 'primary.200',
     },
+    price: {
+      default: 'green.600',
+      _dark: 'green.200',
+    },
   },
 
 }

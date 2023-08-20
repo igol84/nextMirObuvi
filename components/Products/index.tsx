@@ -16,9 +16,9 @@ const Products = ({brandData, productsData}: Props) => {
     <WrapItem flexDirection="column">
       <ChakraNextImage
         as={NextImage} shadow='base' borderRadius={[30, 15]} width={249} height={249} alt={brandData.name}
-        src={`https://mirobuvi.com.ua/ftp_brands/${brandData.id}.jpg`}
+        src={`https://mirobuvi.com.ua/ftp_brands/${brandData.id}.jpg`} priority={true}
       />
-      <Center width={249}><Text fontSize='2rem'>{brandData.name}</Text></Center>
+      <Center width={249}><Text fontSize='2rem' fontWeight='bold'>{brandData.name}</Text></Center>
     </WrapItem>
   )
   return (

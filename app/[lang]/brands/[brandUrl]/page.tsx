@@ -40,7 +40,10 @@ const Page = async ({params: {brandUrl}}: Props) => {
   }
 
   const products: ProductProps[] = productsData.map(product => {
-    return {id: product.id, name: product.name, url: product.url, product_key: product.product_key}
+    return {
+      id: product.id, name: product.name, url: product.url, product_key: product.product_key,
+      price: product.price
+    }
   })
   return (
     <BrandPage brandData={brandData} productsData={products}/>

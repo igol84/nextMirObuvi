@@ -16,6 +16,7 @@ const roboto = Roboto({
 export async function generateMetadata({ params: {lang} }: { params: { lang: Lang } }) {
   const dict = await getDictionary(lang)
   return {
+    metadataBase: new URL('https://mir-obuvi.vercel.app'),
     title: dict.home.title,
     description:dict.home.description,
     openGraph: {

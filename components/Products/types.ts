@@ -14,7 +14,7 @@ export type ProductProps = {
   // name_ua: string
   // qty?:  number | null
   // brand_id: number
-  // price: number
+  price: number
   // images: string[]
   // brand?: string | null
   // desc: string
