@@ -6,7 +6,7 @@ import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/f
 
 import {Lang} from "@/dictionaries/get-dictionary";
 import {BrandProps} from "@/components/Brands/types";
-import {ProductType, Size} from "@/components/Products/types";
+import {ProductType} from "@/components/Products/types";
 
 type Props = {
   params: {
@@ -56,7 +56,7 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
         }
       }
       case "shoes": {
-        const sizes: Size[] = [{size: 36, price: 3600, qty: 1, length: 23}, {size: 376, price: 3600, qty: 2, length: 24}]
+        const sizes: number[] = product.sizes.map(size=>size.size)
         return {
           id: product.id, name, url: product.url, product_key: product.product_key,
           price: product.price, price_prefix, type: 'shoes', sizes

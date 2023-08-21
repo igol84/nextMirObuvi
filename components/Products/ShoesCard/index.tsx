@@ -5,12 +5,13 @@ import NextLink from "next/link";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
 import {LangContext} from "@/locale/LangProvider";
 import {ShoesType} from "@/components/Products/types";
+import Sizes from "@/components/Products/ShoesCard/Sizes";
 
 type Props = {
   product: ShoesType
 }
 const ShoesCard = ({product}: Props) => {
-  const {name, product_key, price, price_prefix} = product
+  const {name, product_key, price, price_prefix, sizes} = product
   const lang = useContext(LangContext)
   let UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   return (
@@ -31,7 +32,9 @@ const ShoesCard = ({product}: Props) => {
           </Text>
           <Text fontSize={16}>{price_prefix}</Text>
         </Center>
-        <Center width={249}><Text>sizes</Text></Center>
+        <Center width={249}>
+          <Sizes sizes={sizes}/>
+        </Center>
       </Link>
     </Flex>
   );

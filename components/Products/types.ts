@@ -12,15 +12,9 @@ export interface SimpleProductProps extends ProductBase{
   type: 'product'
 }
 
-export interface Size {
-  size: number
-  length: number | null
-  price: number
-  qty: number
-}
 export interface ShoesType extends ProductBase{
   type: 'shoes'
-  sizes: Size[]
+  sizes: number[]
 }
 
 export type ProductType = SimpleProductProps | ShoesType
