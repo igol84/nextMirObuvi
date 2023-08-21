@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from "@/app/[lang]/Home";
-import {BrandProps} from "@/components/Brands/types";
+import {BrandCardProps} from "@/components/Brands/types";
 import {languages} from "@/locale/settings";
 import {getBrandsData} from "@/app/api/fetchFunctions";
 
@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 
 const Page = async () => {
   const brandsData = await getBrandsData()
-  const brands: BrandProps[] = brandsData.map(brand => ({
+  const brands: BrandCardProps[] = brandsData.map(brand => ({
     brandId: brand.id, brandName: brand.name, url: brand.url
   }))
   return (
