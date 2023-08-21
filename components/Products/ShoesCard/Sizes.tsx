@@ -11,7 +11,7 @@ const Sizes = ({sizes}: Props) => {
       <Text color='green.500'>Размеры:</Text>
       {sizes.map(size => {
         return (
-          <Text>{size}</Text>
+          <Text key={size}>{size}</Text>
         )
       })}
     </Flex>
