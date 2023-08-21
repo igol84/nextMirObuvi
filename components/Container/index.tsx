@@ -8,7 +8,7 @@ import {MoonIcon, SunIcon} from '@chakra-ui/icons'
 import LocaleSwitcher from "@/components/Container/LocaleSwitcher";
 import Navbar from "@/components/Container/Navbar";
 import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
-import {BrandSchema} from "@/schemas/brands";
+import {BrandSchema} from "@/schemas/data";
 import {Item} from "@/components/Container/Navbar/types";
 
 type Props = {

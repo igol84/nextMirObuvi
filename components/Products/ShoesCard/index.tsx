@@ -11,13 +11,13 @@ type Props = {
   product: ShoesType
 }
 const ShoesCard = ({product}: Props) => {
-  const {name, product_key, price, price_prefix, sizes} = product
+  const {name, product_key, price, price_prefix, sizes, url} = product
   const lang = useContext(LangContext)
   let UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   return (
     <Flex flexDirection='column' gap={4}>
       <Link
-        as={NextLink} href={`/${lang}/brands`}
+        as={NextLink} href={`/${lang}/products/${url}`}
         _hover={{color: 'hoverLinkTextColor'}}
       >
         <ChakraNextImage

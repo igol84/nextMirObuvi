@@ -1,6 +1,6 @@
 import 'server-only'
 import {NextResponse} from 'next/server'
-import {Data} from "@/schemas/brands";
+import {Data} from "@/schemas/data";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
