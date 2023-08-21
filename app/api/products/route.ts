@@ -7,14 +7,14 @@ export async function GET(request: Request) {
   const res = await fetch(`https://mirobuvi.com.ua/xml_ftp/data.json`, {next: {revalidate: 3600}})
   const data: Data = await res.json()
 
-  const brandId = Number(searchParams.get('brandId'))
-  if(brandId!==null){
-    const products = data.products.filter(product => product.brand_id === brandId)
+  const brandId = searchParams.get('brandId')
+  if(brandId){
+    const products = data.products.filter(product => product.brand_id === Number(brandId))
     return NextResponse.json(products)
   }
 
   const productUrl = searchParams.get('url')
-  if(productUrl!==null){
+  if(productUrl){
     const product = data.products.find(product => product.url === productUrl)
     return NextResponse.json(product)
   }
