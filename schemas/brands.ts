@@ -18,7 +18,7 @@ export interface SizeSchema {
 
 export interface ProductSchema {
   id: number
-  type: string
+  type: 'product' | 'shoes'
   product_key: string
   name: string
   name_ua: string

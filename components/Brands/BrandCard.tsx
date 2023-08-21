@@ -4,9 +4,9 @@ import NextImage from "next/image";
 import NextLink from "next/link";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
 import {LangContext} from "@/locale/LangProvider";
-import {BrandProps} from "@/components/Brands/types";
+import {BrandCardProps} from "@/components/Brands/types";
 
-const BrandCard = ({brandId, brandName, url}: BrandProps) => {
+const BrandCard = ({brandId, brandName, url}: BrandCardProps) => {
   const lang = useContext(LangContext)
   return (
     <Flex flexDirection='column' alignItems='center' gap={4}>

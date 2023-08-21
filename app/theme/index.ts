@@ -21,7 +21,7 @@ const themeConfig = {
   },
 }
 
-const index = extendTheme(themeConfig, withDefaultColorScheme({colorScheme: 'teal'}))
+const theme = extendTheme(themeConfig, withDefaultColorScheme({colorScheme: 'teal'}))
 
-export default index
+export default theme
 

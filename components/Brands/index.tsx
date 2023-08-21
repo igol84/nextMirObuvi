@@ -2,11 +2,11 @@
 import React from 'react';
 import {Wrap, WrapItem} from "@chakra-ui/react";
 import BrandCard from "@/components/Brands/BrandCard";
-import {BrandProps} from "@/components/Brands/types";
+import {BrandCardProps} from "@/components/Brands/types";
 
 
 type Props = {
-  brands: BrandProps[]
+  brands: BrandCardProps[]
 }
 
 const Brands = ({brands}: Props) => {

@@ -1,13 +1,13 @@
 'use client'
 
 import React from 'react';
-import {BrandSchema} from "@/schemas/brands";
 import Products from "@/components/Products";
-import {ProductProps} from "@/components/Products/types";
+import {ProductType} from "@/components/Products/types";
+import {BrandProps} from "@/components/Brands/types";
 
 type Props = {
-  brandData: BrandSchema
-  productsData: ProductProps[]
+  brandData: BrandProps
+  productsData: ProductType[]
 }
 
 const BrandPage = ({brandData, productsData}: Props) => {
@@ -16,8 +16,6 @@ const BrandPage = ({brandData, productsData}: Props) => {
       <Products productsData={productsData} brandData={brandData}/>
       <div className='brand' dangerouslySetInnerHTML={{__html: brandData.desc}}/>
     </>
-
-
   );
 };
 

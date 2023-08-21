@@ -4,7 +4,7 @@ import {defaultLanguage} from "@/locale/settings";
 // We also get the default import for cleaner types
 const dictionaries = {
   ua: async () => await import('./ua.json').then((module) => module.default),
-  ru: async () => await import('./ru.json').then((module) => module.default)
+  en: async () => await import('./en.json').then((module) => module.default)
 }
 export type Lang = keyof typeof dictionaries
 export const getDictionary = async (locale: Lang) => {

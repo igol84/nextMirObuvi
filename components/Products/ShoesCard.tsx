@@ -4,12 +4,12 @@ import NextImage from "next/image";
 import NextLink from "next/link";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
 import {LangContext} from "@/locale/LangProvider";
-import {SimpleProductProps} from "@/components/Products/types";
+import {ShoesType} from "@/components/Products/types";
 
 type Props = {
-  product: SimpleProductProps
+  product: ShoesType
 }
-const ProductCard = ({product}: Props) => {
+const ShoesCard = ({product}: Props) => {
   const {name, product_key, price, price_prefix} = product
   const lang = useContext(LangContext)
   let UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
@@ -31,9 +31,10 @@ const ProductCard = ({product}: Props) => {
           </Text>
           <Text fontSize={16}>{price_prefix}</Text>
         </Center>
+        <Center width={249}><Text>sizes</Text></Center>
       </Link>
     </Flex>
   );
 };
 
-export default ProductCard;
+export default ShoesCard;

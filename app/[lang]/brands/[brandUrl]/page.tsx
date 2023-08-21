@@ -3,8 +3,10 @@ import {BrandSchema} from "@/schemas/brands";
 import './style.css'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
 import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
-import {ProductProps} from "@/components/Products/types";
+
 import {Lang} from "@/dictionaries/get-dictionary";
+import {BrandProps} from "@/components/Brands/types";
+import {ProductType, Size} from "@/components/Products/types";
 
 type Props = {
   params: {
@@ -15,7 +17,7 @@ type Props = {
 
 export async function generateMetadata({params: {brandUrl, lang}}: Props) {
   const brandData = await getBrandData(brandUrl)
-  const title = lang === 'ru' ? brandData.title : brandData.title_ua
+  const title = lang === 'en' ? brandData.title : brandData.title_ua
   return {
     title,
     openGraph: {
@@ -29,7 +31,7 @@ export async function generateStaticParams() {
   return brandsData.map((brand) => ({brandUrl: brand.url}))
 }
 
-const Page = async ({params: {brandUrl}}: Props) => {
+const Page = async ({params: {brandUrl, lang}}: Props) => {
   const brandData = await getBrandData(brandUrl)
   if (!brandData) {
     throw new Error(`Fail to fetch brand data with url ${brandUrl}`)
@@ -39,14 +41,32 @@ const Page = async ({params: {brandUrl}}: Props) => {
     throw new Error(`Fail to fetch products data with brand id ${brandData.id}`)
   }
 
-  const products: ProductProps[] = productsData.map(product => {
-    return {
-      id: product.id, name: product.name, url: product.url, product_key: product.product_key,
-      price: product.price
+  const brand: BrandProps = {
+    brandId: brandData.id, brandName: brandData.name, url: brandData.url,
+    desc: lang==='en' ? brandData.desc : brandData.desc_ua
+  }
+  const products: ProductType[] = productsData.map(product => {
+    const name = lang==='en' ? product.name : product.name_ua
+    const price_prefix = lang==='en' ? '₴' : 'грн.'
+    switch (product.type) {
+      case "product": {
+        return {
+          id: product.id, name, url: product.url, product_key: product.product_key,
+          price: product.price, price_prefix, type: 'product'
+        }
+      }
+      case "shoes": {
+        const sizes: Size[] = [{size: 36, price: 3600, qty: 1, length: 23}, {size: 376, price: 3600, qty: 2, length: 24}]
+        return {
+          id: product.id, name, url: product.url, product_key: product.product_key,
+          price: product.price, price_prefix, type: 'shoes', sizes
+        }
+      }
     }
+
   })
   return (
-    <BrandPage brandData={brandData} productsData={products}/>
+    <BrandPage brandData={brand} productsData={products}/>
   )
 }
 

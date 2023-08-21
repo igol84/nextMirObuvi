@@ -1,0 +1,24 @@
+{
+  "home": {
+    "title": "Buy sneakers and sneakers in the online store, cheap sneakers in Kyiv, Kharkov, Ukraine - online shoe store Mirobuvi.com.ua",
+    "description": "Buy sneakers and sneakers in the online store, cheap sneakers in Kyiv, Kharkov, Ukraine - online shoe store Mirobuvi.com.ua"
+  },
+  "brands": {
+    "title": "List of brands online shoe store Mirobuvi.com.ua",
+    "description": "List of brands online shoe store Mirobuvi.com.ua where you will find such well-known brands producing sports and classic shoes"
+  },
+  "serverComponent": {
+    "welcome": "Welcome!",
+    "secondPage": "next page",
+    "welcomeNext": "Hello from next page!",
+    "back": "back"
+  },
+  "switcher": {
+    "localeSwitcher": "Language Switcher:"
+  },
+  "counter": {
+    "label": "This component is rendered on the client:",
+    "increment": "Increase",
+    "decrement": "Decrease"
+  }
+}

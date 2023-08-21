@@ -7,15 +7,15 @@ import DictProvider from "@/dictionaries/DictProvider";
 import {Dictionary} from "@/dictionaries/interface";
 import LangProvider from "@/locale/LangProvider";
 import {Lang} from "@/dictionaries/get-dictionary";
-import index from "@/app/theme";
+import theme from "@/app/theme";
 
 export function Providers({lang, dict, children}: { lang: Lang, dict: Dictionary, children: React.ReactNode }) {
   return (
     <LangProvider lang={lang}>
       <DictProvider dict={dict}>
         <CacheProvider>
-          <ChakraProvider theme={index}>
-            <ColorModeScript initialColorMode={index.config.initialColorMode}/>
+          <ChakraProvider theme={theme}>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
             {children}
           </ChakraProvider>
         </CacheProvider>
