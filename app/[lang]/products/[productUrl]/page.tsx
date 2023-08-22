@@ -46,9 +46,6 @@ function productFabrice(lang: Lang, product: ProductSchema): ProductType{
 async function Page({params: {productUrl, lang}}: Props) {
   const productFetchData = await getProductData(productUrl)
   const productData: ProductType = productFabrice(lang, productFetchData)
-  console.log(productData)
-
-
 
   return (
     <main>

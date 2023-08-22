@@ -8,10 +8,11 @@ import 'swiper/scss/free-mode';
 import 'swiper/scss/navigation';
 import 'swiper/scss/thumbs';
 
-import './styles.css';
+import './styles.scss';
 
 // import required modules
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
+import {Box, Flex} from "@chakra-ui/react";
 
 type Props = {
   images: string[]
@@ -21,41 +22,46 @@ export default function Gallery({images}: Props) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <>
-      <Swiper
-        style={{
+    <Flex>
+      <Box w='10%'>
+        <Swiper
           // @ts-ignore
-          '--swiper-navigation-color': '#fff',
-          '--swiper-pagination-color': '#fff',
-        }}
-        spaceBetween={10}
-        navigation={true}
-        thumbs={{swiper: thumbsSwiper}}
-        modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
-      >
-        {images.map((image, index) => (
-          <SwiperSlide key={index}>
-            <img src={image} alt={'image'}/>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <Swiper
-        // @ts-ignore
-        onSwiper={setThumbsSwiper}
-        spaceBetween={10}
-        slidesPerView={4}
-        freeMode={true}
-        watchSlidesProgress={true}
-        modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper"
-      >
-        {images.map((image, index) => (
-          <SwiperSlide key={index}>
-            <img src={image} alt={'image'}/>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+          onSwiper={setThumbsSwiper}
+          spaceBetween={10}
+          slidesPerView={5}
+          freeMode={true}
+          watchSlidesProgress={true}
+          modules={[FreeMode, Navigation, Thumbs]}
+          className="Thumb"
+        >
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img src={image} alt={'image'}/>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+      <Box w='90%'>
+        <Swiper
+          style={{
+            // @ts-ignore
+            '--swiper-pagination-color': '#10aec4',
+          }}
+          spaceBetween={10}
+          navigation={true}
+          thumbs={{swiper: thumbsSwiper}}
+          modules={[FreeMode, Navigation, Thumbs]}
+          className="Swiper"
+        >
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img src={image} alt={'image'}/>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+
+
+    </Flex>
   );
 }
