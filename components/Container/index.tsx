@@ -38,7 +38,7 @@ const Container = ({children, brands}: Props) => {
       <StickNav flexDirection='column' justifyContent='center' alignItems='center'>
         <Flex direction='column' w='full' backgroundColor='bgBodyColor' gap='2' p={0}>
           <Flex pt={4} backgroundColor='bgBodyColor' flexDirection='column'>
-            <Flex flex={1} pt={4} alignItems='center' color='primary' p={2} justifyContent='space-between'
+            <Flex as='header' flex={1} pt={4} alignItems='center' color='primary' p={2} justifyContent='space-between'
                   roundedTop={16} backgroundColor='bodyColor' boxShadow={'base'}>
               <IconButton onClick={onMenuOpen} fontSize={[28, 36, 48, 56]} display={{base: "inherit", lg: "none"}}
                           icon={<HiMenu/>} aria-label="Toggle Chat History Drawer"
@@ -59,7 +59,7 @@ const Container = ({children, brands}: Props) => {
                 <LocaleSwitcher/>
               </Flex>
             </Flex>
-            <Flex px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor' boxShadow={'base'}>
+            <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor' boxShadow={'base'}>
               <Navbar brandsItems={brandsItems} isMobile={false} onClose={onMenuClose}/>
             </Flex>
           </Flex>
@@ -67,8 +67,7 @@ const Container = ({children, brands}: Props) => {
 
       </StickNav>
       <Flex justifyContent='center' alignItems='center'>
-        <Flex backgroundColor='bodyColor' direction='column' w='full' p={12} roundedBottom={6}
-              gap='2'>
+        <Flex backgroundColor='bodyColor' direction='column' w='full' p={12} roundedBottom={6} gap='2'>
           {children}
         </Flex>
       </Flex>

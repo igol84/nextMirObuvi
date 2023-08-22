@@ -29,7 +29,7 @@ const Products = ({brandData, productsData}: Props) => {
       {productsData.map(product => {
         const ProductComponent = productCardFactory(product)
         return (
-          <WrapItem key={product.id}>
+          <WrapItem as='article' key={product.id}>
             {ProductComponent}
           </WrapItem>
         )

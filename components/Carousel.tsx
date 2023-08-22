@@ -9,8 +9,9 @@ import 'swiper/css/navigation';
 
 // import required modules
 import {Autoplay, Navigation, Pagination} from 'swiper/modules';
-import {Image} from "@chakra-ui/react";
-import Link from "next/link";
+import {Image, Link} from "@chakra-ui/react";
+import NextLink from "next/link";
+
 
 
 const CarouselComponent = () => {
@@ -52,7 +53,7 @@ const CarouselComponent = () => {
         {slides.map((sled, index) => {
           return (
             <SwiperSlide key={index}>
-              <Link href='/'>
+              <Link as={NextLink} href={`/`}>
               <Image src={sled.img} alt='Imajes shous'/>
               </Link>
             </SwiperSlide>

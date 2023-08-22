@@ -14,7 +14,9 @@ const Page = async () => {
     brandId: brand.id, brandName: brand.name, url: brand.url
   }))
   return (
-    <Home brands={brands}/>
+    <main>
+      <Home brands={brands}/>
+    </main>
   );
 };
 

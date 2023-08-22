@@ -14,7 +14,7 @@ const Home = ({brands}: Props) => {
 
   return (
     <>
-      <Flex justifyContent='center' alignItems='center'>
+      <Flex justifyContent='center' alignItems='center' pb={8}>
         <Box w={[200, 400, 570]}>
           <Carousel/>
         </Box>
