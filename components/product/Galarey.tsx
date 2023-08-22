@@ -41,7 +41,7 @@ export default function Gallery({images}: Props) {
           ))}
         </Swiper>
       </Box>
-      <Box w='85%'>
+      <Box w='86%'>
         <Swiper
           style={{
             // @ts-ignore
