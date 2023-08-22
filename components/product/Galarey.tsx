@@ -22,7 +22,7 @@ export default function Gallery({images}: Props) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <Flex>
+    <Flex gap={2}>
       <Box w='10%'>
         <Swiper
           // @ts-ignore
@@ -41,7 +41,7 @@ export default function Gallery({images}: Props) {
           ))}
         </Swiper>
       </Box>
-      <Box w='90%'>
+      <Box w='85%'>
         <Swiper
           style={{
             // @ts-ignore
