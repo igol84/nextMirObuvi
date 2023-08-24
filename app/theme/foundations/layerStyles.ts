@@ -1,3 +1,5 @@
+import {sizeStyles} from "@/app/theme/foundations/layers/sizeStyles";
+
 const layerStyles = {
   base: {
     bg: 'gray.50',
@@ -9,7 +11,7 @@ const layerStyles = {
     color: 'teal.700',
     borderColor: 'orange.500',
   },
-
+  ...sizeStyles
 }
 
 export default layerStyles

@@ -1,4 +1,5 @@
 export type productType = 'product' | 'shoes'
+
 export interface ProductBase {
   type: productType
   product_key: string
@@ -7,13 +8,19 @@ export interface ProductBase {
   price_prefix: string
   images: string[]
 }
-export interface SimpleProductProps extends ProductBase{
+
+export interface SimpleProductProps extends ProductBase {
   type: 'product'
 }
 
-export interface ShoesType extends ProductBase{
+export interface SizeType {
+  size: number
+  inStock: boolean
+}
+
+export interface ShoesType extends ProductBase {
   type: 'shoes'
-  sizes: number[]
+  sizes: SizeType[]
 }
 
 export type ProductType = SimpleProductProps | ShoesType

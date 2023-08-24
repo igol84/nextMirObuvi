@@ -43,11 +43,11 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
 
   const brand: BrandProps = {
     brandId: brandData.id, brandName: brandData.name, url: brandData.url,
-    desc: lang==='en' ? brandData.desc : brandData.desc_ua
+    desc: lang === 'en' ? brandData.desc : brandData.desc_ua
   }
   const products: ProductType[] = productsData.map(product => {
-    const name = lang==='en' ? product.name : product.name_ua
-    const price_prefix = lang==='en' ? '₴' : 'грн.'
+    const name = lang === 'en' ? product.name : product.name_ua
+    const price_prefix = lang === 'en' ? '₴' : 'грн.'
     switch (product.type) {
       case "product": {
         return {
@@ -56,7 +56,7 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
         }
       }
       case "shoes": {
-        const sizes: number[] = product.sizes.map(size=>size.size)
+        const sizes: number[] = product.sizes.map(size => size.size)
         return {
           id: product.id, name, url: product.url, product_key: product.product_key,
           price: product.price, price_prefix, type: 'shoes', sizes
