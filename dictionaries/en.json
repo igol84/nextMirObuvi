@@ -11,6 +11,7 @@
     "buy": "Buy"
   },
   "shoes": {
+    "sizes": "Sizes:",
     "select_size": "Select size.",
     "insole_length": "Insole length:"
   },

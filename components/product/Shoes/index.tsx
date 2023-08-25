@@ -52,7 +52,7 @@ const Shoes = ({shoesData}: Props) => {
         </Text>
       </Flex>
       <Flex gap={2} alignItems='center' wrap='wrap' pb={4}>
-        <Text>Размеры:</Text>
+        <Text>{ds('sizes')}</Text>
         {shoesData.sizes.map(sizeData => {
             const selected = selectedSize === sizeData.size
             return (
