@@ -19,6 +19,6 @@ export async function GET(request: Request) {
     return NextResponse.json(product)
   }
 
-  const products = data.products
+  const products = data.products.map(product=>({url: product.url}))
   return NextResponse.json(products)
 }
