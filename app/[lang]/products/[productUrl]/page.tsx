@@ -25,10 +25,10 @@ export async function generateMetadata({params: {productUrl, lang}}: Props) {
   }
 }
 
-// export async function generateStaticParams() {
-//   const productsData: ProductSchema[] = await getProductsData()
-//   return productsData.map((product) => ({productUrl: product.url}))
-// }
+export async function generateStaticParams() {
+  const productsData: ProductSchema[] = await getProductsData()
+  return productsData.map((product) => ({productUrl: product.url}))
+}
 
 function productFabrice(lang: Lang, product: ProductSchema): ProductType {
   const name = lang === 'en' ? product.name : product.name_ua
