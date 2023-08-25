@@ -1,6 +1,6 @@
 import React from 'react';
 import {Lang} from "@/dictionaries/get-dictionary";
-import {getProductData} from "@/app/api/fetchFunctions";
+import {getProductData, getProductsData} from "@/app/api/fetchFunctions";
 import ProductPage from "@/app/[lang]/products/[productUrl]/ProductPage";
 import {ProductType} from "@/components/product/types";
 import {ProductSchema} from "@/schemas/data";
@@ -23,6 +23,11 @@ export async function generateMetadata({params: {productUrl, lang}}: Props) {
       images: [`https://mirobuvi.com.ua/ftp_products/${productData.product_key}/02.jpg`],
     },
   }
+}
+
+export async function generateStaticParams() {
+  const productsData: ProductSchema[] = await getProductsData()
+  return productsData.map((product) => ({productUrl: product.url}))
 }
 
 function productFabrice(lang: Lang, product: ProductSchema): ProductType {

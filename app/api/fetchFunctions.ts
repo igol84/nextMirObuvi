@@ -11,6 +11,12 @@ export async function getBrandData(name: string): Promise<BrandSchema> {
   return await res.json()
 }
 
+export async function getProductsData(): Promise<ProductSchema[]> {
+  const res = await fetch(`https://mir-obuvi.vercel.app/api/products`, {next: {revalidate: 3600}})
+  return await res.json()
+}
+
+
 export async function getProductsDataByBrandId(brandId: number): Promise<ProductSchema[]> {
   const res = await fetch(`https://mir-obuvi.vercel.app/api/products?brandId=${brandId}`, {next: {revalidate: 3600}})
   return await res.json()
