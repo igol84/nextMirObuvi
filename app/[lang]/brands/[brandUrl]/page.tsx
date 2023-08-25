@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrandSchema} from "@/schemas/data";
-import './style.css'
+import '@/app/theme/style.scss'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
 import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
 

@@ -7,6 +7,13 @@
     "title": "List of brands online shoe store Mirobuvi.com.ua",
     "description": "List of brands online shoe store Mirobuvi.com.ua where you will find such well-known brands producing sports and classic shoes"
   },
+  "product": {
+    "buy": "Buy"
+  },
+  "shoes": {
+    "select_size": "Select size.",
+    "insole_length": "Insole length:"
+  },
   "serverComponent": {
     "welcome": "Welcome!",
     "secondPage": "next page",

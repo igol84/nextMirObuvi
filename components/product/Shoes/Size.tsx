@@ -4,16 +4,20 @@ import {SizeType} from "@/components/product/types";
 
 
 type Props = {
-  size: SizeType
+  sizeData: SizeType
   selected: boolean
-  onClick: () => void
+  onClickSize: (size: number, length: number | null) => void
+  onHoverSize: (size: number) => void
+  onLiveSize: () => void
 }
 
-const Size = ({size, selected, onClick}: Props) => {
-  const layerStyle = size.inStock ? selected ? 'shoesSizeSelected' : 'shoesSize' : 'shoesSizeEmpty'
+const Size = ({sizeData, selected, onClickSize, onHoverSize, onLiveSize}: Props) => {
+  const layerStyle = sizeData.inStock ? selected ? 'shoesSizeSelected' : 'shoesSize' : 'shoesSizeEmpty'
+  const onClick = () => onClickSize(sizeData.size, sizeData.length)
+  const onHover = () => onHoverSize(sizeData.size)
   return (
-    <Box layerStyle={layerStyle} onClick={onClick}>
-      {size.size}
+    <Box layerStyle={layerStyle} onClick={onClick} onMouseEnter={onHover} onMouseLeave={onLiveSize}>
+      {sizeData.size}
     </Box>
   );
 };

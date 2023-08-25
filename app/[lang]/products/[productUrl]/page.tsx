@@ -4,7 +4,8 @@ import {getProductData} from "@/app/api/fetchFunctions";
 import ProductPage from "@/app/[lang]/products/[productUrl]/ProductPage";
 import {ProductType} from "@/components/product/types";
 import {ProductSchema} from "@/schemas/data";
-import {createEmptySizes} from "@/utility/sizes";
+import {createWithEmptySizes} from "@/utility/sizes";
+import '@/app/theme/style.scss'
 
 type Props = {
   params: {
@@ -26,20 +27,20 @@ export async function generateMetadata({params: {productUrl, lang}}: Props) {
 
 function productFabrice(lang: Lang, product: ProductSchema): ProductType {
   const name = lang === 'en' ? product.name : product.name_ua
+  const desc = lang === 'en' ? product.desc : product.desc_ua
   const price_prefix = lang === 'en' ? '₴' : 'грн.'
   switch (product.type) {
     case "product": {
       return {
         name, product_key: product.product_key, price: product.price, price_prefix, type: 'product',
-        images: product.images
+        images: product.images, desc
       }
     }
     case "shoes": {
-      const sizes = product.sizes.map(size => size.size)
-      const allSizes = createEmptySizes(sizes)
+      const allSizes = createWithEmptySizes(product.sizes)
       return {
         name, product_key: product.product_key, price: product.price, price_prefix, type: 'shoes',
-        images: product.images, sizes: allSizes
+        images: product.images, desc, sizes: allSizes
       }
     }
   }
@@ -48,7 +49,6 @@ function productFabrice(lang: Lang, product: ProductSchema): ProductType {
 async function Page({params: {productUrl, lang}}: Props) {
   const productFetchData = await getProductData(productUrl)
   const productData: ProductType = productFabrice(lang, productFetchData)
-  console.log(productData)
   return (
     <main>
       <ProductPage productData={productData}/>

@@ -1,18 +1,14 @@
 import React, {useState} from 'react';
-// Import Swiper React components
 import {Swiper, SwiperSlide} from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/scss';
 import 'swiper/scss/free-mode';
 import 'swiper/scss/navigation';
 import 'swiper/scss/thumbs';
-
 import './styles.scss';
-
-// import required modules
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
 import {Box, Flex} from "@chakra-ui/react";
+import NextImage from "next/image";
+import ChakraNextImage from "@/components/base/ChakraNextImage";
 
 type Props = {
   images: string[]
@@ -36,7 +32,8 @@ export default function Gallery({images}: Props) {
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
-              <img src={image} alt={'image'}/>
+              <ChakraNextImage as={NextImage} src={image} alt={'image'} width={0} height={0} sizes="100vw"
+                               style={{width: '100%', height: 'auto'}} priority={true}/>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -55,7 +52,10 @@ export default function Gallery({images}: Props) {
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
-              <img src={image} alt={'image'}/>
+              <ChakraNextImage
+                as={NextImage} src={image} alt={'image'} width={0} height={0} sizes="100vw"
+                style={{width: '100%', height: 'auto'}} priority={true}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

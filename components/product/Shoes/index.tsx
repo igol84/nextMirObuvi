@@ -1,46 +1,74 @@
 import React, {useState} from 'react';
-import {Box, Flex, Text} from "@chakra-ui/react";
-import Gallery from "@/components/product/Galarey";
+import {Box, Button, Flex, Text} from "@chakra-ui/react";
 import {ShoesType} from "@/components/product/types";
 import Size from "@/components/product/Shoes/Size";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 type Props = {
   shoesData: ShoesType
 }
 
 const Shoes = ({shoesData}: Props) => {
+  const d = useDictionaryTranslate("product")
+  const ds = useDictionaryTranslate("shoes")
+  const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   const [selectedSize, setSelectedSize] = useState<number | null>(null)
-  const {images} = shoesData
-  let UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
+  const [sizeDesc, setSizeDesc] = useState<string>(ds('select_size'))
+  const textLength = ds('insole_length')
+  const textSelect = ds('select_size')
+
+  const changeLengthText = (length: number | null) => {
+    const lengthText = length ? `${textLength} ${length}cm` : ''
+    setSizeDesc(lengthText)
+  }
+  const onClickSize = (size: number, length: number | null) => {
+    setSelectedSize(size)
+    changeLengthText(length)
+  }
+  const onHoverSize = (hoveredSize: number) => {
+    const sizeData = shoesData.sizes.find(size => size.size === hoveredSize)
+    if (sizeData && sizeData.length)
+      changeLengthText(sizeData.length)
+  }
+  const onLiveSize = () => {
+    if (selectedSize) {
+      const sizeData = shoesData.sizes.find(size => size.size === selectedSize)
+      if (sizeData)
+        changeLengthText(sizeData.length)
+    } else
+      setSizeDesc(textSelect)
+  }
   return (
-    <Flex flexDirection={{base: 'column', lg: 'row'}}>
-      <Box w={{base: '100%', lg: '48%'}}>
-        <Gallery images={images}/>
-      </Box>
-      <Box w={{base: '100%', lg: '50%'}}>
-        <Text fontSize={36}>
-          {shoesData.name}
+    <>
+      <Text fontSize={36}>
+        {shoesData.name}
+      </Text>
+      <Flex alignItems='baseline' color='price'>
+        <Text fontSize={64} fontWeight='bold'>
+          {UAHFormat.format(shoesData.price)}
         </Text>
-        <Flex alignItems='baseline' color='price'>
-          <Text fontSize={64} fontWeight='bold'>
-            {UAHFormat.format(shoesData.price)}
-          </Text>
-          <Text fontSize={24}>
-            {shoesData.price_prefix}
-          </Text>
-        </Flex>
-        <Flex gap={2} alignItems='center' wrap='wrap'>
-          <Text>Размеры:</Text>
-          {
-            shoesData.sizes.map(size => {
-                const selected = selectedSize === size.size
-                const onClick = () => setSelectedSize(size.size)
-                return <Size key={size.size} size={size} selected={selected} onClick={onClick}/>
-              }
-            )}
-        </Flex>
+        <Text fontSize={24}>
+          {shoesData.price_prefix}
+        </Text>
+      </Flex>
+      <Flex gap={2} alignItems='center' wrap='wrap' pb={4}>
+        <Text>Размеры:</Text>
+        {shoesData.sizes.map(sizeData => {
+            const selected = selectedSize === sizeData.size
+            return (
+              <Size
+                key={sizeData.size} sizeData={sizeData} selected={selected} onClickSize={onClickSize}
+                onHoverSize={onHoverSize} onLiveSize={onLiveSize}
+              />
+            )
+          }
+        )}
+      </Flex>
+      <Box color='secondary' h={8}>
+        {sizeDesc}
       </Box>
-    </Flex>
+      <Button variant='solid' isDisabled={!(!!selectedSize)}>{d('buy')}</Button>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ export interface ProductBase {
   type: productType
   product_key: string
   name: string
+  desc: string
   price: number
   price_prefix: string
   images: string[]
@@ -15,6 +16,7 @@ export interface SimpleProductProps extends ProductBase {
 
 export interface SizeType {
   size: number
+  length: number | null
   inStock: boolean
 }
 

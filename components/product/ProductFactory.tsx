@@ -3,13 +3,13 @@ import SimpleProduct from "@/components/product/SimpleProduct";
 import Shoes from "@/components/product/Shoes";
 import {ProductType} from "@/components/product/types";
 
-export const productFactory = (product: ProductType) => {
-  switch (product.type) {
+export const productFactory = (productData: ProductType) => {
+  switch (productData.type) {
     case "product":
-      return <SimpleProduct/>
+      return <SimpleProduct productData={productData}/>
     case "shoes":
-      return <Shoes shoesData={product}/>
+      return <Shoes shoesData={productData}/>
     default:
-      return <SimpleProduct/>
+      return <SimpleProduct productData={productData}/>
   }
 }

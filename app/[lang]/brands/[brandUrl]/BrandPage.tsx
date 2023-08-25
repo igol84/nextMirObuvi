@@ -14,7 +14,7 @@ const BrandPage = ({brandData, productsData}: Props) => {
   return (
     <>
       <Products productsData={productsData} brandData={brandData}/>
-      <div className='brand' dangerouslySetInnerHTML={{__html: brandData.desc}}/>
+      <div className='desc' dangerouslySetInnerHTML={{__html: brandData.desc}}/>
     </>
   );
 };

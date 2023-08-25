@@ -1,12 +1,16 @@
 import _, {floor} from "lodash";
 import {SizeType} from "@/components/product/types";
+import {SizeSchema} from "@/schemas/data";
 
-export const createEmptySizes = (sizes: number[]): SizeType[] => {
+export const createWithEmptySizes = (sizesData: SizeSchema[]): SizeType[] => {
+  const sizes = sizesData.map(size => size.size)
   const minSize = floor(Math.min(...sizes))
   const maxSize = floor(Math.max(...sizes))
-  const rangeSizes = _.range(minSize + 1, maxSize).map(size => ({size: size, inStock: false}))
+  const rangeSizes = _.range(minSize + 1, maxSize).map(size => ({size: size, inStock: false, length: null}))
 
-  const inStockSizes: SizeType[] = sizes.map(size => ({size: size, inStock: true}))
+  const inStockSizes: SizeType[] = sizesData.map(sizeData => (
+    {size: sizeData.size, inStock: true, length: sizeData.length}
+  ))
   const emptySizes: SizeType[] = []
   rangeSizes.forEach(rangeSize => {
     const inStock = inStockSizes.find(size => size.size === rangeSize.size)
