@@ -3,7 +3,6 @@ import {BrandSchema} from "@/schemas/data";
 import '@/app/theme/style.scss'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
 import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
-
 import {Lang} from "@/dictionaries/get-dictionary";
 import {BrandProps} from "@/components/Brands/types";
 import {ProductType} from "@/components/Products/types";
