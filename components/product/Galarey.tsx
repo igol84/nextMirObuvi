@@ -4,6 +4,7 @@ import 'swiper/scss';
 import 'swiper/scss/free-mode';
 import 'swiper/scss/navigation';
 import 'swiper/scss/thumbs';
+import './styles.scss';
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
 import {Box, Flex} from "@chakra-ui/react";
 import NextImage from "next/image";
