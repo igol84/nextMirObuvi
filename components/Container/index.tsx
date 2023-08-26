@@ -1,5 +1,5 @@
 'use client'
-import React, {ReactNode} from 'react';
+import React, {ReactNode, useContext} from 'react';
 import Link from "next/link";
 import {HiMenu} from "react-icons/hi";
 import {Box, Flex, IconButton, useColorMode, useDisclosure} from "@chakra-ui/react";
@@ -10,6 +10,7 @@ import Navbar from "@/components/Container/Navbar";
 import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
 import {BrandSchema} from "@/schemas/data";
 import {Item} from "@/components/Container/Navbar/types";
+import {LangContext} from "@/locale/LangProvider";
 
 type Props = {
   children: ReactNode
@@ -25,6 +26,7 @@ const Container = ({children, brands}: Props) => {
   `
   const {colorMode, toggleColorMode} = useColorMode()
   const ThemeIcon = colorMode === 'dark' ? SunIcon : MoonIcon
+  const lang = useContext(LangContext)
   const {
     isOpen: isMenuOpen,
     onOpen: onMenuOpen,
@@ -43,7 +45,7 @@ const Container = ({children, brands}: Props) => {
               <IconButton onClick={onMenuOpen} fontSize={[28, 36, 48, 56]} display={{base: "inherit", lg: "none"}}
                           icon={<HiMenu/>} aria-label="Toggle Chat History Drawer"
               />
-              <Box as={Link} href={'/'} className="_icon-logo" aria-label="Home page" fontSize={[28, 36, 48, 56]}
+              <Box as={Link} href={`/${lang}`} className="_icon-logo" aria-label="Home page" fontSize={[28, 36, 48, 56]}
                     sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}}
               />
               <Flex justifyContent='center' alignItems='center' gap={[1, 2, 3, 4]}>
