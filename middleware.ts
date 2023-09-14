@@ -13,6 +13,7 @@ export const config = {
 const cookieName = 'i18next'
 
 export function middleware(req: NextRequest) {
+  console.log('middleware')
   let language
   if (req.cookies.has(cookieName)) language = acceptLanguage.get(req.cookies.get(cookieName)?.value)
   if (!language) language = acceptLanguage.get(req.headers.get('Accept-Language'))
@@ -20,6 +21,7 @@ export function middleware(req: NextRequest) {
 
   // Redirect if lng in path is not supported
   if (!languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`))) {
+    console.log('Redirect')
     return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
   }
 
