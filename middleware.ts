@@ -13,7 +13,6 @@ export const config = {
 const cookieName = 'i18next'
 
 export function middleware(req: NextRequest) {
-  console.log('middleware')
   let language
   if (req.cookies.has(cookieName)) language = acceptLanguage.get(req.cookies.get(cookieName)?.value)
   if (!language) language = acceptLanguage.get(req.headers.get('Accept-Language'))
@@ -26,12 +25,13 @@ export function middleware(req: NextRequest) {
   }
 
   if (req.headers.has('referer')) {
+    console.log('referer')
     const refererUrl = new URL(req.headers.get('referer') || '')
     const lngInReferer = languages.find((l) => refererUrl.pathname.startsWith(`/${l}`))
     const response = NextResponse.next()
     if (lngInReferer) response.cookies.set(cookieName, lngInReferer)
     return response
   }
-
+  console.log('def')
   return NextResponse.next()
 }
