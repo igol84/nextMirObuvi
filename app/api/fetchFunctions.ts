@@ -14,7 +14,7 @@ export async function getBrandData(name: string): Promise<BrandSchema> {
 }
 
 export async function getProductsData(): Promise<ProductSchema[]> {
-  const res = await fetch(`https://mir-obuvi.vercel.app/api/products`, {next: {revalidate: 3600}})
+  const res = await fetch(`${api}/showcase/light`, {next: {revalidate: 3600}})
   return await res.json()
 }
 

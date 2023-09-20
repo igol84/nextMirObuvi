@@ -20,7 +20,7 @@ export function middleware(req: NextRequest) {
 
   // Redirect if lng in path is not supported
   if (!languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`))) {
-    console.log('Redirect')
+    console.log('redirect')
     return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
   }
 
@@ -32,6 +32,6 @@ export function middleware(req: NextRequest) {
     if (lngInReferer) response.cookies.set(cookieName, lngInReferer)
     return response
   }
-  console.log('def')
+  console.log('default')
   return NextResponse.next()
 }
