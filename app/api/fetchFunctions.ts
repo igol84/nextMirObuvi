@@ -1,13 +1,15 @@
 import 'server-only'
 import {BrandSchema, ProductSchema} from "@/schemas/data";
 
+const api = 'https://31.148.245.50'
+
 export async function getBrandsData(): Promise<BrandSchema[]> {
-  const res = await fetch(`https://31.148.245.50/brand/`, {next: {revalidate: 3600}})
+  const res = await fetch(`${api}/brand/`, {next: {revalidate: 3600}})
   return await res.json()
 }
 
 export async function getBrandData(name: string): Promise<BrandSchema> {
-  const res = await fetch(`https://mir-obuvi.vercel.app/api/brands?name=${name}`, {next: {revalidate: 3600}})
+  const res = await fetch(`${api}/brand/by-url/${name}`, {next: {revalidate: 3600}})
   return await res.json()
 }
 
