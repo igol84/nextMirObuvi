@@ -3,15 +3,15 @@ import React from 'react';
 import {Box, Flex} from "@chakra-ui/react";
 import Carousel from "@/components/Carousel";
 import Brands from "@/components/Brands";
-import {useBrands} from "@/app/[lang]/hooks";
-import LoadingBrands from "@/app/[lang]/loading";
+import {BrandCardProps} from "@/components/Brands/types";
 
 
-const Home = () => {
-  const {brands, isError, isLoading} = useBrands()
-  const requiredData = brands && brands.map(brand => ({brandId: brand.id, brandName: brand.name, url: brand.url}))
-  if (isLoading) return <LoadingBrands/>
-  if (isError) return <p>Error</p>
+type Props = {
+  brands: BrandCardProps[]
+}
+
+const Home = ({brands}: Props) => {
+
   return (
     <>
       <Flex justifyContent='center' alignItems='center' pb={8}>
@@ -19,7 +19,7 @@ const Home = () => {
           <Carousel/>
         </Box>
       </Flex>
-      {requiredData && <Brands brands={requiredData}/>}
+      <Brands brands={brands}/>
     </>
   );
 };
