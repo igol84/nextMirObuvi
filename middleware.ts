@@ -1,6 +1,7 @@
 import {NextRequest, NextResponse} from 'next/server'
 import acceptLanguage from 'accept-language'
 import {defaultLanguage, languages} from "@/locale/settings";
+import {Lang} from "@/dictionaries/get-dictionary";
 
 
 acceptLanguage.languages(languages)
@@ -12,13 +13,17 @@ export const config = {
 
 const cookieName = 'i18next'
 
-export function middleware(req: NextRequest) {
-  let language
-  if (req.cookies.has(cookieName)) language = acceptLanguage.get(req.cookies.get(cookieName)?.value)
-  if (!language) language = acceptLanguage.get(req.headers.get('Accept-Language'))
-  if (!language) language = defaultLanguage
+const getLanguage = (req: NextRequest): Lang => {
+  if (req.cookies.has(cookieName) && req.cookies.get(cookieName)?.value
+    && acceptLanguage.get(req.cookies.get(cookieName)?.value))
+    return acceptLanguage.get(req.cookies.get(cookieName)?.value) as Lang
+  if (req.headers.get('Accept-Language') && acceptLanguage.get(req.headers.get('Accept-Language')))
+    return acceptLanguage.get(req.headers.get('Accept-Language')) as Lang
+  return defaultLanguage
+}
 
-  // Redirect if lng in path is not supported
+export function middleware(req: NextRequest) {
+  const language = getLanguage(req)
   if (!languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`))) {
     console.log('redirect')
     return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
