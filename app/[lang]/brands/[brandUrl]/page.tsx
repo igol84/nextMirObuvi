@@ -33,9 +33,7 @@ export async function generateStaticParams() {
 
 const Page = async ({params: {brandUrl, lang}}: Props) => {
   const brandData = await getBrandData(brandUrl)
-  if (!brandData) {
-    throw new Error(`Fail to fetch brand data with url ${brandUrl}`)
-  }
+  if (!brandData) redirect(`/`)
   const productsData = await getProductsDataByBrandId(brandData.id)
   if (!productsData) redirect(`/`)
 

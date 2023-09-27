@@ -26,6 +26,7 @@ export async function getProductsData(): Promise<ProductSchema[]> {
 export async function getProductsDataByBrandId(brandId: number): Promise<ProductSchema[] | undefined> {
   try {
     const res = await fetch(`${api}/showcase/products-by-brand-id/${brandId}`, {next: {revalidate: 3600}})
+    console.log(`${api}/showcase/products-by-brand-id/${brandId}`)
     if(res.ok)
       return await res.json()
   } catch (error) {
