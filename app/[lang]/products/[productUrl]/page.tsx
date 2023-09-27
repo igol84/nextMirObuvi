@@ -6,6 +6,7 @@ import {ProductType} from "@/components/product/types";
 import {ProductSchema} from "@/schemas/data";
 import {createWithEmptySizes} from "@/utility/sizes";
 import '@/app/theme/style.scss'
+import { redirect } from 'next/navigation'
 
 type Props = {
   params: {
@@ -16,6 +17,7 @@ type Props = {
 
 export async function generateMetadata({params: {productUrl, lang}}: Props) {
   const productData = await getProductData(productUrl)
+  if (!productData) redirect(`/`)
   const title = lang === 'en' ? productData.name : productData.name_ua
   return {
     title,
@@ -53,7 +55,9 @@ function productFabrice(lang: Lang, product: ProductSchema): ProductType {
 
 async function Page({params: {productUrl, lang}}: Props) {
   const productFetchData = await getProductData(productUrl)
+  if (!productFetchData) redirect(`/`)
   const productData: ProductType = productFabrice(lang, productFetchData)
+
   return (
     <main>
       <ProductPage productData={productData}/>
