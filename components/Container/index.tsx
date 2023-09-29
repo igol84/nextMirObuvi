@@ -11,17 +11,14 @@ import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
 import {BrandSchema} from "@/schemas/data";
 import {Item} from "@/components/Container/Navbar/types";
 import {LangContext} from "@/locale/LangProvider";
-import ShoppingCartButton from "@/components/Container/ShoppingCartButton";
-import {ShoppingCart} from "@/lib/db/cart";
 
 type Props = {
   children: ReactNode
   brands: BrandSchema[]
-  cart: ShoppingCart | null;
 }
 
 
-const Container = async ({children, brands, cart}: Props) => {
+const Container = ({children, brands}: Props) => {
   const StickNav = styled(Flex)`
     position: sticky;
     z-index: 10;
@@ -35,7 +32,7 @@ const Container = async ({children, brands, cart}: Props) => {
     onOpen: onMenuOpen,
     onClose: onMenuClose,
   } = useDisclosure();
-  const brandsItems: Item[] = brands.map(brand => (
+  const brandsItems:Item[] = brands.map(brand=>(
     {title: brand.name, url: brand.url}
   ))
   return (
@@ -49,7 +46,7 @@ const Container = async ({children, brands, cart}: Props) => {
                           icon={<HiMenu/>} aria-label="Toggle Chat History Drawer"
               />
               <Box as={Link} href={`/${lang}`} className="_icon-logo" aria-label="Home page" fontSize={[28, 36, 48, 56]}
-                   sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}}
+                    sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}}
               />
               <Flex justifyContent='center' alignItems='center' gap={[1, 2, 3, 4]}>
                 <Flex as={'a'} display={{base: 'none', lg: 'flex'}} fontSize={[15, 20, 25, 30]}
@@ -62,11 +59,9 @@ const Container = async ({children, brands, cart}: Props) => {
                 <IconButton icon={<ThemeIcon/>} aria-label='Theme Icon' fontSize={[20, 25, 30, 35]}
                             onClick={toggleColorMode}/>
                 <LocaleSwitcher/>
-                <ShoppingCartButton cart={cart}/>
               </Flex>
             </Flex>
-            <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor'
-                  boxShadow={'base'}>
+            <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor' boxShadow={'base'}>
               <Navbar brandsItems={brandsItems} isMobile={false} onClose={onMenuClose}/>
             </Flex>
           </Flex>
@@ -78,7 +73,7 @@ const Container = async ({children, brands, cart}: Props) => {
           {children}
         </Flex>
       </Flex>
-      <DrawerExample brandsItems={brandsItems} isOpen={isMenuOpen} onClose={onMenuClose}/>
+      <DrawerExample brandsItems={brandsItems}  isOpen={isMenuOpen} onClose={onMenuClose}/>
     </Box>
   );
 };

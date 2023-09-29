@@ -5,7 +5,6 @@ import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import './globals.scss'
 import Container from "@/components/Container";
 import {getBrandsData} from "@/app/api/fetchFunctions";
-import {getCart} from "@/lib/db/cart";
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -36,14 +35,13 @@ export default async function RootLayout(
     children: React.ReactNode
     params: { lang: Lang }
   }) {
-  const cart = await getCart();
   const dict = await getDictionary(lang)
   const brandsData = await getBrandsData()
   return (
     <html lang={lang}>
     <body className={roboto.className}>
     <Providers dict={dict} lang={lang}>
-      <Container brands={brandsData} cart={cart}>
+      <Container brands={brandsData}>
         {children}
       </Container>
     </Providers>

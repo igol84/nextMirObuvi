@@ -2,8 +2,6 @@ import React from 'react';
 import {Button, Flex, Text} from "@chakra-ui/react";
 import {SimpleProductProps} from "@/components/product/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {MdShoppingCart} from "react-icons/md";
-import AddToCartButton from "@/components/product/AddToCartButton";
 
 type Props = {
   productData: SimpleProductProps
@@ -25,7 +23,7 @@ const SimpleProduct = ({productData}: Props) => {
           {productData.price_prefix}
         </Text>
       </Flex>
-      <AddToCartButton productId={productData.product_key}/>
+      <Button variant='solid'>{d('buy')}</Button>
     </>
   );
 };
