@@ -17,6 +17,7 @@ type Props = {
 export default function Gallery({images}: Props) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+  // @ts-ignore
   return (
     <Flex gap={2}>
       <Box w='10%'>
@@ -46,7 +47,8 @@ export default function Gallery({images}: Props) {
           }}
           spaceBetween={10}
           navigation={true}
-          thumbs={{swiper: thumbsSwiper}}
+          // @ts-ignore
+          thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
           modules={[FreeMode, Navigation, Thumbs]}
           className="Swiper"
         >
