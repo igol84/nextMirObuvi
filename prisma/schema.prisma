@@ -7,8 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model products {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  price Int
+model Cart {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  productId String
+  size      Float
+  quantity  Int
+  cartId    String @db.ObjectId
+  cart      Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  @@map("cartitems")
 }
