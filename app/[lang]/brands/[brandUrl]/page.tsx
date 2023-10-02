@@ -1,11 +1,11 @@
 import React from 'react';
-import {BrandSchema} from "@/schemas/data";
 import '@/app/theme/style.scss'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
 import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
 import {Lang} from "@/dictionaries/get-dictionary";
 import {BrandProps} from "@/components/Brands/types";
 import {ProductType} from "@/components/Products/types";
+import {redirect} from "next/navigation";
 
 type Props = {
   params: {
@@ -16,6 +16,7 @@ type Props = {
 
 export async function generateMetadata({params: {brandUrl, lang}}: Props) {
   const brandData = await getBrandData(brandUrl)
+  if (!brandData) redirect(`/`)
   const title = lang === 'en' ? brandData.title : brandData.title_ua
   return {
     title,
@@ -26,7 +27,7 @@ export async function generateMetadata({params: {brandUrl, lang}}: Props) {
 }
 
 export async function generateStaticParams() {
-  const brandsData: BrandSchema[] = await getBrandsData()
+  const brandsData = await getBrandsData()
   return brandsData.map((brand) => ({brandUrl: brand.url}))
 }
 
@@ -36,9 +37,7 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
     throw new Error(`Fail to fetch brand data with url ${brandUrl}`)
   }
   const productsData = await getProductsDataByBrandId(brandData.id)
-  if (!productsData) {
-    throw new Error(`Fail to fetch products data with brand id ${brandData.id}`)
-  }
+  if (!productsData) redirect(`/`)
 
   const brand: BrandProps = {
     brandId: brandData.id, brandName: brandData.name, url: brandData.url,
