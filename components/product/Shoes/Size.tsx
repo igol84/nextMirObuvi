@@ -13,7 +13,7 @@ type Props = {
 
 const Size = ({sizeData, selected, onClickSize, onHoverSize, onLiveSize}: Props) => {
   const layerStyle = sizeData.inStock ? selected ? 'shoesSizeSelected' : 'shoesSize' : 'shoesSizeEmpty'
-  const onClick = () => onClickSize(sizeData.size, sizeData.length)
+  const onClick = () => sizeData.inStock ? onClickSize(sizeData.size, sizeData.length) : () => undefined
   const onHover = () => onHoverSize(sizeData.size)
   return (
     <Box layerStyle={layerStyle} onClick={onClick} onMouseEnter={onHover} onMouseLeave={onLiveSize}>
