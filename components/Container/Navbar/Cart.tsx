@@ -19,13 +19,13 @@ const Cart = ({cartProducts}: Props) => {
       {!cartProducts && <p>Your cart is empty.</p>}
       <Flex flexDirection={'column'} gap={2} p={2}>
         {cartProducts.map((cartItem, index) => (
-          <Link as={NextLink} href={`/${lang}/products/${cartItem.url}`} _hover={{color: 'hoverLinkTextColor'}}>
-          <Flex key={index} gap={2}>
+          <Link key={index} as={NextLink} href={`/${lang}/products/${cartItem.url}`} _hover={{color: 'hoverLinkTextColor'}}>
+          <Flex gap={2}>
 
               <Box width={24}>
                 <ChakraNextImage as={NextImage} src={cartItem.img} alt={cartItem.name} width={0} height={0}
-                                 sizes="100vw"
-                                 style={{width: '100%', height: 'auto'}}/>
+                                 sizes="100vw" style={{width: '100%', height: 'auto'}}
+                />
               </Box>
               <Flex flexDirection={'column'}>
                 <Box textOverflow={'ellipsis'} whiteSpace={'nowrap'} overflow={'hidden'} w={120}>{cartItem.name}</Box>
