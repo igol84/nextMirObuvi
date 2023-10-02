@@ -14,7 +14,6 @@ import {LangContext} from "@/locale/LangProvider";
 import ShoppingCartButton from "@/components/Container/ShoppingCartButton";
 import {ProductCart} from "@/lib/cartFunctions";
 import {getCartProductsCount} from "@/components/Container/Navbar/functions";
-import Cart from "@/components/Container/Navbar/Cart";
 
 type Props = {
   children: ReactNode
