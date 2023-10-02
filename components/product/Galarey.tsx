@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {CSSProperties, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
+import type {Swiper as TypeSwiper} from 'swiper';
 import 'swiper/scss';
 import 'swiper/scss/free-mode';
 import 'swiper/scss/navigation';
@@ -15,14 +16,11 @@ type Props = {
 }
 
 export default function Gallery({images}: Props) {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  // @ts-ignore
+  const [thumbsSwiper, setThumbsSwiper] = useState<TypeSwiper | null>(null);
   return (
     <Flex gap={2}>
       <Box w='10%'>
         <Swiper
-          // @ts-ignore
           onSwiper={setThumbsSwiper}
           spaceBetween={10}
           slidesPerView={5}
@@ -34,7 +32,7 @@ export default function Gallery({images}: Props) {
           {images.map((image, index) => (
             <SwiperSlide key={index}>
               <ChakraNextImage as={NextImage} src={image} alt={'image'} width={0} height={0} sizes="100vw"
-                               style={{width: '100%', height: 'auto'}} priority={index===0}/>
+                               style={{width: '100%', height: 'auto'}} priority={index === 0}/>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -42,13 +40,11 @@ export default function Gallery({images}: Props) {
       <Box w='86%'>
         <Swiper
           style={{
-            // @ts-ignore
             '--swiper-pagination-color': '#10aec4',
-          }}
+          } as CSSProperties}
           spaceBetween={10}
           navigation={true}
-          // @ts-ignore
-          thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+          thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null}}
           modules={[FreeMode, Navigation, Thumbs]}
           className="Swiper"
         >
