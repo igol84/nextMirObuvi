@@ -64,7 +64,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
                             onClick={toggleColorMode}/>
                 <LocaleSwitcher/>
                 <ShoppingCartButton count={getCartProductsCount(cartProducts)}>
-                  <Cart cartProducts={cartProducts}/>
+                  {/*<Cart cartProducts={cartProducts}/>*/}<div>Cart</div>
                  </ShoppingCartButton>
               </Flex>
             </Flex>
