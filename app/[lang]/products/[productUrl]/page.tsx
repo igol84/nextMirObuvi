@@ -15,6 +15,7 @@ type Props = {
   }
 }
 
+
 export async function generateMetadata({params: {productUrl, lang}}: Props) {
   const productData = await getProductData(productUrl)
   if (!productData) redirect(`/`)
