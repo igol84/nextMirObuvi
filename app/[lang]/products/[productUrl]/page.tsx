@@ -15,7 +15,6 @@ type Props = {
   }
 }
 
-
 export async function generateMetadata({params: {productUrl, lang}}: Props) {
   const productData = await getProductData(productUrl)
   if (!productData) redirect(`/`)
@@ -40,14 +39,14 @@ function productFabrice(lang: Lang, product: ProductSchema): ProductType {
   switch (product.type) {
     case "product": {
       return {
-        name, product_key: product.url, price: product.price, price_prefix, type: 'product',
+        name, product_key: product.product_key, price: product.price, price_prefix, type: 'product',
         images: product.images, desc
       }
     }
     case "shoes": {
       const allSizes = createWithEmptySizes(product.sizes)
       return {
-        name, product_key: product.url, price: product.price, price_prefix, type: 'shoes',
+        name, product_key: product.product_key, price: product.price, price_prefix, type: 'shoes',
         images: product.images, desc, sizes: allSizes
       }
     }

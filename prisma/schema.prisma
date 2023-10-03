@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,7 +19,7 @@ model Cart {
 model CartItem {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   productId String
-  size      Float?
+  size      Float
   quantity  Int
   cartId    String @db.ObjectId
   cart      Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)

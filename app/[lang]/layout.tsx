@@ -5,8 +5,6 @@ import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import './globals.scss'
 import Container from "@/components/Container";
 import {getBrandsData} from "@/app/api/fetchFunctions";
-import {getCart} from "@/lib/db/cart";
-import {getCartData, ProductCart} from "@/lib/cartFunctions";
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -39,13 +37,11 @@ export default async function RootLayout(
   }) {
   const dict = await getDictionary(lang)
   const brandsData = await getBrandsData()
-  const cart = await getCart();
-  const cartProducts: ProductCart[] = cart ? await getCartData(cart, lang) : []
   return (
     <html lang={lang}>
     <body className={roboto.className}>
     <Providers dict={dict} lang={lang}>
-      <Container brands={brandsData} cartProducts={cartProducts}>
+      <Container brands={brandsData}>
         {children}
       </Container>
     </Providers>

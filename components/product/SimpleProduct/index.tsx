@@ -1,13 +1,14 @@
 import React from 'react';
-import {Flex, Text} from "@chakra-ui/react";
+import {Button, Flex, Text} from "@chakra-ui/react";
 import {SimpleProductProps} from "@/components/product/types";
-import AddToCartButton from "@/components/product/AddToCartButton";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 type Props = {
   productData: SimpleProductProps
 }
 
 const SimpleProduct = ({productData}: Props) => {
+  const d = useDictionaryTranslate("product")
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   return (
     <>
@@ -22,7 +23,7 @@ const SimpleProduct = ({productData}: Props) => {
           {productData.price_prefix}
         </Text>
       </Flex>
-      <AddToCartButton productId={productData.product_key}/>
+      <Button variant='solid'>{d('buy')}</Button>
     </>
   );
 };
