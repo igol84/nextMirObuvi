@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {Box, Button, Flex, Text} from "@chakra-ui/react";
+import {Box, Flex, Text} from "@chakra-ui/react";
 import {ShoesType} from "@/components/product/types";
 import Size from "@/components/product/Shoes/Size";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import AddToCartButton from "@/components/product/AddToCartButton";
 
 type Props = {
   shoesData: ShoesType
 }
 
 const Shoes = ({shoesData}: Props) => {
-  const d = useDictionaryTranslate("product")
   const ds = useDictionaryTranslate("shoes")
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   const [selectedSize, setSelectedSize] = useState<number | null>(null)
@@ -67,7 +67,7 @@ const Shoes = ({shoesData}: Props) => {
       <Box color='secondary' h={8}>
         {sizeDesc}
       </Box>
-      <Button variant='solid' isDisabled={!(!!selectedSize)}>{d('buy')}</Button>
+      <AddToCartButton productId={shoesData.product_key} size={selectedSize}/>
     </>
   );
 };
