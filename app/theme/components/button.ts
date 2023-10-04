@@ -78,7 +78,23 @@ const Button = defineStyleConfig({
           bg: 'primary.200',
           color: 'primary.900',
         },
-
+      }
+    },
+    cart: {
+      bg: 'teal.200',
+      color: 'teal.900',
+      _hover: {
+        bg: 'teal.300',
+        color: 'teal.900',
+        textDecoration: 'none',
+      },
+      _dark: {
+        bg: 'teal.300',
+        color: 'white',
+        _hover: {
+          bg: 'teal.400',
+          color: 'white',
+        },
       }
     },
     colorful: colorfulVariant,

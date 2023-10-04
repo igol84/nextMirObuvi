@@ -23,11 +23,7 @@ type Props = {
 }
 
 const Container = ({children, brands, cartProducts}: Props) => {
-  const StickNav = styled(Flex)`
-    position: sticky;
-    z-index: 10;
-    top: 0;
-  `
+  const StickNav = styled(Flex)` position: sticky; z-index: 10; top: 0;`
   const {colorMode, toggleColorMode} = useColorMode()
   const ThemeIcon = colorMode === 'dark' ? SunIcon : MoonIcon
   const lang = useContext(LangContext)
@@ -63,7 +59,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
                 <IconButton icon={<ThemeIcon/>} aria-label='Theme Icon' fontSize={[20, 25, 30, 35]}
                             onClick={toggleColorMode}/>
                 <LocaleSwitcher/>
-                <ShoppingCartButton count={getCartProductsCount(cartProducts)}>
+                <ShoppingCartButton totalData={getCartProductsCount(cartProducts)}>
                   <Cart cartProducts={cartProducts}/>
                 </ShoppingCartButton>
               </Flex>

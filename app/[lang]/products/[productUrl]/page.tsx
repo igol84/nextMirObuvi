@@ -28,7 +28,7 @@ export async function generateMetadata({params: {productUrl, lang}}: Props) {
 }
 
 export async function generateStaticParams() {
-  const productsData: ProductSchema[] = await getProductsData()
+  const productsData = await getProductsData()
   return productsData.map((product) => ({productUrl: product.url}))
 }
 
