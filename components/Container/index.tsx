@@ -23,7 +23,9 @@ type Props = {
 }
 
 const Container = ({children, brands, cartProducts}: Props) => {
-  const StickNav = styled(Flex)` position: sticky; z-index: 10; top: 0;`
+  const StickNav = styled(Flex)` position: sticky;
+    z-index: 10;
+    top: 0;`
   const {colorMode, toggleColorMode} = useColorMode()
   const ThemeIcon = colorMode === 'dark' ? SunIcon : MoonIcon
   const lang = useContext(LangContext)
@@ -35,6 +37,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
   const brandsItems: Item[] = brands.map(brand => (
     {title: brand.name, url: brand.url}
   ))
+  const {isOpen, onToggle, onClose} = useDisclosure()
   return (
     <Box h='100%' mx={[2, 4, 8, 16, 24]}>
       <StickNav flexDirection='column' justifyContent='center' alignItems='center'>
@@ -59,7 +62,8 @@ const Container = ({children, brands, cartProducts}: Props) => {
                 <IconButton icon={<ThemeIcon/>} aria-label='Theme Icon' fontSize={[20, 25, 30, 35]}
                             onClick={toggleColorMode}/>
                 <LocaleSwitcher/>
-                <ShoppingCartButton totalData={getCartProductsCount(cartProducts)}>
+                <ShoppingCartButton totalData={getCartProductsCount(cartProducts)} isOpen={isOpen} onToggle={onToggle}
+                                    onClose={onClose}>
                   <Cart cartProducts={cartProducts}/>
                 </ShoppingCartButton>
               </Flex>

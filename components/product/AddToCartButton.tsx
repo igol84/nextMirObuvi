@@ -3,7 +3,7 @@ import React, {useState, useTransition} from 'react';
 import {Box, Button, ScaleFade} from "@chakra-ui/react";
 import {MdShoppingCart} from 'react-icons/md'
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {incrementProductQuantity} from "@/components/product/action";
+import {incrementProductQuantity} from "@/lib/action";
 
 
 interface Props {

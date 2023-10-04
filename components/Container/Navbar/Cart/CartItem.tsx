@@ -1,13 +1,14 @@
 import React, {useContext} from 'react';
-import {Box, Flex, IconButton, Link} from "@chakra-ui/react";
+import {Box, Flex, Link} from "@chakra-ui/react";
 import NextLink from "next/link";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
 import NextImage from "next/image";
 import {formatPrice} from "@/lib/format";
 import {ProductCart} from "@/lib/cartFunctions";
 import {LangContext} from "@/locale/LangProvider";
-import {BsFillTrashFill} from "react-icons/bs";
-import {TiMinus, TiPlus} from "react-icons/ti";
+import ButtonMinus from "@/components/Container/Navbar/Cart/ButtonMinus";
+import ButtonPlus from "@/components/Container/Navbar/Cart/ButtonPlus";
+import ButtonTrash from "@/components/Container/Navbar/Cart/ButtonTrash";
 
 interface Props {
   cartItem: ProductCart
@@ -16,11 +17,9 @@ interface Props {
 const CartItem = ({cartItem}: Props) => {
   const lang = useContext(LangContext)
   return (
-
     <Flex gap={2}>
-
       <Flex alignItems={'center'}>
-        <IconButton aria-label='Trash' size='sm' icon={<BsFillTrashFill/>}/>
+        <ButtonTrash productId={cartItem.url} size={cartItem.size}/>
         <Link as={NextLink} href={`/${lang}/products/${cartItem.url}`}>
           <ChakraNextImage as={NextImage} src={cartItem.img} alt={cartItem.name} width={0} height={0}
                            sizes="100vw" style={{width: '100%', height: 'auto'}}
@@ -39,16 +38,14 @@ const CartItem = ({cartItem}: Props) => {
         <Box>{formatPrice(cartItem.price, lang)}/ шт.</Box>
         <Flex justifyContent={'space-between'} alignItems={'center'} pr={1}>
           <Flex alignItems={'center'} gap={4}>
-            <IconButton variant={'cart'} aria-label='Plus' size='sm' icon={<TiPlus/>}/>
+            <ButtonMinus productId={cartItem.url} size={cartItem.size}/>
             {cartItem.quantity}
-            <IconButton variant={'cart'} aria-label='Minus' size='sm' icon={<TiMinus/>}/>
+            <ButtonPlus productId={cartItem.url} size={cartItem.size}/>
           </Flex>
           <Box>{formatPrice(cartItem.price * cartItem.quantity, lang)}</Box>
         </Flex>
       </Flex>
     </Flex>
-
-
   );
 };
 

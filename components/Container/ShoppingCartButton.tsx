@@ -1,7 +1,6 @@
-"use client";
 import {
   Box, Button, IconButton, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverFooter,
-  PopoverHeader, PopoverTrigger, useDisclosure
+  PopoverHeader, PopoverTrigger
 } from "@chakra-ui/react";
 import {MdShoppingCart} from "react-icons/md";
 import React, {ReactNode, useContext} from "react";
@@ -14,17 +13,20 @@ import {LangContext} from "@/locale/LangProvider";
 interface Props {
   children: ReactNode
   totalData: TotalData
+  isOpen: boolean
+  onToggle: () => void
+  onClose: () => void
 }
 
-export default function ShoppingCartButton({children, totalData}: Props) {
-  const {isOpen, onToggle, onClose} = useDisclosure()
+export default function ShoppingCartButton({children, totalData, isOpen, onToggle, onClose}: Props) {
   const lang = useContext(LangContext)
+  const isEmpty = totalData.total === 0
   return (
-    <Popover isOpen={isOpen} onClose={onClose} placement='bottom' >
+    <Popover isOpen={isOpen} onClose={onClose} placement='bottom'>
       <PopoverTrigger>
         <Box position='relative' onClick={onToggle}>
-          <IconButton isRound={true} aria-label='Cart' fontSize={[20, 25, 30, 35]} icon={<MdShoppingCart/>} />
-          {!!totalData.count && (
+          <IconButton isRound={true} aria-label='Cart' fontSize={[20, 25, 30, 35]} icon={<MdShoppingCart/>}/>
+          {!isEmpty && (
             <Box position='absolute' textAlign='center' justifyContent='center' h={5} w={6} borderRadius={25} right={0}
                  top={0} backgroundColor={'green.400'} fontWeight='bold' _hover={{cursor: 'pointer'}}
             >
@@ -45,12 +47,14 @@ export default function ShoppingCartButton({children, totalData}: Props) {
             {children}
           </ScrollingBox>
         </PopoverBody>
-        <PopoverFooter display='flex' alignItems='center' justifyContent='space-between'>
-          <Box fontWeight='bold'>
-            Total: {formatPrice(totalData.total, lang)}
-          </Box>
-          <Button onClick={onClose}>Apply</Button>
-        </PopoverFooter>
+        {!isEmpty && (
+          <PopoverFooter display='flex' alignItems='center' justifyContent='space-between'>
+            <Box fontWeight='bold'>
+              Total: {formatPrice(totalData.total, lang)}
+            </Box>
+            <Button onClick={onClose}>Apply</Button>
+          </PopoverFooter>
+        )}
       </PopoverContent>
     </Popover>
   );
