@@ -27,7 +27,7 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
     <Popover isOpen={isOpen} onClose={onClose} placement='bottom'>
       <PopoverTrigger>
         <Box position='relative' onClick={onToggle}>
-          <IconButton isRound={true} aria-label='Cart' fontSize={[20, 25, 30, 35]} icon={<MdShoppingCart/>}/>
+          <IconButton  isRound={true} aria-label='Cart' fontSize={[20, 25, 30, 35]} icon={<MdShoppingCart/>}/>
           {!isEmpty && (
             <Box position='absolute' textAlign='center' justifyContent='center' h={5} w={6} borderRadius={25} right={0}
                  top={0} backgroundColor={'green.400'} fontWeight='bold' _hover={{cursor: 'pointer'}}
@@ -40,7 +40,7 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
           )}
         </Box>
       </PopoverTrigger>
-      <PopoverContent w={400}>
+      <PopoverContent w={[310, 400]}>
         <PopoverHeader fontWeight='semibold'>{isEmpty ?  d('emptyCart') : d('cart')}</PopoverHeader>
         <PopoverArrow/>
         <PopoverCloseButton/>

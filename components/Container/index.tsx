@@ -60,9 +60,9 @@ const Container = ({children, brands, cartProducts}: Props) => {
                 </Flex>
 
                 <IconButton as={'a'} className="link _icon-viber" aria-label={d("viberIcon")}
-                            href="viber://add?number=380933375372" fontSize={[20, 25, 30, 35]} />
+                            href="viber://add?number=380933375372" minW={[1, 2]} fontSize={[20, 25, 30, 35]} />
                 <IconButton icon={<ThemeIcon/>} aria-label={d("themeIcon")} fontSize={[20, 25, 30, 35]}
-                            onClick={toggleColorMode}/>
+                            onClick={toggleColorMode} minW={[1, 2]}/>
                 <LocaleSwitcher/>
                 <ShoppingCartButton totalData={getCartProductsCount(cartProducts)} isOpen={isOpen} onToggle={onToggle}
                                     onClose={onClose}>
