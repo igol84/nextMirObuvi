@@ -79,7 +79,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
 
       </StickNav>
       <Flex justifyContent='center' alignItems='center'>
-        <Flex backgroundColor='bodyColor' direction='column' w='full' p={12} roundedBottom={6} gap='2'>
+        <Flex backgroundColor='bodyColor' direction='column' w='full' p={[1, 4, 8, 16]} roundedBottom={6} gap='2'>
           {children}
         </Flex>
       </Flex>
