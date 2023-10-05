@@ -25,17 +25,16 @@ const AddToCartButton = ({productId, size}: Props) => {
   };
   return (
     <>
-      <Button isLoading={isPending} onClick={onClick} leftIcon={<MdShoppingCart/>}
-              variant='solid' isDisabled={isDisabled}>
+      <Button onClick={onClick} leftIcon={<MdShoppingCart/>} variant='solid'
+              isDisabled={isDisabled} isLoading={isPending}>
         {d('buy')}
       </Button>
 
       <ScaleFade initialScale={0.9} in={!isPending && success}>
         <Box p='3' mt='4' color='white' bg='teal.500' rounded='md' shadow='md'>
-          Added on Cart
+          {d('addedOnCart')}
         </Box>
       </ScaleFade>
-
     </>
   );
 };

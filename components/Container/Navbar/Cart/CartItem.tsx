@@ -9,6 +9,7 @@ import {LangContext} from "@/locale/LangProvider";
 import ButtonMinus from "@/components/Container/Navbar/Cart/ButtonMinus";
 import ButtonPlus from "@/components/Container/Navbar/Cart/ButtonPlus";
 import ButtonTrash from "@/components/Container/Navbar/Cart/ButtonTrash";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 interface Props {
   cartItem: ProductCart
@@ -16,6 +17,7 @@ interface Props {
 
 const CartItem = ({cartItem}: Props) => {
   const lang = useContext(LangContext)
+  const d = useDictionaryTranslate("global")
   return (
     <Flex gap={2}>
       <Flex alignItems={'center'}>
@@ -35,7 +37,7 @@ const CartItem = ({cartItem}: Props) => {
         {!!cartItem.size && (
           <Box> {cartItem.size}</Box>
         )}
-        <Box>{formatPrice(cartItem.price, lang)}/ шт.</Box>
+        <Box>{formatPrice(cartItem.price, lang)}/{d('piece')}</Box>
         <Flex justifyContent={'space-between'} alignItems={'center'} pr={1}>
           <Flex alignItems={'center'} gap={4}>
             <ButtonMinus productId={cartItem.url} size={cartItem.size}/>

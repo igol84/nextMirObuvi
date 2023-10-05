@@ -8,6 +8,7 @@ import ScrollingBox from "@/components/base/ScrollingBox";
 import {TotalData} from "@/components/Container/Navbar/functions";
 import {formatPrice} from "@/lib/format";
 import {LangContext} from "@/locale/LangProvider";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
 
 export default function ShoppingCartButton({children, totalData, isOpen, onToggle, onClose}: Props) {
   const lang = useContext(LangContext)
+  const d = useDictionaryTranslate("cart")
   const isEmpty = totalData.total === 0
   return (
     <Popover isOpen={isOpen} onClose={onClose} placement='bottom'>
@@ -39,7 +41,7 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
         </Box>
       </PopoverTrigger>
       <PopoverContent w={400}>
-        <PopoverHeader fontWeight='semibold'>Cart</PopoverHeader>
+        <PopoverHeader fontWeight='semibold'>{isEmpty ?  d('emptyCart') : d('cart')}</PopoverHeader>
         <PopoverArrow/>
         <PopoverCloseButton/>
         <PopoverBody p={'6px 0px'}>
@@ -50,9 +52,9 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
         {!isEmpty && (
           <PopoverFooter display='flex' alignItems='center' justifyContent='space-between'>
             <Box fontWeight='bold'>
-              Total: {formatPrice(totalData.total, lang)}
+              {d('total')}: {formatPrice(totalData.total, lang)}
             </Box>
-            <Button onClick={onClose}>Apply</Button>
+            <Button variant={'cartCheckout'} onClick={onClose}>{d('checkout')}</Button>
           </PopoverFooter>
         )}
       </PopoverContent>

@@ -97,6 +97,23 @@ const Button = defineStyleConfig({
         },
       }
     },
+    cartCheckout: {
+      bg: 'green.200',
+      color: 'green.900',
+      _hover: {
+        bg: 'green.300',
+        color: 'green.900',
+        textDecoration: 'none',
+      },
+      _dark: {
+        bg: 'green.600',
+        color: 'white',
+        _hover: {
+          bg: 'green.500',
+          color: 'white',
+        },
+      }
+    },
     colorful: colorfulVariant,
   },
   // The default size and variant values

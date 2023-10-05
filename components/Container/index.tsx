@@ -15,6 +15,7 @@ import ShoppingCartButton from "@/components/Container/ShoppingCartButton";
 import {ProductCart} from "@/lib/cartFunctions";
 import {getCartProductsCount} from "@/components/Container/Navbar/functions";
 import Cart from "@/components/Container/Navbar/Cart";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 type Props = {
   children: ReactNode
@@ -38,6 +39,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
     {title: brand.name, url: brand.url}
   ))
   const {isOpen, onToggle, onClose} = useDisclosure()
+  const d = useDictionaryTranslate("home")
   return (
     <Box h='100%' mx={[2, 4, 8, 16, 24]}>
       <StickNav flexDirection='column' justifyContent='center' alignItems='center'>
@@ -46,10 +48,10 @@ const Container = ({children, brands, cartProducts}: Props) => {
             <Flex as='header' flex={1} pt={4} alignItems='center' color='primary' p={2} justifyContent='space-between'
                   roundedTop={16} backgroundColor='bodyColor' boxShadow={'base'}>
               <IconButton onClick={onMenuOpen} fontSize={[28, 36, 48, 56]} display={{base: "inherit", lg: "none"}}
-                          icon={<HiMenu/>} aria-label="Toggle Chat History Drawer"
+                          icon={<HiMenu/>} aria-label={d("toggleMenu")}
               />
-              <Box as={Link} href={`/${lang}`} className="_icon-logo" aria-label="Home page" fontSize={[28, 36, 48, 56]}
-                   sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}}
+              <Box as={Link} href={`/${lang}`} className="_icon-logo" aria-label={d("homePage")}
+                   sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}} fontSize={[28, 36, 48, 56]}
               />
               <Flex justifyContent='center' alignItems='center' gap={[1, 2, 3, 4]}>
                 <Flex as={'a'} display={{base: 'none', lg: 'flex'}} fontSize={[15, 20, 25, 30]}
@@ -57,9 +59,9 @@ const Container = ({children, brands, cartProducts}: Props) => {
                   (093)33-75-372
                 </Flex>
 
-                <IconButton as={'a'} className="link _icon-viber" aria-label='viber icon' fontSize={[20, 25, 30, 35]}
-                            href="viber://add?number=380933375372"/>
-                <IconButton icon={<ThemeIcon/>} aria-label='Theme Icon' fontSize={[20, 25, 30, 35]}
+                <IconButton as={'a'} className="link _icon-viber" aria-label={d("viberIcon")}
+                            href="viber://add?number=380933375372" fontSize={[20, 25, 30, 35]} />
+                <IconButton icon={<ThemeIcon/>} aria-label={d("themeIcon")} fontSize={[20, 25, 30, 35]}
                             onClick={toggleColorMode}/>
                 <LocaleSwitcher/>
                 <ShoppingCartButton totalData={getCartProductsCount(cartProducts)} isOpen={isOpen} onToggle={onToggle}
