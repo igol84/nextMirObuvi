@@ -16,17 +16,15 @@ import {ProductCart} from "@/lib/cartFunctions";
 import {getCartProductsCount} from "@/components/Container/Navbar/functions";
 import Cart from "@/components/Container/Navbar/Cart";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import UserMenuButton from "@/components/Container/Navbar/UserMenuButton";
-import {Session} from "next-auth";
+
 
 type Props = {
   children: ReactNode
   brands: BrandSchema[]
   cartProducts: ProductCart[]
-  session: Session | null
 }
 
-const Container = ({children, brands, cartProducts, session}: Props) => {
+const Container = ({children, brands, cartProducts}: Props) => {
   const StickNav = styled(Flex)` position: sticky;
     z-index: 10;
     top: 0;`
@@ -71,7 +69,6 @@ const Container = ({children, brands, cartProducts, session}: Props) => {
                                     onClose={onClose}>
                   <Cart cartProducts={cartProducts}/>
                 </ShoppingCartButton>
-                <UserMenuButton session={session}/>
               </Flex>
             </Flex>
             <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor'
