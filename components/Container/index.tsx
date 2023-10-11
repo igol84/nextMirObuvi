@@ -16,14 +16,17 @@ import {ProductCart} from "@/lib/cartFunctions";
 import {getCartProductsCount} from "@/components/Container/Navbar/functions";
 import Cart from "@/components/Container/Navbar/Cart";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import UserMenuButton from "@/components/Container/Navbar/UserMenuButton";
+import {Session} from "next-auth";
 
 type Props = {
   children: ReactNode
   brands: BrandSchema[]
   cartProducts: ProductCart[]
+  session: Session | null
 }
 
-const Container = ({children, brands, cartProducts}: Props) => {
+const Container = ({children, brands, cartProducts, session}: Props) => {
   const StickNav = styled(Flex)` position: sticky;
     z-index: 10;
     top: 0;`
@@ -48,7 +51,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
             <Flex as='header' flex={1} pt={4} alignItems='center' color='primary' p={2} justifyContent='space-between'
                   roundedTop={16} backgroundColor='bodyColor' boxShadow={'base'}>
               <IconButton onClick={onMenuOpen} fontSize={[28, 36, 48, 56]} display={{base: "inherit", lg: "none"}}
-                          icon={<HiMenu/>} aria-label={d("toggleMenu")}
+                          icon={<HiMenu/>} aria-label={d("toggleMenu")} isRound={true}
               />
               <Box as={Link} href={`/${lang}`} className="_icon-logo" aria-label={d("homePage")}
                    sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}} fontSize={[28, 36, 48, 56]}
@@ -59,15 +62,16 @@ const Container = ({children, brands, cartProducts}: Props) => {
                   (093)33-75-372
                 </Flex>
 
-                <IconButton as={'a'} className="link _icon-viber" aria-label={d("viberIcon")}
+                <IconButton as={'a'} className="link _icon-viber" aria-label={d("viberIcon")} isRound={true}
                             href="viber://add?number=380933375372" minW={[1, 2]} fontSize={[20, 25, 30, 35]} />
-                <IconButton icon={<ThemeIcon/>} aria-label={d("themeIcon")} fontSize={[20, 25, 30, 35]}
+                <IconButton icon={<ThemeIcon/>} aria-label={d("themeIcon")} fontSize={[20, 25, 30, 35]} isRound={true}
                             onClick={toggleColorMode} minW={[1, 2]}/>
                 <LocaleSwitcher/>
                 <ShoppingCartButton totalData={getCartProductsCount(cartProducts)} isOpen={isOpen} onToggle={onToggle}
                                     onClose={onClose}>
                   <Cart cartProducts={cartProducts}/>
                 </ShoppingCartButton>
+                <UserMenuButton session={session}/>
               </Flex>
             </Flex>
             <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor'

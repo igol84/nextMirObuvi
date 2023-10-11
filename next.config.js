@@ -9,18 +9,8 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'mirobuvi.com.ua',
-        port: '',
-        pathname: '/ftp_brands/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'mirobuvi.com.ua',
-        port: '',
-        pathname: '/ftp_products/**',
-      },
+      {hostname: 'mirobuvi.com.ua'},
+      {hostname: 'lh3.googleusercontent.com'},
     ],
   },
 }

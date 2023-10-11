@@ -1,14 +1,23 @@
 import {
-  Box, Button, IconButton, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverFooter,
-  PopoverHeader, PopoverTrigger
+  Box,
+  Button,
+  IconButton,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger
 } from "@chakra-ui/react";
-import {MdShoppingCart} from "react-icons/md";
 import React, {ReactNode, useContext} from "react";
 import ScrollingBox from "@/components/base/ScrollingBox";
 import {TotalData} from "@/components/Container/Navbar/functions";
 import {formatPrice} from "@/lib/format";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {PiShoppingCart} from "react-icons/pi";
 
 
 interface Props {
@@ -27,7 +36,7 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
     <Popover isOpen={isOpen} onClose={onClose} placement='bottom'>
       <PopoverTrigger>
         <Box position='relative' onClick={onToggle}>
-          <IconButton  isRound={true} aria-label='Cart' fontSize={[20, 25, 30, 35]} icon={<MdShoppingCart/>}/>
+          <IconButton isRound={true} aria-label='Cart' fontSize={[20, 25, 30, 35]} icon={<PiShoppingCart/>}/>
           {!isEmpty && (
             <Box position='absolute' textAlign='center' justifyContent='center' h={5} w={6} borderRadius={25} right={0}
                  top={0} backgroundColor={'green.400'} fontWeight='bold' _hover={{cursor: 'pointer'}}
@@ -41,7 +50,7 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
         </Box>
       </PopoverTrigger>
       <PopoverContent w={[310, 400]}>
-        <PopoverHeader fontWeight='semibold'>{isEmpty ?  d('emptyCart') : d('cart')}</PopoverHeader>
+        <PopoverHeader fontWeight='semibold'>{isEmpty ? d('emptyCart') : d('cart')}</PopoverHeader>
         <PopoverArrow/>
         <PopoverCloseButton/>
         <PopoverBody p={'6px 0px'}>
