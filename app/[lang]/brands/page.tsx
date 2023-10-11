@@ -21,7 +21,9 @@ const BrandsPage = async () => {
     brandId: brand.id, brandName: brand.name, url: brand.url
   }))
   return (
-    <Brands brands={brands}/>
+    <main>
+      <Brands brands={brands}/>
+    </main>
   )
 }
 
