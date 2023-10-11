@@ -16,15 +16,17 @@ import {ProductCart} from "@/lib/cartFunctions";
 import {getCartProductsCount} from "@/components/Container/Navbar/functions";
 import Cart from "@/components/Container/Navbar/Cart";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-
+import UserMenuButton from "@/components/Container/Navbar/UserMenuButton";
+import {Session} from "next-auth";
 
 type Props = {
   children: ReactNode
   brands: BrandSchema[]
   cartProducts: ProductCart[]
+  session: Session | null
 }
 
-const Container = ({children, brands, cartProducts}: Props) => {
+const Container = ({children, brands, cartProducts, session}: Props) => {
   const StickNav = styled(Flex)` position: sticky;
     z-index: 10;
     top: 0;`
@@ -51,7 +53,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
               <IconButton onClick={onMenuOpen} fontSize={[28, 36, 48, 56]} display={{base: "inherit", lg: "none"}}
                           icon={<HiMenu/>} aria-label={d("toggleMenu")} isRound={true}
               />
-              <Box as={Link} href={`/${lang}`} className="_icon-logo" aria-label={d("homePage")}
+              <Box as={Link} href={`/`} className="_icon-logo" aria-label={d("homePage")}
                    sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}} fontSize={[28, 36, 48, 56]}
               />
               <Flex justifyContent='center' alignItems='center' gap={[1, 2, 3, 4]}>
@@ -69,6 +71,7 @@ const Container = ({children, brands, cartProducts}: Props) => {
                                     onClose={onClose}>
                   <Cart cartProducts={cartProducts}/>
                 </ShoppingCartButton>
+                <UserMenuButton session={session}/>
               </Flex>
             </Flex>
             <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor'
