@@ -53,7 +53,7 @@ const Container = ({children, brands, cartProducts, session}: Props) => {
               <IconButton onClick={onMenuOpen} fontSize={[28, 36, 48, 56]} display={{base: "inherit", lg: "none"}}
                           icon={<HiMenu/>} aria-label={d("toggleMenu")} isRound={true}
               />
-              <Box as={Link} href={`/`} className="_icon-logo" aria-label={d("homePage")}
+              <Box as={Link} href={`/${lang}`} className="_icon-logo" aria-label={d("homePage")}
                    sx={{transition: 'all 0.3s ease 0s;'}} _hover={{textDecoration: 'none'}} fontSize={[28, 36, 48, 56]}
               />
               <Flex justifyContent='center' alignItems='center' gap={[1, 2, 3, 4]}>
