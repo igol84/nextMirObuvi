@@ -8,19 +8,30 @@ export async function incrementProductQuantity(productId: string, size?: number 
   const cart = await getCart() ?? (await createCart())
   const articleInCart = cart.items.find(item => item.productId === productId && item.size === size)
   if (articleInCart) {
-    await prisma.cartItem.update({
-      where: {id: articleInCart.id},
-      data: {quantity: {increment: 1}}
+    await prisma.cart.update({
+      where: {id: cart.id},
+      data: {
+        items: {
+          update: {
+            where: {id: articleInCart.id},
+            data: {quantity: {increment: 1}},
+          },
+        },
+      },
     })
   } else {
-    await prisma.cartItem.create({
+    await prisma.cart.update({
+      where: {id: cart.id},
       data: {
-        cartId: cart.id,
-        size: size ? size : 0,
-        productId,
-        quantity: 1
-      }
-    })
+        items: {
+          create: {
+            size: size ? size : 0,
+            productId,
+            quantity: 1
+          },
+        },
+      },
+    });
   }
   revalidatePath("/")
 }
@@ -30,13 +41,25 @@ export async function decrementProductQuantity(productId: string, size?: number 
   const articleInCart = cart.items.find(item => item.productId === productId && item.size === size)
   if (articleInCart) {
     if (articleInCart.quantity > 1)
-      await prisma.cartItem.update({
-        where: {id: articleInCart.id},
-        data: {quantity: {decrement: 1}}
+      await prisma.cart.update({
+        where: {id: cart.id},
+        data: {
+          items: {
+            update: {
+              where: {id: articleInCart.id},
+              data: {quantity: {decrement: 1}},
+            },
+          },
+        },
       })
     else
-      await prisma.cartItem.delete({
-        where: {id: articleInCart.id}
+      await prisma.cart.update({
+        where: {id: cart.id},
+        data: {
+          items: {
+            delete: {id: articleInCart.id},
+          },
+        },
       })
   }
   revalidatePath("/")
@@ -46,9 +69,14 @@ export async function deleteProductQuantity(productId: string, size?: number | n
   const cart = await getCart() ?? (await createCart())
   const articleInCart = cart.items.find(item => item.productId === productId && item.size === size)
   if (articleInCart) {
-    await prisma.cartItem.delete({
-      where: {id: articleInCart.id}
-    })
+    await prisma.cart.update({
+      where: {id: cart.id},
+      data: {
+        items: {
+          delete: {id: articleInCart.id},
+        },
+      },
+    });
   }
   revalidatePath("/")
 }
