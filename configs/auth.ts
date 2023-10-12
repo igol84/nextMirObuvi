@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
 import { Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
+import {margeAnonymousCartIntoUserCart} from "@/lib/db/cart";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma as PrismaClient) as Adapter,
@@ -14,15 +15,15 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  // callbacks: {
-  //   session({ session, user }) {
-  //     session.user.id = user.id;
-  //     return session;
-  //   },
-  // },
-  // events: {
-  //   async signIn({ user }) {
-  //     await margeAnonymousCartIntoUserCart(user.id);
-  //   },
-  // },
+  callbacks: {
+    session({ session, user }) {
+      session.user.id = user.id
+      return session
+    },
+  },
+  events: {
+    async signIn({ user }) {
+      await margeAnonymousCartIntoUserCart(user.id)
+    },
+  },
 };
