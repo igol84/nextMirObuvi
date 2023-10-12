@@ -10,6 +10,7 @@ import Sizes from "@/components/Products/ShoesCard/Sizes";
 type Props = {
   product: ShoesType
 }
+
 const ShoesCard = ({product}: Props) => {
   const {name, product_key, price, price_prefix, sizes, url} = product
   const lang = useContext(LangContext)
