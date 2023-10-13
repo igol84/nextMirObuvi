@@ -1,5 +1,7 @@
 import {NextResponse} from 'next/server'
+import {clearOldCart} from "@/lib/db/cart";
 
 export async function GET() {
-  return NextResponse.json({text: 'hello'})
+  await clearOldCart()
+  return NextResponse.json({text: 'Complete'})
 }
