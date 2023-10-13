@@ -4,7 +4,7 @@ import {clearOldCart} from "@/lib/db/cart";
 export async function GET() {
   const carts = await clearOldCart()
   return NextResponse.json(
-    { message: carts },
+    { message: {deletedCarts: carts} },
     { status: 200 },
   );
 }
