@@ -94,6 +94,7 @@ export async function margeAnonymousCartIntoUserCart(userId: string) {
               data: mergedCartItems.map((item) => ({
                 productId: item.productId,
                 quantity: item.quantity,
+                size: item.size
               })),
             },
           },
@@ -108,6 +109,7 @@ export async function margeAnonymousCartIntoUserCart(userId: string) {
               data: localCart.items.map((item) => ({
                 productId: item.productId,
                 quantity: item.quantity,
+                size: item.size
               })),
             },
           },
