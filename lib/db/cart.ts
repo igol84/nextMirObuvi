@@ -142,7 +142,7 @@ export async function clearOldCart() {
   const date = new Date()
   console.log(date)
   date.setMonth(date.getMonth() - 3);
-  await prisma.cart.deleteMany({
+  return await prisma.cart.findMany({
     where: {
       updatedAt: {
         lte: date

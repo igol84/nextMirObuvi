@@ -2,9 +2,9 @@ import {NextResponse} from 'next/server'
 import {clearOldCart} from "@/lib/db/cart";
 
 export async function GET() {
-  await clearOldCart()
+  const carts = await clearOldCart()
   return NextResponse.json(
-    { message: 'Old carts clear' },
+    { message: carts },
     { status: 200 },
   );
 }
