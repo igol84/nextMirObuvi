@@ -1,6 +1,28 @@
 import {Item} from "@/components/Container/Navbar/types";
 
-export const menuItems: Item[] = [
+export const menuItemsEn: Item[] = [
+  {
+    title: 'Home',
+    url: '',
+  },
+  {
+    title: 'About',
+    url: 'about',
+  },
+];
+
+export const menuItemsUa: Item[] = [
+  {
+    title: 'Додому',
+    url: '',
+  },
+  {
+    title: 'О нас',
+    url: 'about',
+  },
+];
+
+export const menuItemsDef: Item[] = [
   {
     title: 'Home',
     url: '',

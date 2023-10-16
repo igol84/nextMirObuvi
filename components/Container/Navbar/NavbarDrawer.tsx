@@ -4,15 +4,16 @@ import {
 import React from "react";
 import Navbar from "@/components/Container/Navbar/index";
 import {Item} from "@/components/Container/Navbar/types";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 type Props = {
   isOpen: boolean,
   onClose: () => void
   brandsItems: Item[]
 }
 
-const DrawerExample = ({isOpen, onClose, brandsItems}: Props) => {
+const DrawerMenu = ({isOpen, onClose, brandsItems}: Props) => {
   const btnRef = React.useRef(null)
-
+  const d = useDictionaryTranslate("home")
   return (
     <>
       <Drawer
@@ -24,7 +25,7 @@ const DrawerExample = ({isOpen, onClose, brandsItems}: Props) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Menu</DrawerHeader>
+          <DrawerHeader>{d('menu')}</DrawerHeader>
 
           <DrawerBody>
             <Navbar brandsItems={brandsItems} isMobile={true} onClose={onClose}/>
@@ -32,7 +33,7 @@ const DrawerExample = ({isOpen, onClose, brandsItems}: Props) => {
 
           <DrawerFooter>
             <Button variant='outline' mr={3} onClick={onClose}>
-              Close
+              {d('close')}
             </Button>
           </DrawerFooter>
         </DrawerContent>
@@ -41,4 +42,4 @@ const DrawerExample = ({isOpen, onClose, brandsItems}: Props) => {
   )
 }
 
-export default DrawerExample
+export default DrawerMenu

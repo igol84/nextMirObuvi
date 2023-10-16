@@ -1,6 +1,6 @@
 import React from 'react';
 import Brands from "@/components/Brands";
-import {BrandCardProps} from "@/components/Brands/types";
+import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 import {getBrandsData} from "@/app/api/fetchFunctions";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 
@@ -17,8 +17,8 @@ export async function generateMetadata({params: {lang}}: { params: { lang: Lang 
 
 const BrandsPage = async () => {
   const brandsData = await getBrandsData()
-  const brands: BrandCardProps[] = brandsData.map(brand => ({
-    brandId: brand.id, brandName: brand.name, url: brand.url
+  const brands: BrandCardPropsWithFirst[] = brandsData.map((brand, index) => ({
+    brandId: brand.id, brandName: brand.name, url: brand.url, isFirst: index < 6
   }))
   return (
     <main>

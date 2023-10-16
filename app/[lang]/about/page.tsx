@@ -1,9 +1,9 @@
 import React from 'react';
-import CounterPage from "@/app/[lang]/second-page/CounterPage";
+import AboutPage from "@/app/[lang]/about/AboutPage";
 
 const Page = async () => {
   return (
-    <CounterPage/>
+    <AboutPage/>
   );
 };
 

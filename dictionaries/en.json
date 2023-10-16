@@ -8,7 +8,10 @@
     "toggleMenu": "Toggle Menu",
     "homePage": "Home page",
     "viberIcon": "Viber icon",
-    "themeIcon": "Theme Icon"
+    "themeIcon": "Theme Icon",
+    "menu": "Menu",
+    "close": "Close",
+    "brands": "Brands"
   },
   "brands": {
     "title": "List of brands online shoe store Mirobuvi.com.ua",
@@ -23,10 +26,8 @@
     "select_size": "Select size.",
     "insole_length": "Insole length:"
   },
-  "serverComponent": {
+  "about": {
     "welcome": "Welcome!",
-    "secondPage": "next page",
-    "welcomeNext": "Hello from next page!",
     "back": "back"
   },
   "switcher": {

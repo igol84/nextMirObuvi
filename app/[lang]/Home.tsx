@@ -3,11 +3,11 @@ import React from 'react';
 import {Box, Flex} from "@chakra-ui/react";
 import Carousel from "@/components/Carousel";
 import Brands from "@/components/Brands";
-import {BrandCardProps} from "@/components/Brands/types";
+import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 
 
 type Props = {
-  brands: BrandCardProps[]
+  brands: BrandCardPropsWithFirst[]
 }
 
 const Home = ({brands}: Props) => {

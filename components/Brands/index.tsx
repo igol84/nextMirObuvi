@@ -2,11 +2,11 @@
 import React from 'react';
 import {Wrap, WrapItem} from "@chakra-ui/react";
 import BrandCard from "@/components/Brands/BrandCard";
-import {BrandCardProps} from "@/components/Brands/types";
+import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 
 
 type Props = {
-  brands: BrandCardProps[]
+  brands: BrandCardPropsWithFirst[]
 }
 
 const Brands = ({brands}: Props) => {
@@ -14,7 +14,7 @@ const Brands = ({brands}: Props) => {
     <Wrap align='center' justify={{base: 'center', lg: 'flex-start'}} spacing={4}>
       {brands.map(brand => (
         <WrapItem as='article' key={brand.brandId}>
-          <BrandCard brandId={brand.brandId} brandName={brand.brandName} url={brand.url}/>
+          <BrandCard isFirst={brand.isFirst} brandId={brand.brandId} brandName={brand.brandName} url={brand.url}/>
         </WrapItem>
       ))}
     </Wrap>

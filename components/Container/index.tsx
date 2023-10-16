@@ -7,7 +7,7 @@ import styled from '@emotion/styled'
 import {MoonIcon, SunIcon} from '@chakra-ui/icons'
 import LocaleSwitcher from "@/components/Container/LocaleSwitcher";
 import Navbar from "@/components/Container/Navbar";
-import DrawerExample from "@/components/Container/Navbar/NavbarDrawer";
+import DrawerMenu from "@/components/Container/Navbar/NavbarDrawer";
 import {BrandSchema} from "@/schemas/data";
 import {Item} from "@/components/Container/Navbar/types";
 import {LangContext} from "@/locale/LangProvider";
@@ -63,7 +63,8 @@ const Container = ({children, brands, cartProducts, session}: Props) => {
                 </Flex>
 
                 <IconButton as={'a'} className="link _icon-viber" aria-label={d("viberIcon")} isRound={true}
-                            href="viber://add?number=380933375372" minW={[1, 2]} fontSize={[20, 25, 30, 35]} />
+                            href="viber://add?number=380933375372" minW={[1, 2]} fontSize={[20, 25, 30, 35]}
+                            display={{base: "none", sm: "inherit"}}/>
                 <IconButton icon={<ThemeIcon/>} aria-label={d("themeIcon")} fontSize={[20, 25, 30, 35]} isRound={true}
                             onClick={toggleColorMode} minW={[1, 2]}/>
                 <LocaleSwitcher/>
@@ -87,7 +88,7 @@ const Container = ({children, brands, cartProducts, session}: Props) => {
           {children}
         </Flex>
       </Flex>
-      <DrawerExample brandsItems={brandsItems} isOpen={isMenuOpen} onClose={onMenuClose}/>
+      <DrawerMenu brandsItems={brandsItems} isOpen={isMenuOpen} onClose={onMenuClose}/>
     </Box>
   );
 };

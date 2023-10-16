@@ -8,7 +8,10 @@
     "toggleMenu": "Перемикач меню",
     "homePage": "Домашня сторінка",
     "viberIcon": "Значок Вайбер",
-    "themeIcon": "Значок Темы"
+    "themeIcon": "Значок Темы",
+    "menu": "Меню",
+    "close": "Закрити",
+    "brands": "Бренди"
   },
   "brands": {
     "title": "Список брендів інтернет магазин взуття Mirobuvi.com.ua",
@@ -23,10 +26,8 @@
     "select_size": "Виберіть розмір.",
     "insole_length": "Довжина устілки:"
   },
-  "serverComponent": {
+  "about": {
     "welcome": "Ласкаво просимо!",
-    "secondPage": "наступна сторінка",
-    "welcomeNext": "Привіт із наступної сторінки!",
     "back": "назад"
   },
   "switcher": {

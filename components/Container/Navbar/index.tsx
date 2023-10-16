@@ -1,9 +1,11 @@
-import React from 'react';
-import {menuItems} from "@/components/Container/Navbar/items";
-import {Flex} from "@chakra-ui/react";
+import React, {useContext} from 'react';
+import {menuItemsEn, menuItemsUa} from "@/components/Container/Navbar/items";
+import {Flex, IconButton} from "@chakra-ui/react";
 import MenuItems from "@/components/Container/Navbar/MenuItems";
 import './style.css'
 import {Item} from "@/components/Container/Navbar/types";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {LangContext} from "@/locale/LangProvider";
 
 type Props = {
   brandsItems: Item[]
@@ -12,11 +14,14 @@ type Props = {
 }
 
 const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
+  const lang = useContext(LangContext)
+  const d = useDictionaryTranslate("home")
   const updatedBrandItems = brandsItems.map(item => {
     const url = `brands/${item.url}`
     return {...item, url}
   })
-  const brandsNav: Item = {title: 'Brands', url: '/brands/', submenu: updatedBrandItems}
+  const brandsNav: Item = {title: d('brands'), url: '/brands/', submenu: updatedBrandItems}
+  const menuItems = lang === 'en' ? menuItemsEn : menuItemsUa
   const allItems = menuItems.concat(brandsNav)
   return (
     <Flex as='ul' sx={{listStyle: 'none'}} flexDirection={isMobile ? 'column' : 'row'}>
@@ -24,6 +29,8 @@ const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
         const depthLevel = 0;
         return <MenuItems items={menu} key={index} depthLevel={depthLevel} isMobile={isMobile} onClose={onClose}/>;
       })}
+      <IconButton as={'a'} className="link _icon-viber" aria-label={d("themeIcon")} isRound={true}
+                  href="viber://add?number=380933375372" display={{base: "inherit", sm: "none"}}/>
     </Flex>
   );
 };

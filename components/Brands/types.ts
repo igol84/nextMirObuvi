@@ -6,3 +6,4 @@ export type BrandProps = {
 }
 
 export type BrandCardProps = Omit<BrandProps, 'desc'>
+export type BrandCardPropsWithFirst = BrandCardProps & {isFirst: boolean}

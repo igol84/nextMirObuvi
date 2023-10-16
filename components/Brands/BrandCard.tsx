@@ -4,15 +4,15 @@ import NextImage from "next/image";
 import NextLink from "next/link";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
 import {LangContext} from "@/locale/LangProvider";
-import {BrandCardProps} from "@/components/Brands/types";
+import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 
-const BrandCard = ({brandId, brandName, url}: BrandCardProps) => {
+const BrandCard = ({brandId, brandName, url, isFirst}: BrandCardPropsWithFirst) => {
   const lang = useContext(LangContext)
   return (
     <Flex flexDirection='column' alignItems='center' gap={4}>
       <Link as={NextLink} href={`/${lang}/brands/${url}`} _hover={{color: 'hoverLinkTextColor'}}>
         <Box borderRadius={50} borderColor={'black'}>
-          <ChakraNextImage
+          <ChakraNextImage priority={isFirst}
             shadow='base' borderRadius={[30, 15]} as={NextImage}
             width={249} height={249} alt={brandName}
             src={`https://mirobuvi.com.ua/ftp_brands/${brandId}.jpg`}
