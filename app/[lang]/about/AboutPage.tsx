@@ -12,9 +12,11 @@ const AboutPage = () => {
       <h1>{d('welcome')}</h1>
       {lang === 'en' ? (
           <>
-            <p>You can buy shoes from various manufacturers from us.<br/> Purchases will be delivered at a convenient time for you
+            <p>You can buy shoes from various manufacturers from us.<br/> Purchases will be delivered at a convenient time
+              for you
               address
-              indicated in the order.<br/>We will help you save both time and money - our prices are lower than those of ordinary
+              indicated in the order.<br/>We will help you save both time and money - our prices are lower than those of
+              ordinary
               stores.<br/> We hope that our store will prove to be a useful and economical helper in your implementation
               shopping
             </p>
@@ -24,22 +26,27 @@ const AboutPage = () => {
             </p>
             <h3>How to order the product.</h3>
             - Ordering goods through the online store.
-            <p>The product can be ordered through the online store by specifying your contact information. <br/>Our managers
+            <p>The product can be ordered through the online store by specifying your contact information. <br/>Our
+              managers
               the nearest
               sometimes
               will process the order and contact you.</p>
             <p>-Ordering goods by phone.<br/>(093)33-75-372</p>
             <h3>Appendix.</h3>
-            <p>You have the right to inspect and measure the goods at the "Nova Poshta" branch. To do this, approach the employee
+            <p>You have the right to inspect and measure the goods at the &apos;Nova Poshta&apos; branch. To do this,
+              approach the employee
               and
               calls
-              number of the goods and transport number, the employee checks the availability of the goods in the warehouse and takes them out of the zone
+              number of the goods and transport number, the employee checks the availability of the goods in the warehouse
+              and takes them out of the zone
               composition,
               after
-              this You pay the specified amount in advance (the value of the goods), you are issued a parcel, check (you can
+              this You pay the specified amount in advance (the value of the goods), you are issued a parcel, check (you
+              can
               measure),
               if
-              the product does not fit, &nbsp; then you notify the employee of "Nova Poshta" LLC about this. and receive
+              the product does not fit, &nbsp; then you notify the employee of &apos;Nova Poshta&apos; LLC about this. and
+              receive
               money
               back. IN
               in this case, the goods are returned to the Sender.
@@ -68,10 +75,11 @@ const AboutPage = () => {
             <p>Товар можна замовити через інтернет-магазин, вказавши свою контактну інформацію. <br/>Наші менеджери
               найближчим
               часом
-              опрацюють замовлення та зв'яжуться з Вами.</p>
+              опрацюють замовлення та зв`&apos;яжуться з Вами.</p>
             <p>-Замовлення товарів за телефоном.<br/>(093)33-75-372</p>
             <h3>Прикладка.</h3>
-            <p>У відділення "Нова Пошта" Ви маєте право оглянути та поміряти товар. Для цього підходите до співробітника
+            <p>У відділення &quot;Нова Пошта&quot; Ви маєте право оглянути та поміряти товар. Для цього підходите до
+              співробітника
               і
               називає
               номер товарно-транспортної, співробітник перевіряє наявність товару на складі та виносить його із зони
@@ -88,7 +96,7 @@ const AboutPage = () => {
             <h3>Скидки</h3>
             <ol>Для отримання необхідно:
               <li>вказати в замовленні ті ж дані, що й у минулому (ПІБ, телефон)</li>
-              <li>після замовлення з вами зв'яжеться оператор, скажіть йому, що я можу отримати знижку 5%.</li>
+              <li>після замовлення з вами зв`&apos;яжеться оператор, скажіть йому, що я можу отримати знижку 5%.</li>
             </ol>
           </>
         )}
