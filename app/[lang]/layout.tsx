@@ -47,8 +47,8 @@ export default async function RootLayout(
   const session = await getServerSession(authOptions)
   const cartProducts: ProductCart[] = cart ? await getCartData(cart, lang) : []
   return (
-    <html lang={lang}>
-    <body className={roboto.className}>
+    <html lang={lang} suppressHydrationWarning={true}>
+    <body className={roboto.className} suppressHydrationWarning={true}>
     <Providers dict={dict} lang={lang}>
       <Container brands={brandsData} cartProducts={cartProducts} session={session}>
         {children}
