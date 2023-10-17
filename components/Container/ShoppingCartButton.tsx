@@ -18,6 +18,7 @@ import {formatPrice} from "@/lib/format";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {PiShoppingCart} from "react-icons/pi";
+import {useRouter} from "next/navigation";
 
 
 interface Props {
@@ -32,6 +33,11 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
   const lang = useContext(LangContext)
   const d = useDictionaryTranslate("cart")
   const isEmpty = totalData.total === 0
+  const router = useRouter()
+  const onClickCheckout = () => {
+    onClose()
+    router.push('/make-order')
+  }
   return (
     <Popover isOpen={isOpen} onClose={onClose} placement='bottom'>
       <PopoverTrigger>
@@ -64,7 +70,7 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
             <Box fontWeight='bold'>
               {d('total')}: {formatPrice(totalData.total, lang)}
             </Box>
-            <Button variant={'cartCheckout'} onClick={onClose}>{d('checkout')}</Button>
+            <Button variant={'cartCheckout'} onClick={onClickCheckout}>{d('checkout')}</Button>
           </PopoverFooter>
         )}
       </PopoverContent>

@@ -13,6 +13,16 @@
     "close": "Close",
     "brands": "Brands"
   },
+  "orderForm": {
+    "clientData": "Client data",
+    "firstName": "First name",
+    "secondName": "Second name",
+    "phoneNumber": "Phone number",
+    "delivery": "Delivery",
+    "city": "City and #NP",
+    "cityInfo": "Enter the city and branch of \"Nova Poshta\"",
+    "submit": "Submit"
+  },
   "brands": {
     "title": "List of brands online shoe store Mirobuvi.com.ua",
     "description": "List of brands online shoe store Mirobuvi.com.ua where you will find such well-known brands producing sports and classic shoes"
