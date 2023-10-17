@@ -78,7 +78,9 @@ const OrderForm = () => {
       <FormControl isInvalid={!!errors.phone} sx={{pb: 4}} isRequired>
         <FormLabel>{d('phoneNumber')}</FormLabel>
         <InputGroup>
-          <InputLeftAddon children='+380'/>
+          <InputLeftAddon>
+            +380
+          </InputLeftAddon>
           <Input {...register('phone')} type='number' placeholder={d('phoneNumber')} width='auto'/>
         </InputGroup>
         {errors.phone &&
