@@ -1,5 +1,5 @@
 'use client'
-import React, {useContext} from 'react';
+import React from 'react';
 import {
   Button,
   FormControl,
@@ -14,27 +14,23 @@ import {
 import {z} from 'zod'
 import {SubmitHandler, useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
-const schema = z.object({
-  firstName: z.string().trim()
-    .min(2, 'First name must be at least 2 characters')
-    .max(16, {message: 'First name contain at most 16 characters'}),
-  lastName: z.string().trim()
-    .min(2, 'Last name must be at least 2 characters')
-    .max(16, {message: 'Last name contain at most 16 characters'}),
-  phone: z.string().trim().length(9, 'Phone number must be 9 characters length'),
-  email: z.string().trim().email().or(z.literal('')),
-  delivery: z.string().trim()
-})
-
-
-type Schema = z.infer<typeof schema>
 
 const OrderForm = () => {
-  const lang = useContext(LangContext)
   const d = useDictionaryTranslate("orderForm")
+  const schema = z.object({
+    firstName: z.string().trim()
+      .min(2, `${d('firstName')} ${d('gt2')}`)
+      .max(16, {message: `${d('firstName')}  ${d('lt16')}`}),
+    lastName: z.string().trim()
+      .min(2, `${d('lastName')}  ${d('gt2')}`)
+      .max(16, {message: `${d('lastName')} ${d('lt16')}`}),
+    phone: z.string().trim().length(9, `${d('phoneNumber')} ${d('l9')}`),
+    email: z.string().trim().email().or(z.literal('')),
+    delivery: z.string().trim()
+  })
+  type Schema = z.infer<typeof schema>
   const defaultValues: Schema = {
     firstName: '',
     lastName: '',
@@ -68,8 +64,8 @@ const OrderForm = () => {
         }
       </FormControl>
       <FormControl isInvalid={!!errors.lastName} sx={{pb: 4}} isRequired>
-        <FormLabel>{d('secondName')}</FormLabel>
-        <Input {...register('lastName')} type='text' placeholder={d('secondName')} width='auto'/>
+        <FormLabel>{d('lastName')}</FormLabel>
+        <Input {...register('lastName')} type='text' placeholder={d('lastName')} width='auto'/>
         {errors.lastName &&
           (
             <FormErrorMessage>{errors.lastName.message}</FormErrorMessage>

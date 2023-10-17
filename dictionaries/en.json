@@ -16,11 +16,14 @@
   "orderForm": {
     "clientData": "Client data",
     "firstName": "First name",
-    "secondName": "Second name",
+    "lastName": "Last name",
     "phoneNumber": "Phone number",
     "delivery": "Delivery",
     "city": "City and #NP",
     "cityInfo": "Enter the city and branch of \"Nova Poshta\"",
+    "gt2": "must be at least 2 characters",
+    "lt16": "contain at most 16 characters",
+    "l9": "must be 9 characters length",
     "submit": "Submit"
   },
   "brands": {
