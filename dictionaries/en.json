@@ -24,6 +24,7 @@
     "gt2": "must be at least 2 characters",
     "lt16": "contain at most 16 characters",
     "l9": "must be 9 characters length",
+    "invalidEmail": "Invalid Email",
     "submit": "Submit"
   },
   "brands": {
