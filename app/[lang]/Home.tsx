@@ -5,6 +5,7 @@ import Carousel from "@/components/Carousel";
 import Brands from "@/components/Brands";
 import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 import {useSearchParams} from 'next/navigation'
+import SuccessOrderDialog from "@/components/Container/SuccessOrderDialog";
 
 type Props = {
   brands: BrandCardPropsWithFirst[]
@@ -13,7 +14,7 @@ type Props = {
 const Home = ({brands}: Props) => {
   const searchParams = useSearchParams()
   const isOrderSuccess = !!searchParams.get('order-success')
-  console.log(isOrderSuccess)
+
   return (
     <>
       <Flex justifyContent='center' alignItems='center' pb={8}>
@@ -22,6 +23,7 @@ const Home = ({brands}: Props) => {
         </Box>
       </Flex>
       <Brands brands={brands}/>
+      <SuccessOrderDialog initial={isOrderSuccess}/>
     </>
   );
 };

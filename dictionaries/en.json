@@ -25,7 +25,9 @@
     "lt16": "contain at most 16 characters",
     "l9": "must be 9 characters length",
     "invalidEmail": "Invalid Email",
-    "submit": "Submit"
+    "submit": "Submit",
+    "dialogSuccessHeader": "The order has been placed",
+    "dialogSuccessBody": "The order has been successfully placed.<br/>Wait for delivery."
   },
   "brands": {
     "title": "List of brands online shoe store Mirobuvi.com.ua",
