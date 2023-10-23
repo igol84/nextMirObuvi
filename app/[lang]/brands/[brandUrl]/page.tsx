@@ -16,7 +16,7 @@ type Props = {
 
 export async function generateMetadata({params: {brandUrl, lang}}: Props) {
   const brandData = await getBrandData(brandUrl)
-  if (!brandData) redirect(`/`)
+  if (!brandData) redirect('/')
   const title = lang === 'en' ? brandData.title : brandData.title_ua
   return {
     title,

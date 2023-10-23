@@ -12,4 +12,15 @@ export const schema = z.object({
   delivery: z.string().trim()
 })
 
-export type Schema = z.infer<typeof schema>
+export type OrderFormSchema = z.infer<typeof schema>
+
+export type Response = {
+  success: boolean,
+  errors?: ErrorField[],
+  serverErrors?: string,
+}
+
+export type ErrorField = {
+  field: keyof OrderFormSchema,
+  message: string
+}

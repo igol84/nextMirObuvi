@@ -138,6 +138,12 @@ function margeCartItems(...cartItems: CartItem[][]) {
   }, [] as CartItem[]);
 }
 
+export async function deleteCart(cartId: string) {
+  await prisma.cart.delete({
+    where: {id: cartId}
+  })
+}
+
 export async function clearOldCart() {
   const date = new Date()
   date.setMonth(date.getMonth() - 3);

@@ -68,6 +68,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   carts         Cart[]
+  orders        Order[]
 
   @@map("users")
 }
@@ -80,4 +81,31 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Order {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String?     @db.ObjectId
+  createdAt  DateTime    @default(now())
+  firstName  String
+  lastName   String
+  email      String?
+  phone      String
+  delivery   String
+  user       User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String @db.ObjectId
+  productId String
+  size      Float?
+  quantity  Int
+  price     Float?
+  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("orderitems")
 }
