@@ -27,7 +27,8 @@
     "invalidEmail": "Недійсний Email",
     "submit": "Надіслати",
     "dialogSuccessHeader": "Замовлення оформлене",
-    "dialogSuccessBody": "Замовлення успішно оформлене.<br/>Чекайте на доставку."
+    "dialogSuccessBody1": "Замовлення успішно оформлене.",
+    "dialogSuccessBody2": "Чекайте на доставку."
   },
   "brands": {
     "title": "Список брендів інтернет магазин взуття Mirobuvi.com.ua",

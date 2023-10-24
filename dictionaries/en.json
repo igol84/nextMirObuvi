@@ -27,7 +27,8 @@
     "invalidEmail": "Invalid Email",
     "submit": "Submit",
     "dialogSuccessHeader": "The order has been placed",
-    "dialogSuccessBody": "The order has been successfully placed.<br/>Wait for delivery."
+    "dialogSuccessBody1": "The order has been successfully placed.",
+    "dialogSuccessBody2": "Wait for delivery."
   },
   "brands": {
     "title": "List of brands online shoe store Mirobuvi.com.ua",
