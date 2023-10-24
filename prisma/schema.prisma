@@ -106,7 +106,7 @@ model OrderItem {
   productNameUa String
   size          Float?
   quantity      Int
-  price         Float?
+  price         Float
   order         Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@map("orderitems")

@@ -1,6 +1,6 @@
 'use server'
 import {SafeParseReturnType} from "zod";
-import {ErrorField, OrderFormSchema, ProductNamesByUrl, Response, schema} from "./types";
+import {ErrorField, OrderFormSchema, ProductDetailsByUrl, Response, schema} from "./types";
 import {createOrder} from "@/lib/db/order";
 import {revalidatePath} from "next/cache";
 import {deleteCart, getCart} from "@/lib/db/cart";
@@ -19,13 +19,15 @@ export const serverAction = async (orderFormData: OrderFormSchema): Promise<Resp
   }
   const cart = await getCart()
   if (cart && cart.items.length) {
-    const productNamesByUrl:  ProductNamesByUrl = new Map()
+    const productDetailsByUrl:  ProductDetailsByUrl = new Map()
     for (const item of cart.items) {
       const productData = await getProductData(item.productId)
       if(productData)
-        productNamesByUrl.set(item.productId, {ua: productData.name_ua, en: productData.name})
+        productDetailsByUrl.set(item.productId,
+          {ua: productData.name_ua, en: productData.name, price: productData.price}
+        )
     }
-    await createOrder(cart, orderFormData, productNamesByUrl)
+    await createOrder(cart, orderFormData, productDetailsByUrl)
     await deleteCart(cart.id)
     revalidatePath("/")
     return {success: true}

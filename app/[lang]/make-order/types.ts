@@ -25,4 +25,5 @@ export type ErrorField = {
   message: string
 }
 
-export type ProductNamesByUrl = Map<string, {ua: string, en: string}>
+
+export type ProductDetailsByUrl = Map<string, {ua: string, en: string, price: number}>

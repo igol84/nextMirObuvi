@@ -19,7 +19,8 @@ import {serverAction} from "@/app/[lang]/make-order/actions";
 import {useRouter} from 'next/navigation'
 import {LangContext} from "@/locale/LangProvider";
 
-const OrderForm = () => {
+const OrderForm = ({isAuthorized}: {isAuthorized: boolean}) => {
+
   const lang = useContext(LangContext)
   const router = useRouter()
   const d = useDictionaryTranslate("orderForm")
@@ -57,7 +58,11 @@ const OrderForm = () => {
       return
     }
     if (response.success) {
-      router.push(`/${lang}?order-success=true`, {scroll: false})
+      if(isAuthorized){
+        router.push(`/${lang}/profile/orders-list`, {scroll: false})
+      } else {
+        router.push(`/${lang}?order-success=true`, {scroll: false})
+      }
     }
   }
   return (
