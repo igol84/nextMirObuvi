@@ -3,16 +3,19 @@ import {Session} from "next-auth";
 import {signIn, signOut} from "next-auth/react";
 import {
   Avatar,
-  Button,
   IconButton,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
+  useDisclosure,
+  VStack
 } from "@chakra-ui/react";
 import React from "react";
 import {BiUser} from "react-icons/bi";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import Link from "next/link";
 
 interface Props {
   session: Session | null;
@@ -20,9 +23,10 @@ interface Props {
 
 export default function UserMenuButton({session}: Props) {
   const user = session?.user;
-
+  const {onOpen, onClose, isOpen} = useDisclosure()
+  const d = useDictionaryTranslate("home")
   return (
-    <Popover>
+    <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
       <PopoverTrigger>
         {user ? (
             <Avatar name={user?.name || ''} src={user?.image || undefined} size={'sm'} sx={{cursor: 'pointer'}}/>
@@ -35,14 +39,19 @@ export default function UserMenuButton({session}: Props) {
         <PopoverArrow/>
         <PopoverBody>
           {user ? (
-              <Button onClick={() => signOut()}>
-                Sign Out
-              </Button>
+              <VStack align='flex-start'>
+                <Link href={'/profile/orders-list'} onClick={onClose}>
+                  {d('orders')}
+                </Link>
+                <Link href='#' onClick={() => signOut()}>
+                  {d('signOut')}
+                </Link>
+              </VStack>
             )
             : (
-              <Button onClick={() => signIn()}>
-                Sign In
-              </Button>
+              <Link href='#' onClick={() => signIn()}>
+                {d('signIn')}
+              </Link>
             )
           }
         </PopoverBody>

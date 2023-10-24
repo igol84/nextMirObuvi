@@ -28,8 +28,10 @@ const SuccessOrderDialog = ({initial}: Props) => {
         <ModalHeader>{d('dialogSuccessHeader')}</ModalHeader>
         <ModalCloseButton/>
         <ModalBody>
-          <Text fontWeight='bold' mb='1rem'>{d('dialogSuccessBody1')}</Text>
-          <Text fontWeight='bold' mb='1rem'>{d('dialogSuccessBody2')}</Text>
+          <Text fontWeight='bold' mb='1rem'>
+            {d('dialogSuccessBody1')}<br/>
+            {d('dialogSuccessBody2')}
+          </Text>
         </ModalBody>
         <ModalFooter>
           <Button colorScheme='blue' mr={3} onClick={onClose}>

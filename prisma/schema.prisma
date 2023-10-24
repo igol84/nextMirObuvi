@@ -99,13 +99,15 @@ model Order {
 }
 
 model OrderItem {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  orderId   String @db.ObjectId
-  productId String
-  size      Float?
-  quantity  Int
-  price     Float?
-  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  orderId       String @db.ObjectId
+  productId     String
+  productNameEn String
+  productNameUa String
+  size          Float?
+  quantity      Int
+  price         Float?
+  order         Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@map("orderitems")
 }

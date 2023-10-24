@@ -24,3 +24,5 @@ export type ErrorField = {
   field: keyof OrderFormSchema,
   message: string
 }
+
+export type ProductNamesByUrl = Map<string, {ua: string, en: string}>

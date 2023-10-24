@@ -11,7 +11,9 @@
     "themeIcon": "Theme Icon",
     "menu": "Menu",
     "close": "Close",
-    "brands": "Brands"
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
+    "orders": "Orders"
   },
   "orderForm": {
     "clientData": "Client data",

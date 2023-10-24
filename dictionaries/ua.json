@@ -11,7 +11,10 @@
     "themeIcon": "Значок Темы",
     "menu": "Меню",
     "close": "Закрити",
-    "brands": "Бренди"
+    "brands": "Бренди",
+    "signOut": "Вийти з аккаунта",
+    "signIn": "Увійти",
+    "orders": "Замовлення"
   },
   "orderForm": {
     "clientData": "Дані клієнта",
