@@ -32,6 +32,12 @@
     "dialogSuccessBody1": "The order has been successfully placed.",
     "dialogSuccessBody2": "Wait for delivery."
   },
+  "orderList": {
+    "orders": "Orders",
+    "OrderDate": "Order Date",
+    "PC": "PC.",
+    "pricePrefix": "₴"
+  },
   "brands": {
     "title": "List of brands online shoe store Mirobuvi.com.ua",
     "description": "List of brands online shoe store Mirobuvi.com.ua where you will find such well-known brands producing sports and classic shoes"
