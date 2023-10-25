@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Flex} from "@chakra-ui/react";
+import {Box, Divider, Flex} from "@chakra-ui/react";
 import Profile from "@/components/Container/Footer/Profile";
 import Contacts from "@/components/Container/Footer/Contacts";
 
@@ -12,6 +12,7 @@ const Footer = ({isAuthorized}: Props) => {
     <Flex direction={{base: 'column', md: 'row'}} justifyContent={{md: 'space-between'}}>
       <Flex direction={{base: 'column', md: 'row'}} p={[1, 4, 8]} gap={[8, 16]} justifyContent='end'>
         <Profile isAuthorized={isAuthorized}/>
+        <Divider orientation='vertical'/>
         <Contacts/>
       </Flex>
       <Flex p={[1, 4, 8]} justifyContent='end' alignSelf='end'>

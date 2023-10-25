@@ -17,8 +17,6 @@ type Props = {
 }
 
 const Container = ({children, brands, cartProducts, session}: Props) => {
-
-
   const {
     isOpen: isMenuOpen,
     onOpen: onMenuOpen,
