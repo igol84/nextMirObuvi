@@ -25,18 +25,15 @@ const getLanguage = (req: NextRequest): Lang => {
 export function middleware(req: NextRequest) {
   const language = getLanguage(req)
   if (!languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`))) {
-    console.log('redirect')
     return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
   }
 
   if (req.headers.has('referer')) {
-    console.log('referer')
     const refererUrl = new URL(req.headers.get('referer') || '')
     const lngInReferer = languages.find((l) => refererUrl.pathname.startsWith(`/${l}`))
     const response = NextResponse.next()
     if (lngInReferer) response.cookies.set(cookieName, lngInReferer)
     return response
   }
-  console.log('default')
   return NextResponse.next()
 }

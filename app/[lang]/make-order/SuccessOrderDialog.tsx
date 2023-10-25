@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import {
   Button,
   Modal,
@@ -11,16 +11,25 @@ import {
   Text
 } from "@chakra-ui/react";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {LangContext} from "@/locale/LangProvider";
+import {useRouter} from "next/navigation";
 
-
-type Props = {
-  initial: boolean
+interface Props {
+  isOpen: boolean
+  isAuthorized: boolean
 }
 
-const SuccessOrderDialog = ({initial}: Props) => {
+const SuccessOrderDialog = ({isOpen, isAuthorized}: Props) => {
   const d = useDictionaryTranslate("orderForm")
-  const [isOpen, setIsOpen] = useState(initial)
-  const onClose = () => setIsOpen(false)
+  const lang = useContext(LangContext)
+  const router = useRouter()
+  const onClose = () => {
+    if(isAuthorized){
+      router.push(`/${lang}/profile/orders-list`, {scroll: false})
+    } else {
+      router.push(`/${lang}`, {scroll: false})
+    }
+  }
   return (
     <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay/>

@@ -1,6 +1,7 @@
 'use client'
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import {
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -14,16 +15,15 @@ import {
 import {SubmitHandler, useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {OrderFormSchema, schema} from "@/app/[lang]/make-order/types";
-import {serverAction} from "@/app/[lang]/make-order/actions";
-import {useRouter} from 'next/navigation'
-import {LangContext} from "@/locale/LangProvider";
+import {OrderFormProps, OrderFormSchema, schema} from "./types";
+import {serverAction} from "./actions";
+import EmptyCart from "./EmptyCart";
+import SuccessOrderDialog from "./SuccessOrderDialog";
 
-const OrderForm = ({isAuthorized}: {isAuthorized: boolean}) => {
 
-  const lang = useContext(LangContext)
-  const router = useRouter()
+const OrderForm = ({isAuthorized, isCarNotEmpty}: OrderFormProps) => {
   const d = useDictionaryTranslate("orderForm")
+  const [isSuccess, setIsSuccess] = useState(false)
   const defaultValues: OrderFormSchema = {
     firstName: '',
     lastName: '',
@@ -58,65 +58,70 @@ const OrderForm = ({isAuthorized}: {isAuthorized: boolean}) => {
       return
     }
     if (response.success) {
-      if(isAuthorized){
-        router.push(`/${lang}/profile/orders-list`, {scroll: false})
-      } else {
-        router.push(`/${lang}?order-success=true`, {scroll: false})
-      }
+      setIsSuccess(true)
     }
   }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Heading as='h2' sx={{pb: 6}}>{d('clientData')}</Heading>
-      <FormControl isInvalid={!!errors.firstName} sx={{pb: 4}} isRequired>
-        <FormLabel>{d('firstName')}</FormLabel>
-        <Input {...register('firstName')} type='text' placeholder={d('firstName')} width='auto'/>
-        {errors.firstName &&
-          <FormErrorMessage>{d('firstName')} {d(errors.firstName.message!)}</FormErrorMessage>
-        }
-      </FormControl>
-      <FormControl isInvalid={!!errors.lastName} sx={{pb: 4}} isRequired>
-        <FormLabel>{d('lastName')}</FormLabel>
-        <Input {...register('lastName')} type='text' placeholder={d('lastName')} width='auto'/>
-        {errors.lastName &&
-          (
-            <FormErrorMessage>{d('lastName')} {d(errors.lastName.message!)}</FormErrorMessage>
-          )}
-      </FormControl>
-      <FormControl isInvalid={!!errors.phone} sx={{pb: 4}} isRequired>
-        <FormLabel>{d('phoneNumber')}</FormLabel>
-        <InputGroup>
-          <InputLeftAddon>
-            +380
-          </InputLeftAddon>
-          <Input {...register('phone')} type='number' placeholder={d('phoneNumber')} width='auto'/>
-        </InputGroup>
-        {errors.phone &&
-          (
-            <FormErrorMessage>{d('phoneNumber')} {d(errors.phone.message!)}</FormErrorMessage>
-          )}
-      </FormControl>
-      <FormControl isInvalid={!!errors.email} sx={{pb: 4}}>
-        <FormLabel>Email</FormLabel>
-        <Input {...register('email')} placeholder='Email' width='auto'/>
-        {errors.email &&
-          (
-            <FormErrorMessage>{d(errors.email.message!)}</FormErrorMessage>
-          )}
-      </FormControl>
-      <Heading as='h2' sx={{pb: 6}}>{d('delivery')}</Heading>
-      <FormControl isInvalid={!!errors.delivery} sx={{pb: 4}} isRequired>
-        <FormLabel>{d('city')}</FormLabel>
-        <Input {...register('delivery')} placeholder={d('city')} width='auto'/>
-        {errors.delivery
-          ? <FormErrorMessage>{errors.delivery.message}</FormErrorMessage>
-          : <FormHelperText>{d('cityInfo')}</FormHelperText>
-        }
-      </FormControl>
-      <Button variant='solid' mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
-        {d('submit')}
-      </Button>
-    </form>
+    <Box>
+      {isCarNotEmpty ? (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Heading as='h2' sx={{pb: 6}}>{d('clientData')}</Heading>
+          <FormControl isInvalid={!!errors.firstName} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('firstName')}</FormLabel>
+            <Input {...register('firstName')} type='text' placeholder={d('firstName')} width='auto'/>
+            {errors.firstName &&
+              <FormErrorMessage>{d('firstName')} {d(errors.firstName.message!)}</FormErrorMessage>
+            }
+          </FormControl>
+          <FormControl isInvalid={!!errors.lastName} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('lastName')}</FormLabel>
+            <Input {...register('lastName')} type='text' placeholder={d('lastName')} width='auto'/>
+            {errors.lastName &&
+              (
+                <FormErrorMessage>{d('lastName')} {d(errors.lastName.message!)}</FormErrorMessage>
+              )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.phone} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('phoneNumber')}</FormLabel>
+            <InputGroup>
+              <InputLeftAddon>
+                +380
+              </InputLeftAddon>
+              <Input {...register('phone')} type='number' placeholder={d('phoneNumber')} width='auto'/>
+            </InputGroup>
+            {errors.phone &&
+              (
+                <FormErrorMessage>{d('phoneNumber')} {d(errors.phone.message!)}</FormErrorMessage>
+              )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.email} sx={{pb: 4}}>
+            <FormLabel>Email</FormLabel>
+            <Input {...register('email')} placeholder='Email' width='auto'/>
+            {errors.email &&
+              (
+                <FormErrorMessage>{d(errors.email.message!)}</FormErrorMessage>
+              )}
+          </FormControl>
+          <Heading as='h2' sx={{pb: 6}}>{d('delivery')}</Heading>
+          <FormControl isInvalid={!!errors.delivery} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('city')}</FormLabel>
+            <Input {...register('delivery')} placeholder={d('city')} width='auto'/>
+            {errors.delivery
+              ? <FormErrorMessage>{errors.delivery.message}</FormErrorMessage>
+              : <FormHelperText>{d('cityInfo')}</FormHelperText>
+            }
+          </FormControl>
+          <Button variant='solid' mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
+            {d('submit')}
+          </Button>
+        </form>
+      ) : (
+        <EmptyCart/>
+      )}
+      <SuccessOrderDialog isOpen={isSuccess} isAuthorized={isAuthorized}/>
+    </Box>
+
   )
 }
 

@@ -1,5 +1,10 @@
 import {z} from "zod";
 
+export interface OrderFormProps{
+  isAuthorized: boolean
+  isCarNotEmpty: boolean
+}
+
 export const schema = z.object({
   firstName: z.string().trim()
     .min(2, 'gt2')
