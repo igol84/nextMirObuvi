@@ -43,10 +43,10 @@ export const createOrder: CreateOrderType = async (cart, orderFormData, productD
   })
 }
 
-export const getOrders = async (userId: string): Promise<OrderWithItems[] | null> => {
+export const getUserOrders = async (userId: string): Promise<OrderWithItems[] | null> => {
   const user = await prisma.user.findUnique({
     where: {id: userId},
-    include: {orders: {include: {orderItems: true}}}
+    include: {orders: {include: {orderItems: true}, orderBy: {createdAt: 'desc'}}}
   })
   if (!user) return null
   return user.orders

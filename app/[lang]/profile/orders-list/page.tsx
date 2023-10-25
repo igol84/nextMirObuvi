@@ -1,6 +1,6 @@
 import React from 'react';
 import OrdersPage from "@/app/[lang]/profile/orders-list/OrdersPage";
-import {getOrders} from "@/lib/db/order";
+import {getUserOrders} from "@/lib/db/order";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/configs/auth";
 import {redirect} from "next/navigation";
@@ -15,7 +15,7 @@ type Props = {
 const OrdersListPage = async ({params: {lang}}: Props) => {
   const session = await getServerSession(authOptions)
   if (session) {
-    const orders = await getOrders(session.user.id)
+    const orders = await getUserOrders(session.user.id)
     if (!orders)
       return <div>User not find</div>
     if (orders.length === 0)

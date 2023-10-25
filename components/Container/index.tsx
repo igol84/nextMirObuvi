@@ -81,13 +81,10 @@ const Container = ({children, brands, cartProducts, session}: Props) => {
             </Flex>
           </Flex>
         </Flex>
-
       </StickNav>
-      <Flex justifyContent='center' alignItems='center'>
-        <Flex backgroundColor='bodyColor' direction='column' w='full' p={[1, 4, 8, 16]} roundedBottom={6} gap='2'>
-          {children}
-        </Flex>
-      </Flex>
+      <Box backgroundColor='bodyColor' minH='700px' p={[1, 4, 8, 16]} roundedBottom={6}>
+        {children}
+      </Box>
       <DrawerMenu brandsItems={brandsItems} isOpen={isMenuOpen} onClose={onMenuClose}/>
     </Box>
   );

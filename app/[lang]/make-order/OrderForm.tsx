@@ -121,7 +121,6 @@ const OrderForm = ({isAuthorized, isCarNotEmpty}: OrderFormProps) => {
       )}
       <SuccessOrderDialog isOpen={isSuccess} isAuthorized={isAuthorized}/>
     </Box>
-
   )
 }
 
