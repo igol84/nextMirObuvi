@@ -61,9 +61,7 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
     }
   })
   return (
-    <main>
-      <BrandPage brandData={brand} productsData={products}/>
-    </main>
+    <BrandPage brandData={brand} productsData={products}/>
   )
 }
 

@@ -11,9 +11,7 @@ const Page = async () => {
   }))
 
   return (
-    <main>
-      <Home brands={brands}/>
-    </main>
+    <Home brands={brands}/>
   );
 };
 

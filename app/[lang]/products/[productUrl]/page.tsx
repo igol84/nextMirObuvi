@@ -6,7 +6,7 @@ import {ProductType} from "@/components/product/types";
 import {ProductSchema} from "@/schemas/data";
 import {createWithEmptySizes} from "@/utility/sizes";
 import '@/app/theme/style.scss'
-import { redirect } from 'next/navigation'
+import {redirect} from 'next/navigation'
 
 type Props = {
   params: {
@@ -59,9 +59,7 @@ async function Page({params: {productUrl, lang}}: Props) {
   const productData: ProductType = productFabrice(lang, productFetchData)
 
   return (
-    <main>
-      <ProductPage productData={productData}/>
-    </main>
+    <ProductPage productData={productData}/>
   );
 }
 

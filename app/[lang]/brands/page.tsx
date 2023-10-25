@@ -21,9 +21,7 @@ const BrandsPage = async () => {
     brandId: brand.id, brandName: brand.name, url: brand.url, isFirst: index < 6
   }))
   return (
-    <main>
-      <Brands brands={brands}/>
-    </main>
+    <Brands brands={brands}/>
   )
 }
 

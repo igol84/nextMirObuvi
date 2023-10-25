@@ -21,9 +21,7 @@ const OrdersListPage = async ({params: {lang}}: Props) => {
     if (orders.length === 0)
       return <div>Empty</div>
     return (
-      <main>
-        <OrdersPage orders={orders}/>
-      </main>
+      <OrdersPage orders={orders}/>
     )
   } else {
     redirect(`/api/auth/signin?callbackUrl=/${lang}/profile/orders-list`)

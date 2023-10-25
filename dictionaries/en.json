@@ -69,5 +69,13 @@
     "emptyCart": "Your cart is empty!",
     "emptyCartImg": "Empty cart image",
     "total": "Total"
+  },
+  "footer": {
+    "contacts": "Contacts",
+    "monFri": "Mon-Fri",
+    "profile": "Profile",
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
+    "orders": "Orders"
   }
 }

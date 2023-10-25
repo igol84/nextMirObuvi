@@ -2,8 +2,11 @@ import semanticTokens from "@/app/theme/foundations/semanticTokens";
 
 const styles = {
   global: {
-    // styles for the `body`
+    html: {
+      height: '100%',
+    },
     body: {
+      height: '100%',
       bg: semanticTokens.colors.bgBodyColor.default,
       _dark: {
         bg: semanticTokens.colors.bgBodyColor._dark,
