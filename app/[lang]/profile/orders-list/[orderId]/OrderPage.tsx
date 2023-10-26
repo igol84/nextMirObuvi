@@ -23,7 +23,7 @@ const OrderPage = ({order, productDetailsByUrl}: Props) => {
               <Td>new</Td>
             </Tr>
             <Tr>
-              <Td>Ім'я та прізвище</Td>
+              <Td>Імя та прізвище</Td>
               <Td>{order.firstName} {order.lastName}</Td>
             </Tr>
             <Tr>

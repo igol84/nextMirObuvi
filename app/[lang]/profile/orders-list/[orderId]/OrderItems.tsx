@@ -18,7 +18,7 @@ const OrderItems = ({orderItems, productDetailsByUrl}: Props) => {
       {orderItems.map(orderItem => {
         summa += orderItem.price * orderItem.quantity
         const url = productDetailsByUrl.get(orderItem.productId)?.url
-        return <OrderItem orderItem={orderItem} url={url ? url : ''}/>
+        return <OrderItem key={orderItem.id} orderItem={orderItem} url={url ? url : ''}/>
       })}
       <Flex p={4} gap={8} w='full' justifyContent='end' sx={{borderWidth: '1px 0 0 0'}}>
         <Text>Всього: {' '}
