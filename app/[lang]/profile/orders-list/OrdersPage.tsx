@@ -1,12 +1,12 @@
 'use client'
 import React from 'react';
 import {Box, Heading, VStack} from "@chakra-ui/react";
-import {OrderWithItems} from "@/lib/db/order";
 import Order from "@/app/[lang]/profile/orders-list/Order";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {IOrder} from "@/app/[lang]/profile/orders-list/types";
 
 interface Props {
-  orders: OrderWithItems[]
+  orders: IOrder[]
 }
 
 const OrdersPage = ({orders}: Props) => {

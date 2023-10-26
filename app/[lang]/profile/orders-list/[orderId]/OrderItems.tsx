@@ -1,29 +1,29 @@
 import React from 'react';
 import {Box, Flex, Text} from "@chakra-ui/react";
-import {OrderItemType} from "@/lib/db/order";
-import OrderItem from "@/app/[lang]/profile/orders-list/[orderId]/OrderItem";
-import {ProductDetailsByUrl} from "@/app/[lang]/make-order/types";
+
+import OrderItem from "./OrderItem";
+import {IOrderItem} from "./types";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 interface Props {
-  orderItems: OrderItemType[]
-  productDetailsByUrl: ProductDetailsByUrl
+  orderItems: IOrderItem[]
 }
 
-const OrderItems = ({orderItems, productDetailsByUrl}: Props) => {
+const OrderItems = ({orderItems}: Props) => {
+  const d = useDictionaryTranslate("orderList")
   let summa = 0
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   return (
     <Flex direction='column' layerStyle='orderDetails'>
-      <Box p={4}>Ваше замовлення</Box>
-      {orderItems.map(orderItem => {
+      <Box p={4}>{d('yourOrder')}</Box>
+      {orderItems.map((orderItem, index) => {
         summa += orderItem.price * orderItem.quantity
-        const url = productDetailsByUrl.get(orderItem.productId)?.url
-        return <OrderItem key={orderItem.id} orderItem={orderItem} url={url ? url : ''}/>
+        return <OrderItem key={index} orderItem={orderItem}/>
       })}
       <Flex p={4} gap={8} w='full' justifyContent='end' sx={{borderWidth: '1px 0 0 0'}}>
-        <Text>Всього: {' '}
+        <Text>{d('inTotal')}: {' '}
           <Text fontSize={24} fontWeight='bold' display='inline'>
-            {UAHFormat.format(summa)}грн.
+            {UAHFormat.format(summa)}{d('pricePrefix')}
           </Text>
         </Text>
       </Flex>

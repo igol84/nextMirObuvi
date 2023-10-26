@@ -1,46 +1,46 @@
 'use client'
 import React from 'react';
 import {Box, Heading, Table, TableContainer, Tbody, Td, Tr} from "@chakra-ui/react";
-import {OrderWithItems} from "@/lib/db/order";
 import OrderItems from "@/app/[lang]/profile/orders-list/[orderId]/OrderItems";
-import {ProductDetailsByUrl} from "@/app/[lang]/make-order/types";
+import {IOrder} from "@/app/[lang]/profile/orders-list/[orderId]/types";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
+
 
 interface Props {
-  order: OrderWithItems
-  productDetailsByUrl: ProductDetailsByUrl
+  order: IOrder
 }
 
-const OrderPage = ({order, productDetailsByUrl}: Props) => {
-
+const OrderPage = ({order}: Props) => {
+  const d = useDictionaryTranslate("orderList")
   return (
     <Box>
-      <Heading>Order №{order.orderNumber}</Heading>
+      <Heading>{d('order')} №{order.orderNumber}</Heading>
       <TableContainer layerStyle='orderInProfile'>
         <Table variant='unstyled'>
           <Tbody>
             <Tr>
-              <Td w='30px'>Статус</Td>
+              <Td w='30px'>{d('status')}</Td>
               <Td>new</Td>
             </Tr>
             <Tr>
-              <Td>Імя та прізвище</Td>
+              <Td>{d('firstLastName')}</Td>
               <Td>{order.firstName} {order.lastName}</Td>
             </Tr>
             <Tr>
-              <Td>Е-пошта</Td>
+              <Td>Е-mail</Td>
               <Td>{order.email}</Td>
             </Tr>
             <Tr>
-              <Td>Телефон</Td>
+              <Td>{d('phoneNumber')}</Td>
               <Td>{order.phone}</Td>
             </Tr>
             <Tr>
-              <Td>Спосіб доставки</Td>
+              <Td>{d('delivery')}</Td>
               <Td>{order.delivery}</Td>
             </Tr>
             <Tr>
               <Td colSpan={2}>
-                <OrderItems orderItems={order.orderItems} productDetailsByUrl={productDetailsByUrl}/>
+                <OrderItems orderItems={order.orderItems}/>
               </Td>
             </Tr>
           </Tbody>

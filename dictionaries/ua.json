@@ -36,8 +36,14 @@
   "orderList": {
     "orders": "Замовлення",
     "order": "Замовлення",
+    "yourOrder": "Ваше замовлення",
     "PC": "шт.",
-    "pricePrefix": "грн."
+    "pricePrefix": "грн.",
+    "inTotal": "Всього",
+    "status": "Статус",
+    "firstLastName": "Ім'я та прізвище",
+    "phoneNumber": "Номер телефону",
+    "delivery": "Спосіб доставки"
   },
   "brands": {
     "title": "Список брендів інтернет магазин взуття Mirobuvi.com.ua",

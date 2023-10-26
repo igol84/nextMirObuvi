@@ -35,8 +35,14 @@
   "orderList": {
     "orders": "Orders",
     "order": "Order",
+    "yourOrder": "Your Order",
     "PC": "PC.",
-    "pricePrefix": "₴"
+    "pricePrefix": "₴",
+    "inTotal": "In total",
+    "status": "Status",
+    "firstLastName": "First and last name",
+    "phoneNumber": "Phone number",
+    "delivery": "Delivery"
   },
   "brands": {
     "title": "List of brands online shoe store Mirobuvi.com.ua",

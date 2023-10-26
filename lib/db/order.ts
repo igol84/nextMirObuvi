@@ -8,8 +8,6 @@ export type OrderWithItems = Prisma.OrderGetPayload<{
   include: { orderItems: true }
 }>
 
-export type OrderItemType = Prisma.OrderItemGetPayload<{}>
-
 type CreateOrderType = {
   (cart: ShoppingCart, orderFormData: OrderFormSchema, productNamesByUrl: ProductDetailsByUrl): Promise<OrderWithItems>
 }

@@ -60,7 +60,6 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
       }
     }
   })
-  console.log(products)
   return (
     <BrandPage brandData={brand} productsData={products}/>
   )
