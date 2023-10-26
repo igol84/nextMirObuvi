@@ -13,7 +13,7 @@ type CreateOrderType = {
 }
 
 export const createOrder: CreateOrderType = async (cart, orderFormData, productDetailsByUrl) => {
-  const orderNumber = await prisma.orderItem.count() + 1
+  const orderNumber = await prisma.order.count() + 1
   return await prisma.order.create({
     data: {
       orderNumber: orderNumber,
