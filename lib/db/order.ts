@@ -8,13 +8,17 @@ export type OrderWithItems = Prisma.OrderGetPayload<{
   include: { orderItems: true }
 }>
 
+export type OrderItemType = Prisma.OrderItemGetPayload<{}>
+
 type CreateOrderType = {
   (cart: ShoppingCart, orderFormData: OrderFormSchema, productNamesByUrl: ProductDetailsByUrl): Promise<OrderWithItems>
 }
 
 export const createOrder: CreateOrderType = async (cart, orderFormData, productDetailsByUrl) => {
+  const orderNumber = await prisma.orderItem.count() + 1
   return await prisma.order.create({
     data: {
+      orderNumber: orderNumber,
       firstName: orderFormData.firstName,
       lastName: orderFormData.lastName,
       delivery: orderFormData.delivery,
@@ -50,4 +54,19 @@ export const getUserOrders = async (userId: string): Promise<OrderWithItems[] | 
   })
   if (!user) return null
   return user.orders
+}
+
+export const getOrder = async (orderId: string): Promise<OrderWithItems | null> => {
+  try {
+    const order = await prisma.order.findUnique({
+      where: {id: orderId},
+      include: {orderItems: true}
+    })
+    if (!order) return null
+    return order
+  }
+  catch {
+    return null
+  }
+
 }

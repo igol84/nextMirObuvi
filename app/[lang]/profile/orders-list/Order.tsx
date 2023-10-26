@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {OrderWithItems} from "@/lib/db/order";
-import {Box, Flex, ListItem, Spacer, Text, UnorderedList} from "@chakra-ui/react";
+import {Badge, Box, Flex, ListItem, Spacer, Text, UnorderedList} from "@chakra-ui/react";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {useRouter} from "next/navigation";
@@ -16,14 +16,18 @@ const Order = ({order}: Props) => {
   const d = useDictionaryTranslate("orderList")
   const router = useRouter();
   const onClick = () => {
-    console.log('click')
-    router.push('/', {scroll: false})
+    router.push(`/${lang}/profile/orders-list/${order.id}`, {scroll: false})
   }
   return (
-    <Flex direction={{base: "column", md: "row"}} onClick={onClick} layerStyle='orderInProfile'>
+    <Flex direction={{base: "column", md: "row"}} onClick={onClick} layerStyle='ordersInProfile'>
       <Box>
-        <Text fontWeight='bold' fontSize={24}>{d('OrderDate')}: </Text>
+        <Text fontWeight='bold' fontSize={24}>{d('order')} №{order.orderNumber} </Text>
         <Text>{order.createdAt.toLocaleString()}</Text>
+      </Box>
+      <Box>
+        <Badge ml='1' colorScheme='green'>
+          New
+        </Badge>
       </Box>
       <Box>
         <Text fontWeight='bold' fontSize={24}>{d('orders')}:</Text>

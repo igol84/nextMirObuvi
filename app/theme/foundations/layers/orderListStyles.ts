@@ -1,5 +1,5 @@
 export const orderListStyles = {
-  orderInProfile: {
+  ordersInProfile: {
     gap: 8,
     alignItems: 'start',
     width: 'full',
@@ -16,5 +16,22 @@ export const orderListStyles = {
         backgroundColor: 'primary.800',
       }
     },
+  },
+  orderInProfile: {
+    gap: 8,
+    alignItems: 'start',
+    width: 'full',
+    border: '1px',
+    mt: 8,
+    borderRadius: 8,
+    borderColor: 'gray.500',
+  },
+  orderDetails: {
+    gap: 2,
+    alignItems: 'start',
+    width: 'full',
+    border: '1px',
+    borderRadius: 8,
+    borderColor: 'gray.500',
   },
 }

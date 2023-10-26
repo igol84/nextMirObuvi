@@ -84,16 +84,17 @@ model VerificationToken {
 }
 
 model Order {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String?     @db.ObjectId
-  createdAt  DateTime    @default(now())
-  firstName  String
-  lastName   String
-  email      String?
-  phone      String
-  delivery   String
-  user       User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  orderItems OrderItem[]
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  orderNumber Int
+  userId      String?     @db.ObjectId
+  createdAt   DateTime    @default(now())
+  firstName   String
+  lastName    String
+  email       String?
+  phone       String
+  delivery    String
+  user        User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderItems  OrderItem[]
 
   @@map("orders")
 }

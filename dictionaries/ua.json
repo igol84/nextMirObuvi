@@ -35,7 +35,7 @@
   },
   "orderList": {
     "orders": "Замовлення",
-    "OrderDate": "Дата замовлення",
+    "order": "Замовлення",
     "PC": "шт.",
     "pricePrefix": "грн."
   },

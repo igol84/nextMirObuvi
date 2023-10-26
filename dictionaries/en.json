@@ -34,7 +34,7 @@
   },
   "orderList": {
     "orders": "Orders",
-    "OrderDate": "Order Date",
+    "order": "Order",
     "PC": "PC.",
     "pricePrefix": "₴"
   },
