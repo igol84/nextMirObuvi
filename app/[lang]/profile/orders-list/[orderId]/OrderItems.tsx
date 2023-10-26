@@ -21,11 +21,12 @@ const OrderItems = ({orderItems}: Props) => {
         return <OrderItem key={index} orderItem={orderItem}/>
       })}
       <Flex p={4} gap={8} w='full' justifyContent='end' sx={{borderWidth: '1px 0 0 0'}}>
-        <Text>{d('inTotal')}: {' '}
+        <Box>
+          <Text>{d('inTotal')}: {' '}</Text>
           <Text fontSize={24} fontWeight='bold' display='inline'>
             {UAHFormat.format(summa)}{d('pricePrefix')}
           </Text>
-        </Text>
+        </Box>
       </Flex>
     </Flex>
   );

@@ -23,7 +23,7 @@ const OrderItem = ({orderItem}: Props) => {
   const size = orderItem.size ? ' ' + orderItem.size : ''
   return (
     <Flex p={4} gap={8} w='full' direction='row' sx={{borderWidth: '1px 0 0 0'}}>
-      <Box  onClick={onClick}>
+      <Box  onClick={onClick} sx={{cursor: 'pointer'}}>
         <ChakraNextImage
           shadow='base' borderRadius={[30, 15]} as={NextImage}
           width={249} height={249} alt={productName}
@@ -32,7 +32,7 @@ const OrderItem = ({orderItem}: Props) => {
       </Box>
       <Flex direction='column'>
         <Box>{productName}{size}</Box>
-        <Box>{UAHFormat.format(orderItem.price)}{d('pricePrefix')} × {orderItem.quantity} =
+        <Box>{UAHFormat.format(orderItem.price)}{d('pricePrefix')} × {orderItem.quantity} = {' '}
           <Text as='span' fontWeight='bold'>
             {UAHFormat.format(orderItem.price * orderItem.quantity)}{d('pricePrefix')}
           </Text>
