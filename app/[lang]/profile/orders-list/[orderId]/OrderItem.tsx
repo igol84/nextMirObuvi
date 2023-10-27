@@ -19,18 +19,21 @@ const OrderItem = ({orderItem}: Props) => {
 
   const size = orderItem.size ? ' ' + orderItem.size : ''
   return (
-    <Flex p={4} gap={8} w='full' direction='row' sx={{borderWidth: '1px 0 0 0'}}>
-      <Link
-        as={NextLink} href={`/${lang}/products/${orderItem.url}`}
-        _hover={{color: 'hoverLinkTextColor'}}
-      >
-        <ChakraNextImage
-          shadow='base' borderRadius={[30, 15]} as={NextImage}
-          width={249} height={249} alt={productName}
-          src={`https://mirobuvi.com.ua/ftp_products/${orderItem.imgUrl}/02.jpg`}
-        />
-      </Link>
-      <Flex direction='column'>
+    <Flex p={4} gap={8} w='full' direction={{base: "column", sm: "row"}} sx={{borderWidth: '1px 0 0 0'}}>
+      <Box w={{base: 200, sm: 320}}>
+        <Link
+          as={NextLink} href={`/${lang}/products/${orderItem.url}`}
+          _hover={{color: 'hoverLinkTextColor'}}
+        >
+          <ChakraNextImage
+            as={NextImage} src={`https://mirobuvi.com.ua/ftp_products/${orderItem.imgUrl}/02.jpg`}
+            alt={'image'} width={0} height={0} sizes="100vw" borderRadius={[30, 15]}
+            style={{width: '100%', height: 'auto'}} priority={true}
+          />
+
+        </Link>
+      </Box>
+      <Flex w='full' direction="column">
         <Box>{productName}{size}</Box>
         <Box>{UAHFormat.format(orderItem.price)}{d('pricePrefix')} × {orderItem.quantity} = {' '}
           <Text as='span' fontWeight='bold'>

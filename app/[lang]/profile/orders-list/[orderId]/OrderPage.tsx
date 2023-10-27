@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import {Box, Heading, Table, TableContainer, Tbody, Td, Tr} from "@chakra-ui/react";
+import {Box, Flex, Heading} from "@chakra-ui/react";
 import OrderItems from "@/app/[lang]/profile/orders-list/[orderId]/OrderItems";
 import {IOrder} from "@/app/[lang]/profile/orders-list/[orderId]/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
@@ -15,37 +15,29 @@ const OrderPage = ({order}: Props) => {
   return (
     <Box>
       <Heading>{d('order')} №{order.orderNumber}</Heading>
-      <TableContainer layerStyle='orderInProfile'>
-        <Table variant='unstyled'>
-          <Tbody>
-            <Tr>
-              <Td w='30px'>{d('status')}</Td>
-              <Td>new</Td>
-            </Tr>
-            <Tr>
-              <Td>{d('firstLastName')}</Td>
-              <Td>{order.firstName} {order.lastName}</Td>
-            </Tr>
-            <Tr>
-              <Td>Е-mail</Td>
-              <Td>{order.email}</Td>
-            </Tr>
-            <Tr>
-              <Td>{d('phoneNumber')}</Td>
-              <Td>{order.phone}</Td>
-            </Tr>
-            <Tr>
-              <Td>{d('delivery')}</Td>
-              <Td>{order.delivery}</Td>
-            </Tr>
-            <Tr>
-              <Td colSpan={2}>
-                <OrderItems orderItems={order.orderItems}/>
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <Flex direction='column' layerStyle='orderInProfile' p={{base: 4, sm: 8}}>
+        <Flex w='full'>
+          <Box w={{base: '100px', sm: '200px'}}>{d('status')}</Box>
+          <Box>new</Box>
+        </Flex>
+        <Flex w='full'>
+          <Box w={{base: '100px', sm: '200px'}}>{d('firstLastName')}</Box>
+          <Box>{order.firstName} {order.lastName}</Box>
+        </Flex>
+        <Flex w='full'>
+          <Box w={{base: '100px', sm: '200px'}}>Е-mail</Box>
+          <Box>{order.email}</Box>
+        </Flex>
+        <Flex w='full'>
+          <Box w={{base: '100px', sm: '200px'}}>{d('phoneNumber')}</Box>
+          <Box>{order.phone}</Box>
+        </Flex>
+        <Flex w='full'>
+          <Box w={{base: '100px', sm: '200px'}}>{d('delivery')}</Box>
+          <Box>{order.delivery}</Box>
+        </Flex>
+        <OrderItems orderItems={order.orderItems}/>
+      </Flex>
     </Box>
   );
 };

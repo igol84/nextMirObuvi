@@ -14,13 +14,13 @@ const OrderItems = ({orderItems}: Props) => {
   let summa = 0
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   return (
-    <Flex direction='column' layerStyle='orderDetails'>
-      <Box p={4}>{d('yourOrder')}</Box>
+    <Flex direction='column' w='full' layerStyle='orderDetail'>
+      <Box p={4} >{d('yourOrder')}</Box>
       {orderItems.map((orderItem, index) => {
         summa += orderItem.price * orderItem.quantity
         return <OrderItem key={index} orderItem={orderItem}/>
       })}
-      <Flex p={4} gap={8} w='full' justifyContent='end' sx={{borderWidth: '1px 0 0 0'}}>
+      <Flex p={4} w='full' gap={8} justifyContent='end' sx={{borderWidth: '1px 0 0 0'}}>
         <Box>
           <Text>{d('inTotal')}: {' '}</Text>
           <Text fontSize={24} fontWeight='bold' display='inline'>
