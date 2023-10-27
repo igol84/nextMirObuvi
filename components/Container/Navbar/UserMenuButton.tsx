@@ -26,7 +26,7 @@ export default function UserMenuButton({session}: Props) {
   const {onOpen, onClose, isOpen} = useDisclosure()
   const d = useDictionaryTranslate("home")
   return (
-    <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
+    <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose} autoFocus={false}>
       <PopoverTrigger>
         {user ? (
             <Avatar name={user?.name || ''} src={user?.image || undefined} size={'sm'} sx={{cursor: 'pointer'}}/>
