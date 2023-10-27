@@ -16,6 +16,10 @@
     "signIn": "Увійти",
     "orders": "Замовлення"
   },
+  "breadcrumb": {
+    "home": "Додому",
+    "brands": "Бренди"
+  },
   "orderForm": {
     "clientData": "Дані клієнта",
     "firstName": "Ім'я",

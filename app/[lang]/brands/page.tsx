@@ -3,6 +3,7 @@ import Brands from "@/components/Brands";
 import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 import {getBrandsData} from "@/app/api/fetchFunctions";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
+import BreadCrumb from "@/components/base/BreadCrumb";
 
 export async function generateMetadata({params: {lang}}: { params: { lang: Lang } }) {
   const dict = await getDictionary(lang)
@@ -21,7 +22,11 @@ const BrandsPage = async () => {
     brandId: brand.id, brandName: brand.name, url: brand.url, isFirst: index < 6
   }))
   return (
-    <Brands brands={brands}/>
+    <>
+      <BreadCrumb data={{current: "brands"}} />
+      <Brands brands={brands}/>
+    </>
+
   )
 }
 

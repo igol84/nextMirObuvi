@@ -17,7 +17,7 @@ const Order = ({order}: Props) => {
   const d = useDictionaryTranslate("orderList")
   const router = useRouter();
   const onClick = () => {
-    router.push(`/${lang}/profile/orders-list/${order.id}`, {scroll: false})
+    router.push(`/${lang}/profile/orders-list/${order.id}`)
   }
   return (
     <Flex direction={{base: "column", md: "row"}} onClick={onClick} layerStyle='ordersInProfile'>

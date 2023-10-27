@@ -6,6 +6,7 @@ import {Lang} from "@/dictionaries/get-dictionary";
 import {BrandProps} from "@/components/Brands/types";
 import {ProductType} from "@/components/Products/types";
 import {redirect} from "next/navigation";
+import {BreadCrumbData} from "@/components/base/BreadCrumb";
 
 type Props = {
   params: {
@@ -60,8 +61,13 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
       }
     }
   })
+  const breadCrumbData: BreadCrumbData = {
+    brand: brandData.name,
+    brandUrl: brandData.url,
+    current: 'brand'
+  }
   return (
-    <BrandPage brandData={brand} productsData={products}/>
+    <BrandPage brandData={brand} productsData={products} breadCrumbData={breadCrumbData}/>
   )
 }
 

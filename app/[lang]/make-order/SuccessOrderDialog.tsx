@@ -25,9 +25,9 @@ const SuccessOrderDialog = ({isOpen, isAuthorized}: Props) => {
   const router = useRouter()
   const onClose = () => {
     if(isAuthorized){
-      router.push(`/${lang}/profile/orders-list`, {scroll: false})
+      router.push(`/${lang}/profile/orders-list`)
     } else {
-      router.push(`/${lang}`, {scroll: false})
+      router.push(`/${lang}`)
     }
   }
   return (

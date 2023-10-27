@@ -7,6 +7,7 @@ import {ProductSchema} from "@/schemas/data";
 import {createWithEmptySizes} from "@/utility/sizes";
 import '@/app/theme/style.scss'
 import {redirect} from 'next/navigation'
+import {BreadCrumbData} from "@/components/base/BreadCrumb";
 
 type Props = {
   params: {
@@ -53,13 +54,24 @@ function productFabrice(lang: Lang, product: ProductSchema): ProductType {
   }
 }
 
+function getBreadCrumbData(lang: Lang, product: ProductSchema): BreadCrumbData {
+  const name = lang === 'en' ? product.name : product.name_ua
+  return {
+    product: name,
+    brand: product.brand ? product.brand : '',
+    brandUrl: product.brand_url ? product.brand_url : '',
+    current: 'product'
+  }
+}
+
 async function Page({params: {productUrl, lang}}: Props) {
   const productFetchData = await getProductData(productUrl)
   if (!productFetchData) redirect(`/`)
   const productData: ProductType = productFabrice(lang, productFetchData)
+  const breadCrumbData: BreadCrumbData = getBreadCrumbData(lang, productFetchData)
 
   return (
-    <ProductPage productData={productData}/>
+    <ProductPage productData={productData} breadCrumbData={breadCrumbData}/>
   );
 }
 

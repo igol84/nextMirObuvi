@@ -4,6 +4,7 @@ import {Box, Flex, Heading} from "@chakra-ui/react";
 import OrderItems from "@/app/[lang]/profile/orders-list/[orderId]/OrderItems";
 import {IOrder} from "@/app/[lang]/profile/orders-list/[orderId]/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import BreadCrumb from "@/app/[lang]/profile/orders-list/[orderId]/BreadCrumb";
 
 
 interface Props {
@@ -14,6 +15,7 @@ const OrderPage = ({order}: Props) => {
   const d = useDictionaryTranslate("orderList")
   return (
     <Box>
+      <BreadCrumb text={`№${order.orderNumber}`}/>
       <Heading>{d('order')} №{order.orderNumber}</Heading>
       <Flex direction='column' layerStyle='orderInProfile' p={{base: 4, sm: 8}}>
         <Flex w='full'>

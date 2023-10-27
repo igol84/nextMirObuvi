@@ -28,6 +28,7 @@ export interface ProductSchema {
   price: number
   images: string[]
   brand: string | null
+  brand_url: string | null
   sizes: SizeSchema[]
   desc: string
   desc_ua: string

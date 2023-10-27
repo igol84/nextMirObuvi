@@ -15,6 +15,10 @@
     "signIn": "Sign In",
     "orders": "Orders"
   },
+  "breadcrumb": {
+    "home": "Home",
+    "brands": "Brands"
+  },
   "orderForm": {
     "clientData": "Client data",
     "firstName": "First name",
