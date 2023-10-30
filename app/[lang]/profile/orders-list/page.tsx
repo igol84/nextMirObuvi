@@ -4,8 +4,16 @@ import {getUserOrders} from "@/lib/db/order";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/configs/auth";
 import {redirect} from "next/navigation";
-import {Lang} from "@/dictionaries/get-dictionary";
+import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import {IOrder, IOrderItem} from "@/app/[lang]/profile/orders-list/types";
+
+export async function generateMetadata({ params: {lang} }: { params: { lang: Lang } }) {
+  const dict = await getDictionary(lang)
+  return {
+    title: dict.orderList.title,
+    description:dict.orderList.description,
+  }
+}
 
 type Props = {
   params: {

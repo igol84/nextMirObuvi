@@ -37,6 +37,8 @@
     "dialogSuccessBody2": "Wait for delivery."
   },
   "orderList": {
+    "title": "Orders",
+    "description": "Orders",
     "orders": "Orders",
     "order": "Order",
     "yourOrder": "Your Order",
@@ -87,5 +89,9 @@
     "signOut": "Sign Out",
     "signIn": "Sign In",
     "orders": "Orders"
+  },
+  "admin": {
+    "title": "Admin",
+    "description": "Admin Panel"
   }
 }

@@ -9,6 +9,7 @@ import {getCart} from "@/lib/db/cart";
 import {getCartData, ProductCart} from "@/lib/cartFunctions";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/configs/auth";
+import { env } from "@/lib/env";
 
 export const dynamic = 'force-dynamic'
 
@@ -22,7 +23,7 @@ const roboto = Roboto({
 export async function generateMetadata({ params: {lang} }: { params: { lang: Lang } }) {
   const dict = await getDictionary(lang)
   return {
-    metadataBase: new URL('https://mir-obuvi.vercel.app'),
+    metadataBase: new URL(env.URL),
     title: dict.home.title,
     description:dict.home.description,
     openGraph: {

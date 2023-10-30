@@ -3,7 +3,15 @@ import OrderPage from "@/app/[lang]/profile/orders-list/[orderId]/OrderPage";
 import {getOrder} from "@/lib/db/order";
 import {getProductData} from "@/app/api/fetchFunctions";
 import {IOrder, IOrderItem} from "@/app/[lang]/profile/orders-list/[orderId]/types";
+import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 
+export async function generateMetadata({ params: {lang} }: { params: { lang: Lang } }) {
+  const dict = await getDictionary(lang)
+  return {
+    title: dict.orderList.title,
+    description:dict.orderList.description,
+  }
+}
 
 type Props = {
   params: {
