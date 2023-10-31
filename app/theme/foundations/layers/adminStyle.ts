@@ -18,6 +18,12 @@ export const adminStyles = {
   adminOrder: {
     gap: 4,
     p: 2,
+    borderRadius: '8px 8px 0 0',
+    bgColor: 'gray.200',
+    _dark:{
+      bgColor: 'gray.600',
+      color: 'white'
+    },
     alignItems:'center',
     justifyContent:'space-around',
   },

@@ -37,7 +37,7 @@ const Order = ({order}: Props) => {
   })
   return (
     <Box layerStyle='adminOrderWithItems'>
-      <Flex layerStyle='adminOrder' direction={{base: "column", xl: "row"}}>
+      <Flex layerStyle='adminOrder' direction={{base: "column", md: "row"}}>
         <Box>№{order.orderNumber}</Box>
         <Box>{order.createdAt.toLocaleString()}</Box>
         <Box>{order.firstName} {order.lastName}</Box>
