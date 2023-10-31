@@ -28,7 +28,7 @@ const OrderItem = ({orderItem}: Props) => {
           <ChakraNextImage
             as={NextImage} src={`https://mirobuvi.com.ua/ftp_products/${orderItem.imgUrl}/02.jpg`}
             alt={'image'} width={0} height={0} sizes="100vw" borderRadius={[30, 15]}
-            style={{width: '100%', height: 'auto'}} priority={true}
+            style={{width: '100%', height: 'auto'}}
           />
 
         </Link>

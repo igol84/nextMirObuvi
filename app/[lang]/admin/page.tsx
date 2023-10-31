@@ -1,9 +1,5 @@
-import React from 'react';
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/configs/auth";
 import {redirect} from "next/navigation";
-import {env} from "@/lib/env";
 
 export async function generateMetadata({params: {lang}}: { params: { lang: Lang } }) {
   const dict = await getDictionary(lang)
@@ -13,24 +9,14 @@ export async function generateMetadata({params: {lang}}: { params: { lang: Lang 
   }
 }
 
-async function AdminPage({params: {lang}}: { params: { lang: Lang } }) {
-  const session = await getServerSession(authOptions)
-  if (!session) {
-    redirect(`/api/auth/signin?callbackUrl=/${lang}/admin`)
-  } else {
-    const user = session.user;
-    const admins = JSON.parse(env.ADMINS)
-    if (!admins.includes(String(user.email)))
-      return (
-        <div>You are not admin!</div>
-      )
-    else {
-      return (
-        <div>Welcome admin!</div>
-      )
-    }
+type Props = {
+  params: {
+    lang: Lang
   }
-
 }
 
-export default AdminPage;
+async function Page({params: {lang}}: Props) {
+  redirect(`/${lang}/admin/orders`)
+}
+
+export default Page;

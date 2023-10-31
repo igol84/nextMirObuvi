@@ -8,17 +8,17 @@ export async function GET(request: Request) {
   const data: Data = await res.json()
 
   const brandId = searchParams.get('brandId')
-  if(brandId){
+  if (brandId) {
     const products = data.products.filter(product => product.brand_id === Number(brandId))
     return NextResponse.json(products)
   }
 
   const productUrl = searchParams.get('url')
-  if(productUrl){
+  if (productUrl) {
     const product = data.products.find(product => product.url === productUrl)
     return NextResponse.json(product)
   }
 
-  const products = data.products.map(product=>({url: product.url}))
+  const products = data.products.map(product => ({url: product.url}))
   return NextResponse.json(products)
 }

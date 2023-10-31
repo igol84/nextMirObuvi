@@ -12,10 +12,11 @@ import {
   useDisclosure,
   VStack
 } from "@chakra-ui/react";
-import React from "react";
+import React, {useContext} from "react";
 import {BiUser} from "react-icons/bi";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import Link from "next/link";
+import {IsAdminContext} from "@/app/providers";
 
 interface Props {
   session: Session | null;
@@ -25,6 +26,7 @@ export default function UserMenuButton({session}: Props) {
   const user = session?.user;
   const {onOpen, onClose, isOpen} = useDisclosure()
   const d = useDictionaryTranslate("home")
+  const isAdmin = useContext(IsAdminContext)
   return (
     <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose} autoFocus={false}>
       <PopoverTrigger>
@@ -38,8 +40,14 @@ export default function UserMenuButton({session}: Props) {
       <PopoverContent w='auto'>
         <PopoverArrow/>
         <PopoverBody>
+
           {user ? (
               <VStack align='flex-start'>
+                {isAdmin && (
+                  <Link href={'/admin'} onClick={onClose}>
+                    {d('admin')}
+                  </Link>
+                )}
                 <Link href={'/profile/orders-list'} onClick={onClose}>
                   {d('orders')}
                 </Link>

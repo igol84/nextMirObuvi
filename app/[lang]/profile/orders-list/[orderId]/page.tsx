@@ -44,7 +44,7 @@ async function orderPage({params: {orderId}}: Props) {
       orderNumber: order.orderNumber,
       delivery: order.delivery,
       email: order.email ? order.email : '',
-      phone: order.phone
+      phone: `0${order.phone}`
     }
     return (
       <OrderPage order={orderData}/>

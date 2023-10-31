@@ -13,7 +13,8 @@
     "close": "Close",
     "signOut": "Sign Out",
     "signIn": "Sign In",
-    "orders": "Orders"
+    "orders": "Orders",
+    "admin": "Admin Panel"
   },
   "breadcrumb": {
     "home": "Home",
@@ -92,6 +93,7 @@
   },
   "admin": {
     "title": "Admin",
-    "description": "Admin Panel"
+    "description": "Admin Panel",
+    "orders": "Orders"
   }
 }

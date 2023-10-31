@@ -11,7 +11,7 @@ export async function getBrandsData(): Promise<BrandSchema[]> {
 export async function getBrandData(name: string): Promise<BrandSchema | undefined> {
   try {
     const res = await fetch(`${api}/brand/by-url/${name}`, {next: {revalidate: 3600}})
-    if(res.ok)
+    if (res.ok)
       return await res.json()
   } catch (error) {
     console.log('There was an error', error);
@@ -26,7 +26,7 @@ export async function getProductsData(): Promise<ProductSchema[]> {
 export async function getProductsDataByBrandId(brandId: number): Promise<ProductSchema[] | undefined> {
   try {
     const res = await fetch(`${api}/showcase/products-by-brand-id/${brandId}`, {next: {revalidate: 3600}})
-    if(res.ok)
+    if (res.ok)
       return await res.json()
   } catch (error) {
     console.log('There was an error', error);
@@ -36,7 +36,7 @@ export async function getProductsDataByBrandId(brandId: number): Promise<Product
 export async function getProductData(url: string): Promise<ProductSchema | undefined> {
   try {
     const res = await fetch(`${api}/showcase/product-by-url/${url}`, {next: {revalidate: 3600}})
-    if(res.ok)
+    if (res.ok)
       return await res.json()
   } catch (error) {
     console.log('There was an error', error);

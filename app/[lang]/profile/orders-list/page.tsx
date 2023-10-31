@@ -25,10 +25,8 @@ const OrdersListPage = async ({params: {lang}}: Props) => {
   const session = await getServerSession(authOptions)
   if (session) {
     const orders = await getUserOrders(session.user.id)
-    if (!orders)
+    if (!orders || orders.length === 0)
       return <div>User not find</div>
-    if (orders.length === 0)
-      return <div>Order is Empty</div>
 
     const orderData: IOrder[] = orders.map(order => {
       const orderItems: IOrderItem[] = order.orderItems.map(orderItem => ({

@@ -1,5 +1,6 @@
 import {sizeStyles} from "@/app/theme/foundations/layers/sizeStyles";
 import {orderListStyles} from "@/app/theme/foundations/layers/orderListStyles";
+import {adminStyles} from "@/app/theme/foundations/layers/adminStyle";
 
 const layerStyles = {
   base: {
@@ -13,7 +14,8 @@ const layerStyles = {
     borderColor: 'orange.500',
   },
   ...sizeStyles,
-  ...orderListStyles
+  ...orderListStyles,
+  ...adminStyles
 }
 
 export default layerStyles

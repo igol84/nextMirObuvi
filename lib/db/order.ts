@@ -66,5 +66,18 @@ export const getOrder = async (orderId: string): Promise<OrderWithItems | null> 
   catch {
     return null
   }
+}
 
+export const getOrders = async (): Promise<OrderWithItems[] | null> => {
+  try {
+    const order = await prisma.order.findMany({
+      include: {orderItems: true},
+      orderBy: {createdAt: 'desc'}
+    })
+    if (!order) return null
+    return order
+  }
+  catch {
+    return null
+  }
 }
