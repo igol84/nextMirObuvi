@@ -6,14 +6,20 @@ export const adminStyles = {
     borderRadius: 8,
     borderColor: 'gray.500',
   },
-  adminProduct: {
+  adminOrderWithItems: {
     gap: 4,
-    p: 2,
+    mb: 2,
     alignItems:'center',
     justifyContent:'space-around',
     border: '1px',
     borderRadius: 8,
     borderColor: 'gray.500',
+  },
+  adminOrder: {
+    gap: 4,
+    p: 2,
+    alignItems:'center',
+    justifyContent:'space-around',
   },
 
 }

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Box, Flex, Link} from "@chakra-ui/react";
+import {Box, Divider, Flex, Link} from "@chakra-ui/react";
 import {IOrder} from "@/app/[lang]/admin/orders/types";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
@@ -36,8 +36,8 @@ const Order = ({order}: Props) => {
     )
   })
   return (
-    <Box layerStyle='adminProduct'>
-      <Flex layerStyle='adminProduct' direction={{base: "column", xl: "row"}}>
+    <Box layerStyle='adminOrderWithItems'>
+      <Flex layerStyle='adminOrder' direction={{base: "column", xl: "row"}}>
         <Box>№{order.orderNumber}</Box>
         <Box>{order.createdAt.toLocaleString()}</Box>
         <Box>{order.firstName} {order.lastName}</Box>
@@ -47,6 +47,7 @@ const Order = ({order}: Props) => {
 
         <Box>{UAHFormat.format(sum)}{d('pricePrefix')}</Box>
       </Flex>
+      <Divider/>
       <Flex direction="column" p={2} gap={2}>{products}</Flex>
     </Box>
   );
