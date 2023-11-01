@@ -24,6 +24,7 @@ const PaginationBar = ({currentPage, totalPages, pageSize}: PaginationBarProps) 
       return
     router.push('?page=' + page)
   }
+  if (totalPages === 1) return null
   return (
     <ButtonGroup size='sm' isAttached width='full' justifyContent='center'>
       <IconButton aria-label='First Page' icon={<BiFirstPage/>} variant={'pagination' + variantFirstPage}

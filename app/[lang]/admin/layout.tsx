@@ -30,7 +30,10 @@ export default async function RootLayout(
   }
   const user = session.user;
   const admins = JSON.parse(env.ADMINS)
-  if (!admins.includes(String(user.email)))
-    return <div>You are not admin!</div>
+  if (!admins.includes(String(user.email))){
+    const dict = await getDictionary(lang)
+    return <div>{dict.home.notAdmin}</div>
+  }
+
   return <Container>{children}</Container>
 }
