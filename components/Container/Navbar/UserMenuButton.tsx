@@ -17,6 +17,7 @@ import {BiUser} from "react-icons/bi";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import Link from "next/link";
 import {IsAdminContext} from "@/app/providers";
+import {LangContext} from "@/locale/LangProvider";
 
 interface Props {
   session: Session | null;
@@ -26,6 +27,7 @@ export default function UserMenuButton({session}: Props) {
   const user = session?.user;
   const {onOpen, onClose, isOpen} = useDisclosure()
   const d = useDictionaryTranslate("home")
+  const lang = useContext(LangContext)
   const isAdmin = useContext(IsAdminContext)
   return (
     <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose} autoFocus={false}>
@@ -44,11 +46,11 @@ export default function UserMenuButton({session}: Props) {
           {user ? (
               <VStack align='flex-start'>
                 {isAdmin && (
-                  <Link href={'/admin'} onClick={onClose}>
+                  <Link href={`/${lang}/admin/orders`} onClick={onClose}>
                     {d('admin')}
                   </Link>
                 )}
-                <Link href={'/profile/orders-list'} onClick={onClose}>
+                <Link href={`/${lang}/profile/orders-list`} onClick={onClose}>
                   {d('orders')}
                 </Link>
                 <Link href='#' onClick={() => signOut()}>

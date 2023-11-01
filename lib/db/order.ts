@@ -62,22 +62,24 @@ export const getOrder = async (orderId: string): Promise<OrderWithItems | null> 
     })
     if (!order) return null
     return order
-  }
-  catch {
+  } catch {
     return null
   }
 }
-
-export const getOrders = async (): Promise<OrderWithItems[] | null> => {
+export const getTotalOrderCount = async (): Promise<number> => {
+  return await prisma.order.count();
+}
+export const getOrders = async (currentPage: number, pageSize: number): Promise<OrderWithItems[] | null> => {
   try {
     const order = await prisma.order.findMany({
       include: {orderItems: true},
+      skip: (currentPage - 1) * pageSize,
+      take: pageSize,
       orderBy: {createdAt: 'desc'}
     })
     if (!order) return null
     return order
-  }
-  catch {
+  } catch {
     return null
   }
 }

@@ -1,11 +1,19 @@
 import React from 'react';
 import OrdersPage from "./OrdersPage";
-import {getOrders} from "@/lib/db/order";
+import {getOrders, getTotalOrderCount} from "@/lib/db/order";
 import {IOrder, IOrderItem} from "./types";
 import {getProductData} from "@/app/api/fetchFunctions";
 
-const Page = async () => {
-  const ordersData = await getOrders()
+interface Props {
+  searchParams: { page: string };
+}
+
+const pageSize = 6
+const Page = async ({searchParams: {page = "1"}}: Props) => {
+  const currentPage = parseInt(page)
+  const totalOrderCount = await getTotalOrderCount()
+  const totalPages = Math.ceil(totalOrderCount / pageSize);
+  const ordersData = await getOrders(currentPage, pageSize)
   if (!ordersData || ordersData.length === 0)
     return <div>Orders not find</div>
   const orders: IOrder[] = []
@@ -38,8 +46,9 @@ const Page = async () => {
       phone: `0${order.phone}`
     })
   }
+
   return (
-    <OrdersPage orders={orders}/>
+    <OrdersPage orders={orders} pagination={{pageSize, totalPages, currentPage}}/>
   );
 };
 

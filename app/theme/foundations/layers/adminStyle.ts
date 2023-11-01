@@ -27,5 +27,11 @@ export const adminStyles = {
     alignItems:'center',
     justifyContent:'space-around',
   },
+  selectedPagination: {
+    bgColor: 'gray.200',
+    _dark:{
+      bgColor: 'gray.600',
+    },
+  },
 
 }

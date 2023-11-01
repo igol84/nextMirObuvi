@@ -114,6 +114,32 @@ const Button = defineStyleConfig({
         },
       }
     },
+    pagination: {
+      bg: 'gray.200',
+      color: 'gray.900',
+      _hover: {
+        bg: 'gray.300',
+        color: 'gray.900',
+        textDecoration: 'none',
+      },
+      _dark: {
+        bg: 'gray.600',
+        color: 'white',
+        _hover: {
+          bg: 'gray.500',
+          color: 'white',
+        },
+      }
+    },
+    paginationSelected: {
+      cursor: 'default',
+      bg: 'gray.300',
+      color: 'gray.900',
+      _dark: {
+        bg: 'gray.500',
+        color: 'white',
+      }
+    },
     colorful: colorfulVariant,
   },
   // The default size and variant values
