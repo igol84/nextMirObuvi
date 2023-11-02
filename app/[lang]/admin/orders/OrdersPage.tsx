@@ -1,5 +1,5 @@
 'use client'
-import {Box} from "@chakra-ui/react";
+import {Box, Flex} from "@chakra-ui/react";
 import React from 'react';
 import {IOrder} from "./types";
 import Order from "./Order";
@@ -13,13 +13,13 @@ interface Props {
 const OrdersPage = ({orders, pagination: {currentPage, totalPages, pageSize}}: Props) => {
   return (
     <Box>
-      <Box pb={2}>
+      <Flex pb={2} justifyContent='center'>
         <PaginationBar currentPage={currentPage} totalPages={totalPages} pageSize={pageSize}/>
-      </Box>
+      </Flex>
       {orders.map(order => <Order key={order.id} order={order}/>)}
-      <Box pt={2}>
+      <Flex pt={2} justifyContent='center'>
         <PaginationBar currentPage={currentPage} totalPages={totalPages} pageSize={pageSize}/>
-      </Box>
+      </Flex>
     </Box>
   );
 };

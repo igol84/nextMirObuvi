@@ -9,7 +9,6 @@ import {getProductData} from "@/app/api/fetchFunctions";
 export const serverAction = async (orderFormData: OrderFormSchema): Promise<Response> => {
   const result: SafeParseReturnType<OrderFormSchema, OrderFormSchema> = schema.safeParse(orderFormData)
 
-  await new Promise(release => setTimeout(release, 1000))
   const zodErrors: ErrorField[] = []
   if (!result.success) {
     result.error.issues.forEach(issue => {
@@ -19,17 +18,17 @@ export const serverAction = async (orderFormData: OrderFormSchema): Promise<Resp
   }
   const cart = await getCart()
   if (cart && cart.items.length) {
-    const productDetailsByUrl:  ProductDetailsByUrl = new Map()
+    const productDetailsByUrl: ProductDetailsByUrl = new Map()
     for (const item of cart.items) {
       const productData = await getProductData(item.productId)
-      if(productData)
+      if (productData)
         productDetailsByUrl.set(item.productId,
           {ua: productData.name_ua, en: productData.name, price: productData.price}
         )
     }
     await createOrder(cart, orderFormData, productDetailsByUrl)
     await deleteCart(cart.id)
-    revalidatePath("/")
+    revalidatePath("/[lang]/profile/orders-list")
     return {success: true}
   }
   return {success: false, serverErrors: 'Cart not defined or empty'}

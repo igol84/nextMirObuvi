@@ -26,7 +26,7 @@ const Page = async ({searchParams: {page = "1"}, params: {lang}}: Props) => {
   const totalPages = Math.ceil(totalOrderCount / pageSize);
   const ordersData = await getOrders(currentPage, pageSize)
   if (!ordersData || ordersData.length === 0)
-    return <div>{dict.orderList.OrdersNotFind}</div>
+    return <div>{dict.orderList.ordersNotFound}</div>
   const orders: IOrder[] = []
 
   for (const order of ordersData) {

@@ -2,6 +2,7 @@ import {Prisma} from "@prisma/client";
 import {OrderFormSchema, ProductDetailsByUrl} from "@/app/[lang]/make-order/types";
 import {prisma} from "@/lib/db/prisma";
 import {ShoppingCart} from "@/lib/db/cart";
+import {OrderEditFormSchema} from "@/app/[lang]/admin/orders/[orderId]/types";
 
 
 export type OrderWithItems = Prisma.OrderGetPayload<{
@@ -13,10 +14,12 @@ type CreateOrderType = {
 }
 
 export const createOrder: CreateOrderType = async (cart, orderFormData, productDetailsByUrl) => {
-  const orderNumber = await prisma.order.count() + 1
+  const nextOrderNumber = await prisma.order.aggregate({
+    _max: {orderNumber: true}
+  }).then(data => data._max.orderNumber).then(number => number ? number + 1 : 1)
   return await prisma.order.create({
     data: {
-      orderNumber: orderNumber,
+      orderNumber: nextOrderNumber,
       firstName: orderFormData.firstName,
       lastName: orderFormData.lastName,
       delivery: orderFormData.delivery,
@@ -42,6 +45,27 @@ export const createOrder: CreateOrderType = async (cart, orderFormData, productD
       }
     },
     include: {orderItems: true}
+  })
+}
+
+export const editOrder = async (order: OrderEditFormSchema) => {
+  await prisma.order.update({
+    where: {id: order.id},
+    data: {
+      firstName: order.firstName,
+      lastName: order.lastName,
+      email: order.email,
+      phone: order.phone,
+      delivery: order.delivery
+    }
+  })
+}
+
+export const deleteOrder = async (orderId: string) => {
+  await prisma.order.delete({
+    where: {
+      id: orderId
+    }
   })
 }
 

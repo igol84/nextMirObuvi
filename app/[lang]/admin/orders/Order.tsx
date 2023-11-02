@@ -6,6 +6,8 @@ import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
 import NextImage from "next/image";
 import NextLink from "next/link";
+import {Icon} from "@chakra-ui/icons";
+import {AiFillEdit} from "react-icons/ai";
 
 interface Props {
   order: IOrder
@@ -35,16 +37,20 @@ const Order = ({order}: Props) => {
       </Box>
     )
   })
+
   return (
-    <Box layerStyle='adminOrderWithItems'>
+    <Box layerStyle='adminOrderWithItems' boxShadow='2xl'>
       <Flex layerStyle='adminOrder' direction={{base: "column", md: "row"}}>
-        <Box>№{order.orderNumber}</Box>
+        <Box>
+          <Link as={NextLink} href={`orders/${order.id}`}>
+            <Flex>№{order.orderNumber}<Icon as={AiFillEdit} boxSize={6}/></Flex>
+          </Link>
+        </Box>
         <Box>{order.createdAt.toLocaleString()}</Box>
         <Box>{order.firstName} {order.lastName}</Box>
         <Box>{order.phone}</Box>
         <Box>{order.delivery}</Box>
         {!!order.email && <Box>{order.email}</Box>}
-
         <Box>{UAHFormat.format(sum)}{d('pricePrefix')}</Box>
       </Flex>
       <Divider/>

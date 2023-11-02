@@ -37,7 +37,13 @@
     "submit": "Submit",
     "dialogSuccessHeader": "The order has been placed",
     "dialogSuccessBody1": "The order has been successfully placed.",
-    "dialogSuccessBody2": "Wait for delivery."
+    "dialogSuccessBody2": "Wait for delivery.",
+    "save": "Save",
+    "back": "Back",
+    "delete": "Delete",
+    "deleteOrder": "Delete Order",
+    "sure": "Are you sure? You can't undo this action afterwards.",
+    "cancel": "Cancel"
   },
   "orderList": {
     "title": "Orders",
@@ -52,7 +58,8 @@
     "firstLastName": "First and last name",
     "phoneNumber": "Phone number",
     "delivery": "Delivery",
-    "OrdersNotFind": "Orders not find"
+    "ordersNotFound": "Orders not found",
+    "orderNotFound": "Order not found"
   },
   "brands": {
     "title": "List of brands online shoe store Mirobuvi.com.ua",

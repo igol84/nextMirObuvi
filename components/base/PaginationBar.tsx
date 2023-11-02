@@ -26,7 +26,7 @@ const PaginationBar = ({currentPage, totalPages, pageSize}: PaginationBarProps) 
   }
   if (totalPages === 1) return null
   return (
-    <ButtonGroup size='sm' isAttached width='full' justifyContent='center'>
+    <ButtonGroup size='sm' isAttached boxShadow='2xl'>
       <IconButton aria-label='First Page' icon={<BiFirstPage/>} variant={'pagination' + variantFirstPage}
                   onClick={() => onClick(1, isFirstPage)}/>
       {pagesArray.map(page => {
