@@ -107,3 +107,26 @@ export const getOrders = async (currentPage: number, pageSize: number): Promise<
     return null
   }
 }
+
+export const editItemQuantity = async (productId: string, quantity: number) => {
+  try {
+    await prisma.orderItem.update({
+      where: {id: productId},
+      data: {quantity}
+    })
+    return 'success'
+  } catch {
+    return 'serverError'
+  }
+}
+
+export const deleteItem = async (productId: string) => {
+  try {
+    await prisma.orderItem.delete({
+      where: {id: productId}
+    })
+    return 'success'
+  } catch {
+    return 'serverError'
+  }
+}

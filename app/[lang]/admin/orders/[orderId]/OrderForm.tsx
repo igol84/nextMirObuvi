@@ -3,7 +3,6 @@
 import React from 'react';
 
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -23,6 +22,7 @@ import {serverActionDeleteOrder, serverActionEditOrder} from "./actions";
 import {useRouter} from "next/navigation";
 import {AiOutlineRollback, AiTwotoneSave} from "react-icons/ai";
 import AlertDeleteDialog from "@/app/[lang]/admin/orders/[orderId]/AlertDeleteDialog";
+import ProductsEditor from "@/app/[lang]/admin/orders/[orderId]/OrderItemsEditor";
 
 
 interface Props {
@@ -77,67 +77,73 @@ const OrderForm = ({orderData}: Props) => {
     router.back()
   }
   return (
-    <Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('id')} type="hidden"/>
-        <Heading as='h2' sx={{pb: 6}}>{d('clientData')}</Heading>
-        <FormControl isInvalid={!!errors.firstName} sx={{pb: 4}} isRequired>
-          <FormLabel>{d('firstName')}</FormLabel>
-          <Input {...register('firstName')} type='text' placeholder={d('firstName')} width='auto'/>
-          {errors.firstName &&
-            <FormErrorMessage>{d('firstName')} {d(errors.firstName.message!)}</FormErrorMessage>
-          }
-        </FormControl>
-        <FormControl isInvalid={!!errors.lastName} sx={{pb: 4}} isRequired>
-          <FormLabel>{d('lastName')}</FormLabel>
-          <Input {...register('lastName')} type='text' placeholder={d('lastName')} width='auto'/>
-          {errors.lastName &&
-            (
-              <FormErrorMessage>{d('lastName')} {d(errors.lastName.message!)}</FormErrorMessage>
-            )}
-        </FormControl>
-        <FormControl isInvalid={!!errors.phone} sx={{pb: 4}} isRequired>
-          <FormLabel>{d('phoneNumber')}</FormLabel>
-          <InputGroup>
-            <InputLeftAddon>
-              +380
-            </InputLeftAddon>
-            <Input {...register('phone')} type='number' placeholder={d('phoneNumber')} width='auto'/>
-          </InputGroup>
-          {errors.phone &&
-            (
-              <FormErrorMessage>{d('phoneNumber')} {d(errors.phone.message!)}</FormErrorMessage>
-            )}
-        </FormControl>
-        <FormControl isInvalid={!!errors.email} sx={{pb: 4}}>
-          <FormLabel>Email</FormLabel>
-          <Input {...register('email')} placeholder='Email' width='auto'/>
-          {errors.email &&
-            (
-              <FormErrorMessage>{d(errors.email.message!)}</FormErrorMessage>
-            )}
-        </FormControl>
-        <Heading as='h2' sx={{pb: 6}}>{d('delivery')}</Heading>
-        <FormControl isInvalid={!!errors.delivery} sx={{pb: 4}} isRequired>
-          <FormLabel>{d('city')}</FormLabel>
-          <Input {...register('delivery')} placeholder={d('city')} width='auto'/>
-          {errors.delivery
-            ? <FormErrorMessage>{errors.delivery.message}</FormErrorMessage>
-            : <FormHelperText>{d('cityInfo')}</FormHelperText>
-          }
-        </FormControl>
-        <Flex mt={4} gap={4}>
-          <Button variant='solid' colorScheme='teal' isLoading={isSubmitting} type='submit' leftIcon={<AiTwotoneSave/>}>
-            {d('save')}
-          </Button>
-          <Button variant='ghost' colorScheme='teal' onClick={router.back} leftIcon={<AiOutlineRollback/>}>
-            {d('back')}
-          </Button>
-
-          <AlertDeleteDialog onDelete={onClickDelete}/>
-        </Flex>
-      </form>
-    </Box>
+    <Flex direction={{base: 'column', md: 'row'}}>
+      <Flex>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input {...register('id')} type="hidden"/>
+          <Heading as='h2' sx={{pb: 6}}>{d('clientData')}</Heading>
+          <FormControl isInvalid={!!errors.firstName} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('firstName')}</FormLabel>
+            <Input {...register('firstName')} type='text' placeholder={d('firstName')} width='auto'/>
+            {errors.firstName &&
+              <FormErrorMessage>{d('firstName')} {d(errors.firstName.message!)}</FormErrorMessage>
+            }
+          </FormControl>
+          <FormControl isInvalid={!!errors.lastName} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('lastName')}</FormLabel>
+            <Input {...register('lastName')} type='text' placeholder={d('lastName')} width='auto'/>
+            {errors.lastName &&
+              (
+                <FormErrorMessage>{d('lastName')} {d(errors.lastName.message!)}</FormErrorMessage>
+              )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.phone} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('phoneNumber')}</FormLabel>
+            <InputGroup>
+              <InputLeftAddon>
+                +380
+              </InputLeftAddon>
+              <Input {...register('phone')} type='number' placeholder={d('phoneNumber')} width='auto'/>
+            </InputGroup>
+            {errors.phone &&
+              (
+                <FormErrorMessage>{d('phoneNumber')} {d(errors.phone.message!)}</FormErrorMessage>
+              )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.email} sx={{pb: 4}}>
+            <FormLabel>Email</FormLabel>
+            <Input {...register('email')} placeholder='Email' width='auto'/>
+            {errors.email &&
+              (
+                <FormErrorMessage>{d(errors.email.message!)}</FormErrorMessage>
+              )}
+          </FormControl>
+          <Heading as='h2' sx={{pb: 6}}>{d('delivery')}</Heading>
+          <FormControl isInvalid={!!errors.delivery} sx={{pb: 4}} isRequired>
+            <FormLabel>{d('city')}</FormLabel>
+            <Input {...register('delivery')} placeholder={d('city')} width='auto'/>
+            {errors.delivery
+              ? <FormErrorMessage>{errors.delivery.message}</FormErrorMessage>
+              : <FormHelperText>{d('cityInfo')}</FormHelperText>
+            }
+          </FormControl>
+          <Flex mt={4} gap={4} direction={{base: 'column', md: 'row'}} wrap='wrap'>
+            <Button variant='solid' colorScheme='teal' isLoading={isSubmitting} type='submit'
+                    leftIcon={<AiTwotoneSave/>}>
+              {d('save')}
+            </Button>
+            <Button variant='ghost' colorScheme='teal' onClick={router.back} leftIcon={<AiOutlineRollback/>}>
+              {d('back')}
+            </Button>
+            <AlertDeleteDialog onDelete={onClickDelete} headerText={d('deleteOrder')} bodyText={d('sure')}
+                               variant='big'/>
+          </Flex>
+        </form>
+      </Flex>
+      <Flex>
+        <ProductsEditor orderItems={orderData.orderItems}/>
+      </Flex>
+    </Flex>
   );
 };
 

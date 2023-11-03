@@ -38,12 +38,15 @@
     "dialogSuccessHeader": "The order has been placed",
     "dialogSuccessBody1": "The order has been successfully placed.",
     "dialogSuccessBody2": "Wait for delivery.",
+    "products": "Products",
     "save": "Save",
     "back": "Back",
     "delete": "Delete",
     "deleteOrder": "Delete Order",
+    "deleteOrderItem": "Delete Item",
     "sure": "Are you sure? You can't undo this action afterwards.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "serverError": "Server error"
   },
   "orderList": {
     "title": "Orders",
