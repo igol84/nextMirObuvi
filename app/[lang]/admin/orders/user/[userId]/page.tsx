@@ -1,11 +1,15 @@
 import React from 'react';
-import OrdersPage from "./OrdersPage";
-import {getOrders, getTotalOrderCount} from "@/lib/db/order";
-import {IOrder, IOrderItem} from "./types";
-import {getProductData} from "@/app/api/fetchFunctions";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
+import {getUserWithOrders} from "@/lib/db/user";
+import OrdersPage from "./OrdersPage";
+import {IOrder, IOrderItem, IUser} from "./types";
+import {getProductData} from "@/app/api/fetchFunctions";
 
-export async function generateMetadata({params: {lang}}: { params: { lang: Lang } }) {
+interface Props {
+  params: { lang: Lang, userId: string }
+}
+
+export async function generateMetadata({params: {lang}}: Props) {
   const dict = await getDictionary(lang)
   return {
     title: dict.orderList.title,
@@ -13,28 +17,18 @@ export async function generateMetadata({params: {lang}}: { params: { lang: Lang 
   }
 }
 
-interface Props {
-  searchParams: { page: string };
-  params: { lang: Lang }
-}
 
-const pageSize = 6
-const Page = async ({searchParams: {page = "1"}, params: {lang}}: Props) => {
-  const dict = await getDictionary(lang)
-  const currentPage = parseInt(page)
-  const totalOrderCount = await getTotalOrderCount()
-  const totalPages = Math.ceil(totalOrderCount / pageSize);
-  const ordersData = await getOrders(currentPage, pageSize)
-  if (!ordersData || ordersData.length === 0)
-    return <div>{dict.orderList.ordersNotFound}</div>
+const Page = async ({params: {userId}}: Props) => {
+  const userdata = await getUserWithOrders(userId)
+  if (!userdata) return <div>User not found!</div>
+
   const orders: IOrder[] = []
-
-  for (const order of ordersData) {
-    const orderItems: IOrderItem[] = []
+  for (const order of userdata.orders) {
+    const items: IOrderItem[] = []
     for (const item of order.orderItems) {
       const productData = await getProductData(item.productId)
       if (productData) {
-        orderItems.push({
+        items.push({
           productNameUa: item.productNameUa,
           productNameEn: item.productNameEn,
           size: item.size,
@@ -49,7 +43,7 @@ const Page = async ({searchParams: {page = "1"}, params: {lang}}: Props) => {
       id: order.id,
       userId: order.userId ? order.userId : null,
       createdAt: order.createdAt,
-      orderItems: orderItems,
+      orderItems: items,
       firstName: order.firstName,
       lastName: order.lastName,
       orderNumber: order.orderNumber,
@@ -59,8 +53,17 @@ const Page = async ({searchParams: {page = "1"}, params: {lang}}: Props) => {
     })
   }
 
+  const user: IUser = {
+    id: userdata.id,
+    name: userdata.name ? userdata.name : null,
+    email: userdata.email ? userdata.email : null,
+    image: userdata.image ? userdata.image : null,
+    orders
+  }
   return (
-    <OrdersPage orders={orders} pagination={{pageSize, totalPages, currentPage}}/>
+    <div>
+      <OrdersPage user={user}/>
+    </div>
   );
 };
 

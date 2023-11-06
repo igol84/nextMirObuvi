@@ -20,3 +20,11 @@ export interface IOrder {
   delivery: string
   orderItems: IOrderItem[]
 }
+
+export interface IUser {
+  id: string
+  name: string | null
+  email: string | null
+  image: string | null
+  orders: IOrder[]
+}

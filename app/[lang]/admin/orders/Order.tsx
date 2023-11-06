@@ -8,12 +8,14 @@ import NextImage from "next/image";
 import NextLink from "next/link";
 import {Icon} from "@chakra-ui/icons";
 import {AiFillEdit} from "react-icons/ai";
+import {BiUser} from 'react-icons/bi';
 
 interface Props {
   order: IOrder
+  isUserPage?: boolean
 }
 
-const Order = ({order}: Props) => {
+const Order = ({order, isUserPage = false}: Props) => {
   const lang = useContext(LangContext)
   const d = useDictionaryTranslate("orderList")
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
@@ -41,11 +43,17 @@ const Order = ({order}: Props) => {
   return (
     <Box layerStyle='adminOrderWithItems' boxShadow='2xl'>
       <Flex layerStyle='adminOrder' direction={{base: "column", md: "row"}}>
-        <Box>
-          <Link as={NextLink} href={`orders/${order.id}`}>
-            <Flex>№{order.orderNumber}<Icon as={AiFillEdit} boxSize={6}/></Flex>
+        <Flex justifyContent='center' gap={2}>
+          №{order.orderNumber}
+          <Link as={NextLink} href={`/${lang}/admin/orders/${order.id}`}>
+            <Icon as={AiFillEdit} boxSize={6}/>
           </Link>
-        </Box>
+          {!!order.userId && !isUserPage && (
+            <Link as={NextLink} href={`/${lang}/admin/orders/user/${order.userId}`}>
+              <Icon as={BiUser} boxSize={6}/>
+            </Link>
+          )}
+        </Flex>
         <Box>{order.createdAt.toLocaleString()}</Box>
         <Box>{order.firstName} {order.lastName}</Box>
         <Box>{order.phone}</Box>
