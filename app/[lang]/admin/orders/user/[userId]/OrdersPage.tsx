@@ -55,8 +55,8 @@ const OrdersPage = ({user}: Props) => {
         <Avatar name={user.name || ''} src={user.image || undefined} size={'sm'} sx={{cursor: 'pointer'}}/>
         <Text>{user.name}</Text>
         <Text>{user.email}</Text>
-        <Text>Замовлень: {user.orders.length}</Text>
-        <Text>Сумма заказа: {UAHFormat.format(summa)}{d('pricePrefix')}</Text>
+        <Text>{d('order2')}: {user.orders.length}</Text>
+        <Text>{d('orderTotal')}: {UAHFormat.format(summa)}{d('pricePrefix')}</Text>
       </Flex>
       <Box>
         <DndContext id='orders' onDragOver={handleDragOver} onDragEnd={handleDragEnd}>

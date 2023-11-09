@@ -53,16 +53,19 @@
     "description": "Замовлення",
     "orders": "Замовлення",
     "order": "Замовлення",
+    "order2": "Замовлень",
     "yourOrder": "Ваше замовлення",
     "PC": "шт.",
     "pricePrefix": "грн.",
     "inTotal": "Всього",
+    "orderTotal": "Сума замовлення",
     "status": "Статус",
     "firstLastName": "Ім'я та прізвище",
     "phoneNumber": "Номер телефону",
     "delivery": "Спосіб доставки",
     "ordersNotFound": "Замовлення не знайдено",
-    "orderNotFound": "Замовлення не знайдено"
+    "orderNotFound": "Замовлення не знайдено",
+    "userNotFound": "Користувач не знайдений!"
   },
   "brands": {
     "title": "Список брендів інтернет магазин взуття Mirobuvi.com.ua",

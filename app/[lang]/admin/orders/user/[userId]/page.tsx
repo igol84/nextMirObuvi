@@ -18,9 +18,10 @@ export async function generateMetadata({params: {lang}}: Props) {
 }
 
 
-const Page = async ({params: {userId}}: Props) => {
+const Page = async ({params: {lang, userId}}: Props) => {
+  const dict = await getDictionary(lang)
   const userdata = await getUserWithOrders(userId)
-  if (!userdata) return <div>User not found!</div>
+  if (!userdata) return <div>{dict.orderList.userNotFound}</div>
 
   const orders: IOrder[] = []
   for (const order of userdata.orders) {
