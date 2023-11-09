@@ -1,13 +1,14 @@
 import React, {useContext} from 'react';
-import {Box, Divider, Flex, Link} from "@chakra-ui/react";
-import {IOrder} from "@/app/[lang]/admin/orders/types";
+import {Box, Flex, Link} from "@chakra-ui/react";
+import {IOrder} from "./types";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import NextLink from "next/link";
 import {Icon} from "@chakra-ui/icons";
 import {AiFillEdit} from "react-icons/ai";
 import {BiUser} from 'react-icons/bi';
-import Product from "@/app/[lang]/admin/orders/Product";
+import Product from "./Product";
+import {useDroppable} from "@dnd-kit/core";
 
 interface Props {
   order: IOrder
@@ -21,9 +22,16 @@ const Order = ({order, isUserPage = false}: Props) => {
   const summa = order.orderItems.reduce((total, item) =>
       total + item.quantity * item.price
     , 0)
+  const {isOver, setNodeRef} = useDroppable({id: order.id});
+  const sx = isOver ? {
+    bgColor: 'green.200',
+    _dark: {
+      bgColor: 'green.500',
+    }
+  } : {}
   return (
-    <Box layerStyle='adminOrderWithItems' boxShadow='2xl'>
-      <Flex layerStyle='adminOrder' direction={{base: "column", md: "row"}}>
+    <Box layerStyle='adminOrderWithItems' boxShadow='2xl' ref={setNodeRef}>
+      <Flex layerStyle='adminOrder' sx={sx} direction={{base: "column", md: "row"}}>
         <Flex justifyContent='center' gap={2}>
           №{order.orderNumber}
           <Link as={NextLink} href={`/${lang}/admin/orders/${order.id}`}>
@@ -42,10 +50,9 @@ const Order = ({order, isUserPage = false}: Props) => {
         {!!order.email && <Box>{order.email}</Box>}
         <Box>{UAHFormat.format(summa)}{d('pricePrefix')}</Box>
       </Flex>
-      <Divider/>
       <Flex direction="column" p={2} gap={2}>
-        {order.orderItems.map((item, index) => (
-          <Product key={index} item={item}/>
+        {order.orderItems.map(item => (
+          <Product key={item.id} item={item}/>
         ))}
       </Flex>
     </Box>

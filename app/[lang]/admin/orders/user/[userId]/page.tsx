@@ -29,6 +29,7 @@ const Page = async ({params: {userId}}: Props) => {
       const productData = await getProductData(item.productId)
       if (productData) {
         items.push({
+          id: item.id,
           productNameUa: item.productNameUa,
           productNameEn: item.productNameEn,
           size: item.size,

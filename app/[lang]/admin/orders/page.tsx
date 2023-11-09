@@ -35,6 +35,7 @@ const Page = async ({searchParams: {page = "1"}, params: {lang}}: Props) => {
       const productData = await getProductData(item.productId)
       if (productData) {
         orderItems.push({
+          id: item.id,
           productNameUa: item.productNameUa,
           productNameEn: item.productNameEn,
           size: item.size,

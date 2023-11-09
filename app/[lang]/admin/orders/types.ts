@@ -1,4 +1,5 @@
 export interface IOrderItem {
+  id: string
   productNameUa: string
   productNameEn: string
   size: number | null

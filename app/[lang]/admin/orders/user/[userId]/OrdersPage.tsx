@@ -2,8 +2,9 @@
 import React from 'react';
 import {IUser} from "./types";
 import {Avatar, Box, Flex, Text} from "@chakra-ui/react";
-import Order from "@/app/[lang]/admin/orders/Order";
+import Order from "./Order";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {DndContext} from "@dnd-kit/core";
 
 interface Props {
   user: IUser
@@ -28,7 +29,11 @@ const OrdersPage = ({user}: Props) => {
         <Text>Сумма заказа: {UAHFormat.format(summa)}{d('pricePrefix')}</Text>
       </Flex>
       <Box>
-        {user.orders.map(order => <Order key={order.id} order={order} isUserPage={true}/>)}
+        <DndContext>
+          {user.orders.map(order => (
+            <Order key={order.id} order={order} isUserPage={true}/>
+          ))}
+        </DndContext>
       </Box>
     </Box>
   )
