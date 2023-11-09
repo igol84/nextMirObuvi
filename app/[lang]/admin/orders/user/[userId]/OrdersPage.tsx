@@ -1,10 +1,10 @@
 'use client'
-import React from 'react';
+import React, {useState} from 'react';
 import {IUser} from "./types";
 import {Avatar, Box, Flex, Text} from "@chakra-ui/react";
 import Order from "./Order";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {DndContext} from "@dnd-kit/core";
+import {DndContext, DragOverEvent} from "@dnd-kit/core";
 
 interface Props {
   user: IUser
@@ -18,6 +18,14 @@ const OrdersPage = ({user}: Props) => {
         , 0)
     , 0)
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
+  const [draggableProduct, setDraggableProduct] = useState<string | null>(null)
+  const onDragOver = (event: DragOverEvent) => {
+    if (event.over) {
+      const draggedOrder = event.active.id as string
+      setDraggableProduct(draggedOrder)
+    }
+  }
+
   return (
     <Box>
       <Flex alignItems='center' wrap='wrap' gap={[2, 3, 4, 6]} direction={{base: 'column', md: 'row'}}
@@ -29,9 +37,9 @@ const OrdersPage = ({user}: Props) => {
         <Text>Сумма заказа: {UAHFormat.format(summa)}{d('pricePrefix')}</Text>
       </Flex>
       <Box>
-        <DndContext>
+        <DndContext onDragOver={onDragOver} id='orders'>
           {user.orders.map(order => (
-            <Order key={order.id} order={order} isUserPage={true}/>
+            <Order key={order.id} order={order} draggableProduct={draggableProduct}/>
           ))}
         </DndContext>
       </Box>

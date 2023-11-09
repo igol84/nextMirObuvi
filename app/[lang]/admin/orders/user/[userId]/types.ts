@@ -29,3 +29,7 @@ export interface IUser {
   image: string | null
   orders: IOrder[]
 }
+
+export interface IDroppableOrder {
+  productIds: string[]
+}

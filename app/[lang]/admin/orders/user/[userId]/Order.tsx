@@ -1,29 +1,29 @@
 import React, {useContext} from 'react';
 import {Box, Flex, Link} from "@chakra-ui/react";
-import {IOrder} from "./types";
+import {IDroppableOrder, IOrder} from "./types";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import NextLink from "next/link";
 import {Icon} from "@chakra-ui/icons";
 import {AiFillEdit} from "react-icons/ai";
-import {BiUser} from 'react-icons/bi';
 import Product from "./Product";
 import {useDroppable} from "@dnd-kit/core";
 
 interface Props {
   order: IOrder
-  isUserPage?: boolean
+  draggableProduct: string | null
 }
 
-const Order = ({order, isUserPage = false}: Props) => {
+const Order = ({order, draggableProduct}: Props) => {
   const lang = useContext(LangContext)
   const d = useDictionaryTranslate("orderList")
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
-  const summa = order.orderItems.reduce((total, item) =>
-      total + item.quantity * item.price
-    , 0)
-  const {isOver, setNodeRef} = useDroppable({id: order.id});
-  const sx = isOver ? {
+  const summa = order.orderItems.reduce((total, item) => total + item.quantity * item.price, 0)
+  const productIds = order.orderItems.map(item => item.id)
+  const droppableOrderData: IDroppableOrder = {productIds}
+  const {isOver, setNodeRef} = useDroppable({id: order.id, data: droppableOrderData});
+  const isDraggedSameOrder = draggableProduct && productIds.includes(draggableProduct)
+  const sx = isOver && !isDraggedSameOrder ? {
     bgColor: 'green.200',
     _dark: {
       bgColor: 'green.500',
@@ -37,11 +37,6 @@ const Order = ({order, isUserPage = false}: Props) => {
           <Link as={NextLink} href={`/${lang}/admin/orders/${order.id}`}>
             <Icon as={AiFillEdit} boxSize={6}/>
           </Link>
-          {!!order.userId && !isUserPage && (
-            <Link as={NextLink} href={`/${lang}/admin/orders/user/${order.userId}`}>
-              <Icon as={BiUser} boxSize={6}/>
-            </Link>
-          )}
         </Flex>
         <Box>{order.createdAt.toLocaleString()}</Box>
         <Box>{order.firstName} {order.lastName}</Box>
