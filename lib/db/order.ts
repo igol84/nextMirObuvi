@@ -130,3 +130,21 @@ export const deleteItem = async (productId: string) => {
     return 'serverError'
   }
 }
+
+export const moveItemToAnotherOrder = async (productId: string, orderId: string) => {
+  try {
+    await prisma.order.update({
+      where: {id: orderId},
+      data: {
+        orderItems: {
+          connect: {
+            id: productId
+          }
+        }
+      }
+    })
+    return 'success'
+  } catch {
+    return 'serverError'
+  }
+}
