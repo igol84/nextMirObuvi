@@ -1,10 +1,8 @@
 'use client'
 import React, {useState} from 'react';
-import _ from "lodash";
 import Order from "./Order";
 import {Avatar, Box, Flex, Spinner, Text} from "@chakra-ui/react";
-import {DndContext, DragEndEvent, DragOverEvent, DragOverlay} from "@dnd-kit/core";
-import Product from "./Product";
+import {DndContext, DragEndEvent, DragOverEvent} from "@dnd-kit/core";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {IUser} from "./types";
 import {serverActionMoveProductToAnotherOrder} from "./actions";
@@ -48,8 +46,6 @@ const OrdersPage = ({user}: Props) => {
       }
     }
   }
-  const allProducts = _.flatten(user.orders.map(order=>order.orderItems))
-  const draggableProduct = allProducts.find(product => product.id === draggableProductId)
   return (
     <Box>
       <Flex alignItems='center' wrap='wrap' gap={[2, 3, 4, 6]} direction={{base: 'column', md: 'row'}}
@@ -66,11 +62,6 @@ const OrdersPage = ({user}: Props) => {
           {user.orders.map(order => (
             <Order key={order.id} order={order} draggableProductId={draggableProductId}/>
           ))}
-          <DragOverlay>
-            {draggableProduct && (
-              <Product item={draggableProduct}/>
-            )}
-          </DragOverlay>
         </DndContext>
       </Box>
     </Box>
