@@ -19,14 +19,11 @@ const Product = ({item}: Props) => {
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   const productName = lang === 'en' ? item.productNameEn : item.productNameUa
   const size = item.size ? ' ' + item.size : ''
-  const {attributes, listeners, setNodeRef, transform, setActivatorNodeRef} = useDraggable({
+  const {attributes, listeners, setNodeRef, setActivatorNodeRef} = useDraggable({
     id: item.id,
   });
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
   return (
-    <Flex ref={setNodeRef} style={style} layerStyle='adminOrderProduct'>
+    <Flex ref={setNodeRef} layerStyle='adminOrderProduct'>
       <Link as={NextLink} href={`/${lang}/products/${item.url}`} display='flex' alignItems='center'
             _hover={{color: 'hoverLinkTextColor'}}
       >

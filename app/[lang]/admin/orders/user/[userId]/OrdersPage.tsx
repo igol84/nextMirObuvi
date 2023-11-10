@@ -1,11 +1,13 @@
 'use client'
 import React, {useState} from 'react';
-import {IUser} from "./types";
-import {Avatar, Box, Flex, Spinner, Text} from "@chakra-ui/react";
+import _ from "lodash";
 import Order from "./Order";
+import {Avatar, Box, Flex, Spinner, Text} from "@chakra-ui/react";
+import {DndContext, DragEndEvent, DragOverEvent, DragOverlay} from "@dnd-kit/core";
+import Product from "./Product";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {DndContext, DragEndEvent, DragOverEvent} from "@dnd-kit/core";
-import {serverActionMoveProductToAnotherOrder} from "@/app/[lang]/admin/orders/user/[userId]/actions";
+import {IUser} from "./types";
+import {serverActionMoveProductToAnotherOrder} from "./actions";
 
 interface Props {
   user: IUser
@@ -19,12 +21,12 @@ const OrdersPage = ({user}: Props) => {
         , 0)
     , 0)
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
-  const [draggableProduct, setDraggableProduct] = useState<string | null>(null)
+  const [draggableProductId, setDraggableProductId] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const handleDragOver = (event: DragOverEvent) => {
     if (event.over) {
       const draggedProductId = event.active.id as string
-      setDraggableProduct(draggedProductId)
+      setDraggableProductId(draggedProductId)
     }
   }
   const moveProductToAnotherOrder = async (productId: string, orderId: string) => {
@@ -46,7 +48,8 @@ const OrdersPage = ({user}: Props) => {
       }
     }
   }
-
+  const allProducts = _.flatten(user.orders.map(order=>order.orderItems))
+  const draggableProduct = allProducts.find(product => product.id === draggableProductId)
   return (
     <Box>
       <Flex alignItems='center' wrap='wrap' gap={[2, 3, 4, 6]} direction={{base: 'column', md: 'row'}}
@@ -61,8 +64,13 @@ const OrdersPage = ({user}: Props) => {
       <Box>
         <DndContext id='orders' onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
           {user.orders.map(order => (
-            <Order key={order.id} order={order} draggableProduct={draggableProduct}/>
+            <Order key={order.id} order={order} draggableProductId={draggableProductId}/>
           ))}
+          <DragOverlay>
+            {draggableProduct && (
+              <Product item={draggableProduct}/>
+            )}
+          </DragOverlay>
         </DndContext>
       </Box>
     </Box>

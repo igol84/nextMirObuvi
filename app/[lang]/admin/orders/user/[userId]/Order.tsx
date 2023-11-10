@@ -11,10 +11,10 @@ import {useDroppable} from "@dnd-kit/core";
 
 interface Props {
   order: IOrder
-  draggableProduct: string | null
+  draggableProductId: string | null
 }
 
-const Order = ({order, draggableProduct}: Props) => {
+const Order = ({order, draggableProductId}: Props) => {
   const lang = useContext(LangContext)
   const d = useDictionaryTranslate("orderList")
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
@@ -22,7 +22,7 @@ const Order = ({order, draggableProduct}: Props) => {
   const productIds = order.orderItems.map(item => item.id)
   const droppableOrderData: IDroppableOrder = {productIds}
   const {isOver, setNodeRef} = useDroppable({id: order.id, data: droppableOrderData});
-  const isDraggedSameOrder = draggableProduct && productIds.includes(draggableProduct)
+  const isDraggedSameOrder = draggableProductId && productIds.includes(draggableProductId)
   const sx = isOver && !isDraggedSameOrder ? {
     bgColor: 'green.200',
     _dark: {
