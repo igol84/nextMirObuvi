@@ -5,7 +5,7 @@ import OrderItems from "@/app/[lang]/profile/orders-list/[orderId]/OrderItems";
 import {IOrder} from "@/app/[lang]/profile/orders-list/[orderId]/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import BreadCrumb from "@/app/[lang]/profile/orders-list/[orderId]/BreadCrumb";
-
+import Status from "@/components/base/Status/Status";
 
 interface Props {
   order: IOrder
@@ -20,7 +20,7 @@ const OrderPage = ({order}: Props) => {
       <Flex direction='column' layerStyle='orderInProfile' p={{base: 4, sm: 8}}>
         <Flex w='full'>
           <Box w={{base: '100px', sm: '200px'}}>{d('status')}</Box>
-          <Box>new</Box>
+          <Box><Status status={order.status}/></Box>
         </Flex>
         <Flex w='full'>
           <Box w={{base: '100px', sm: '200px'}}>{d('firstLastName')}</Box>

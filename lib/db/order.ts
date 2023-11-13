@@ -1,9 +1,10 @@
-import {Prisma} from "@prisma/client";
+import {Prisma, OrderStatus} from "@prisma/client";
 import {OrderFormSchema, ProductDetailsByUrl} from "@/app/[lang]/make-order/types";
 import {prisma} from "@/lib/db/prisma";
 import {ShoppingCart} from "@/lib/db/cart";
 import {OrderEditFormSchema} from "@/app/[lang]/admin/orders/[orderId]/types";
 
+export type OrderStatusType = OrderStatus
 
 export type OrderWithItems = Prisma.OrderGetPayload<{
   include: { orderItems: true }
@@ -141,6 +142,20 @@ export const moveItemToAnotherOrder = async (productId: string, orderId: string)
             id: productId
           }
         }
+      }
+    })
+    return 'success'
+  } catch {
+    return 'serverError'
+  }
+}
+
+export const changeOrderStatus = async (orderId: string, newStatus: OrderStatusType) => {
+  try {
+    await prisma.order.update({
+      where: {id: orderId},
+      data: {
+        status: newStatus
       }
     })
     return 'success'

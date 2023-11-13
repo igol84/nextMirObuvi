@@ -111,5 +111,11 @@
     "title": "Admin",
     "description": "Admin Panel",
     "orders": "Orders"
+  },
+  "status": {
+    "New": "new",
+    "InProgress": "in progress",
+    "Done": "done",
+    "NotDone": "not done"
   }
 }

@@ -56,7 +56,8 @@ const Page = async ({searchParams: {page = "1"}, params: {lang}}: Props) => {
       orderNumber: order.orderNumber,
       delivery: order.delivery,
       email: order.email ? order.email : '',
-      phone: `0${order.phone}`
+      phone: `0${order.phone}`,
+      status: order.status
     })
   }
 

@@ -8,6 +8,7 @@ import {Icon} from "@chakra-ui/icons";
 import {AiFillEdit} from "react-icons/ai";
 import {BiUser} from 'react-icons/bi';
 import Product from "@/app/[lang]/admin/orders/Product";
+import Status from "@/components/base/Status/AdminStatus";
 
 interface Props {
   order: IOrder
@@ -35,6 +36,7 @@ const Order = ({order, isUserPage = false}: Props) => {
             </Link>
           )}
         </Flex>
+        <Box><Status orderId={order.id} status={order.status}/></Box>
         <Box>{order.createdAt.toLocaleString()}</Box>
         <Box>{order.firstName} {order.lastName}</Box>
         <Box>{order.phone}</Box>

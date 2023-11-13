@@ -1,3 +1,5 @@
+import {OrderStatusType} from "@/components/base/Status/types";
+
 export interface IOrderItem {
   id: string
   productNameUa: string
@@ -20,4 +22,5 @@ export interface IOrder {
   phone: string
   delivery: string
   orderItems: IOrderItem[]
+  status: OrderStatusType
 }

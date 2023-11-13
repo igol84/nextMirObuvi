@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
 
-import {Badge, Box, Flex, ListItem, Spacer, Text, UnorderedList} from "@chakra-ui/react";
+import {Box, Flex, ListItem, Spacer, Text, UnorderedList} from "@chakra-ui/react";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {useRouter} from "next/navigation";
 import {IOrder} from "@/app/[lang]/profile/orders-list/types";
+import Status from "@/components/base/Status/Status";
+
 
 interface Props {
   order: IOrder
@@ -25,11 +27,7 @@ const Order = ({order}: Props) => {
         <Text fontWeight='bold' fontSize={24}>{d('order')} №{order.orderNumber} </Text>
         <Text>{order.createdAt.toLocaleString()}</Text>
       </Box>
-      <Box>
-        <Badge ml='1' colorScheme='green'>
-          New
-        </Badge>
-      </Box>
+      <Box><Status status={order.status}/></Box>
       <Box>
         <Text fontWeight='bold' fontSize={24}>{d('orders')}:</Text>
         <UnorderedList>

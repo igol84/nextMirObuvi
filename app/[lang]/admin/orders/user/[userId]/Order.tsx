@@ -8,6 +8,7 @@ import {Icon} from "@chakra-ui/icons";
 import {AiFillEdit} from "react-icons/ai";
 import Product from "./Product";
 import {useDroppable} from "@dnd-kit/core";
+import Status from "@/components/base/Status/AdminStatus";
 
 interface Props {
   order: IOrder
@@ -38,6 +39,7 @@ const Order = ({order, draggableProductId}: Props) => {
             <Icon as={AiFillEdit} boxSize={6}/>
           </Link>
         </Flex>
+        <Box><Status orderId={order.id} status={order.status}/></Box>
         <Box>{order.createdAt.toLocaleString()}</Box>
         <Box>{order.firstName} {order.lastName}</Box>
         <Box>{order.phone}</Box>

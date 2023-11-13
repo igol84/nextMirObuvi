@@ -1,4 +1,5 @@
 import {z} from "zod";
+import {OrderStatusType} from "@/components/base/Status/types";
 
 export interface IOrderItem {
   productId: string
@@ -21,6 +22,7 @@ export interface IOrder {
   phone: string
   delivery: string
   orderItems: IOrderItem[]
+  status: OrderStatusType
 }
 
 export const schema = z.object({

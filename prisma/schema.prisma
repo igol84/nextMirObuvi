@@ -83,6 +83,13 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
+enum OrderStatus {
+  New
+  InProgress
+  Done
+  NotDone
+}
+
 model Order {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   orderNumber Int
@@ -95,6 +102,7 @@ model Order {
   delivery    String
   user        User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderItems  OrderItem[]
+  status      OrderStatus @default(New)
 
   @@map("orders")
 }

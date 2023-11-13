@@ -21,10 +21,10 @@ const Product = ({item}: Props) => {
   const size = item.size ? ' ' + item.size : ''
   const {attributes, listeners, setNodeRef, setActivatorNodeRef, transform} = useDraggable({
     id: item.id,
-  });
+  })
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
+  } : undefined
   return (
     <Flex ref={setNodeRef} layerStyle='adminOrderProduct' style={style}>
       <Link as={NextLink} href={`/${lang}/products/${item.url}`} display='flex' alignItems='center'
@@ -39,7 +39,6 @@ const Product = ({item}: Props) => {
       </Link>
       <IconButton size='lg' aria-label='Draggable' icon={<RiDraggable/>} {...listeners} {...attributes}
                   variant='unstyled' ref={setActivatorNodeRef}/>
-
     </Flex>
   );
 };

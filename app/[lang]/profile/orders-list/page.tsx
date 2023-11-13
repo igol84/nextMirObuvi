@@ -43,7 +43,8 @@ const OrdersListPage = async ({params: {lang}}: Props) => {
         id: order.id,
         orderNumber: order.orderNumber,
         createdAt: order.createdAt,
-        orderItems: orderItems
+        orderItems: orderItems,
+        status: order.status
       }
     })
     return (
