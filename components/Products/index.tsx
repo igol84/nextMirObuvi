@@ -14,18 +14,17 @@ type Props = {
 
 
 const Products = ({brandData, productsData}: Props) => {
-  const brandCard = brandData && (
-    <WrapItem flexDirection="column">
-      <ChakraNextImage
-        as={NextImage} shadow='base' borderRadius={[30, 15]} width={249} height={249} alt={brandData.brandName}
-        src={`https://mirobuvi.com.ua/ftp_brands/${brandData.brandId}.jpg`} priority={true}
-      />
-      <Center width={249}><Text fontSize='2rem' fontWeight='bold'>{brandData.brandName}</Text></Center>
-    </WrapItem>
-  )
   return (
     <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={4}>
-      {brandCard}
+      {!!brandData && (
+        <WrapItem flexDirection="column">
+          <ChakraNextImage
+            as={NextImage} shadow='base' borderRadius={[30, 15]} width={249} height={249} alt={brandData.brandName}
+            src={`https://mirobuvi.com.ua/ftp_brands/${brandData.brandId}.jpg`} priority={true}
+          />
+          <Center width={249}><Text fontSize='2rem' fontWeight='bold'>{brandData.brandName}</Text></Center>
+        </WrapItem>
+      )}
       {productsData.map(product => {
         const ProductComponent = productCardFactory(product)
         return (

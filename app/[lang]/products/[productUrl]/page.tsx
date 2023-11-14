@@ -72,7 +72,7 @@ async function Page({params: {productUrl, lang}}: Props) {
 
   return (
     <ProductPage productData={productData} breadCrumbData={breadCrumbData}/>
-  );
+  )
 }
 
 export default Page;

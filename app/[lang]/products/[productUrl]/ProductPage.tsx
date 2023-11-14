@@ -1,10 +1,11 @@
 'use client'
 import {ProductType} from "@/components/product/types";
 import {productFactory} from "@/components/product/ProductFactory";
-import React from "react";
+import React, {useEffect} from "react";
 import {Box, Flex, Heading} from "@chakra-ui/react";
 import Gallery from "@/components/product/Galarey";
 import BreadCrumb, {BreadCrumbData} from "@/components/base/BreadCrumb";
+import {saveViewedProducts} from "@/app/[lang]/products/[productUrl]/functions";
 
 type Props = {
   productData: ProductType
@@ -14,6 +15,10 @@ const IMAGES = ['03', '13', '23', '33']
 const ProductPage = ({productData, breadCrumbData}: Props) => {
   const product = productFactory(productData)
   const images = productData.images.filter(url => IMAGES.some(name => url.includes(name)))
+  useEffect(() => {
+    saveViewedProducts(productData.product_key)
+  }, [productData.product_key])
+
   return (
     <>
       <BreadCrumb data={breadCrumbData}/>
