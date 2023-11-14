@@ -14,3 +14,4 @@ export const getColorScheme = (status: StatusType) => {
       return 'gray'
   }
 }
+
