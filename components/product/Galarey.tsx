@@ -27,7 +27,7 @@ export default function Gallery({images}: Props) {
           freeMode={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="Thumb"
+          className="ProductThumb"
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
@@ -46,7 +46,7 @@ export default function Gallery({images}: Props) {
           navigation={true}
           thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null}}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="Swiper"
+          className="ProductSwiper"
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>

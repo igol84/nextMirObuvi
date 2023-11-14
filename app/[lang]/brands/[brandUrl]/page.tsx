@@ -53,7 +53,7 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
   const viewedProductsJSON: string | undefined = cookies().get("viewedProducts")?.value
   const viewedProductUrls: string[] = viewedProductsJSON ? JSON.parse(viewedProductsJSON) : []
   const viewedProducts: ProductType[] = []
-  for (const viewedProductUrl of viewedProductUrls) {
+  for (const viewedProductUrl of viewedProductUrls.reverse()) {
     const productData = await getProductData(viewedProductUrl)
     if (productData)
       viewedProducts.push(createProduct(productData, lang))

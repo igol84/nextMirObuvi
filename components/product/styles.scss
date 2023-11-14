@@ -1,8 +1,9 @@
-.swiper {
+.ProductSwiper {
   & .swiper-button-prev, & .swiper-button-next {
     color: #10aec4;
     user-select: none;
   }
+
   & .swiper-wrapper {
     & .swiper-slide {
       text-align: center;
@@ -17,10 +18,9 @@
       }
     }
   }
-}
 
-.Swiper {
   padding-bottom: 8px;
+
   & .swiper-wrapper {
     & .swiper-slide {
       & img {
@@ -31,12 +31,13 @@
   }
 }
 
-.Thumb {
+.ProductThumb {
   & .swiper-wrapper {
     height: 100%;
     display: flex;
     gap: 8px;
     flex-direction: column;
+
     & .swiper-slide {
       width: 100% !important;
       text-align: center;
@@ -44,6 +45,7 @@
       background: #fff;
       justify-content: center;
       align-items: center;
+
       & img {
         display: block;
         width: 100%;
