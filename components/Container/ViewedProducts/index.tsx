@@ -25,7 +25,7 @@ const ViewedProducts = ({viewedProducts}: Props) => {
       <Flex pt={4} w='100%' alignItems='center' gap={2}>
         <IconButton fontSize={['16', '24', '24', '44']} icon={<MdArrowBackIosNew/>} aria-label='prev'
                     className='review-swiper-button-prev'/>
-        <Box width={'94%'}>
+        <Box width={['60%', '70%', '80%', '94%']}>
         <Swiper
           slidesPerView={1}
           breakpoints={{
