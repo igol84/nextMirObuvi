@@ -1,9 +1,15 @@
 import React from 'react';
-import Brands from "@/components/Brands";
 import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 import {getBrandsData} from "@/app/api/fetchFunctions";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import BreadCrumb from "@/components/base/BreadCrumb";
+import BrandPage from "@/app/[lang]/brands/BrandPage";
+import {getViewedProducts} from "@/lib/viewedProducts";
+
+type Props = {
+  params: {
+    lang: Lang
+  }
+}
 
 export async function generateMetadata({params: {lang}}: { params: { lang: Lang } }) {
   const dict = await getDictionary(lang)
@@ -16,17 +22,14 @@ export async function generateMetadata({params: {lang}}: { params: { lang: Lang 
   }
 }
 
-const BrandsPage = async () => {
+const BrandsPage = async ({params: {lang}}: Props) => {
   const brandsData = await getBrandsData()
   const brands: BrandCardPropsWithFirst[] = brandsData.map((brand, index) => ({
     brandId: brand.id, brandName: brand.name, url: brand.url, isFirst: index < 6
   }))
+  const viewedProducts = await getViewedProducts(lang)
   return (
-    <>
-      <BreadCrumb data={{current: "brands"}} />
-      <Brands brands={brands}/>
-    </>
-
+    <BrandPage brands={brands} viewedProducts={viewedProducts}/>
   )
 }
 

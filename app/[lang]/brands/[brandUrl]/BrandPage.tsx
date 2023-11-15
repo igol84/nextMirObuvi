@@ -22,7 +22,9 @@ const BrandPage = ({brandData, productsData, breadCrumbData, viewedProducts}: Pr
       <Products productsData={productsData} brandData={brandData}/>
       <div className='desc' dangerouslySetInnerHTML={{__html: brandData.desc}}/>
       {viewedProducts.length > 0 && (
-        <Box pt={4}><ViewedProducts viewedProducts={viewedProducts}/></Box>
+        <Box pt={4}>
+          <ViewedProducts viewedProducts={viewedProducts}/>
+        </Box>
       )}
     </>
   );

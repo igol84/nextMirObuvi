@@ -1,14 +1,14 @@
 import React from 'react';
 import '@/app/theme/style.scss'
 import BrandPage from "@/app/[lang]/brands/[brandUrl]/BrandPage";
-import {getBrandData, getBrandsData, getProductData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
+import {getBrandData, getBrandsData, getProductsDataByBrandId} from "@/app/api/fetchFunctions";
 import {Lang} from "@/dictionaries/get-dictionary";
 import {BrandProps} from "@/components/Brands/types";
 import {ProductType} from "@/components/Products/types";
 import {redirect} from "next/navigation";
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
-import {cookies} from "next/headers";
-import {createProduct} from "@/app/[lang]/brands/[brandUrl]/functions";
+import {getViewedProducts} from "@/lib/viewedProducts";
+import {createProduct} from "@/lib/productCardData";
 
 type Props = {
   params: {
@@ -50,14 +50,7 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
     brandUrl: brandData.url,
     current: 'brand'
   }
-  const viewedProductsJSON: string | undefined = cookies().get("viewedProducts")?.value
-  const viewedProductUrls: string[] = viewedProductsJSON ? JSON.parse(viewedProductsJSON) : []
-  const viewedProducts: ProductType[] = []
-  for (const viewedProductUrl of viewedProductUrls.reverse()) {
-    const productData = await getProductData(viewedProductUrl)
-    if (productData)
-      viewedProducts.push(createProduct(productData, lang))
-  }
+  const viewedProducts = await getViewedProducts(lang)
   return (
     <BrandPage brandData={brand} productsData={products} breadCrumbData={breadCrumbData}
                viewedProducts={viewedProducts}/>

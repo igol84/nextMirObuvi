@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Heading, WrapItem} from "@chakra-ui/react";
+import {Box, Flex, Heading, IconButton, WrapItem} from "@chakra-ui/react";
 import {ProductType} from "@/components/Products/types";
 import {productCardFactory} from "@/components/Products/ProductCardFactory";
 import {Swiper, SwiperSlide} from 'swiper/react';
@@ -10,16 +10,21 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './styles.scss';
 import {Navigation} from 'swiper/modules';
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {MdArrowBackIosNew, MdArrowForwardIos} from "react-icons/md";
 
 interface Props {
   viewedProducts: ProductType[]
 }
 
 const ViewedProducts = ({viewedProducts}: Props) => {
+  const d = useDictionaryTranslate("viewedProducts")
   return (
     <Box>
-      <Heading as='h3'>До цього ви дивилися</Heading>
-      <Box pt={4}>
+      <Heading as='h3'>{d('beforeThatYouLooked')}</Heading>
+      <Flex pt={4} w='100%' alignItems='center' gap={2}>
+        <IconButton fontSize={['16', '24', '24', '44']} icon={<MdArrowBackIosNew/>} aria-label='prev'
+                    className='review-swiper-button-prev'/>
         <Swiper
           slidesPerView={1}
           breakpoints={{
@@ -31,7 +36,7 @@ const ViewedProducts = ({viewedProducts}: Props) => {
               slidesPerView: 2,
               spaceBetween: 40,
             },
-            1024: {
+            1224: {
               slidesPerView: 3,
               spaceBetween: 50,
             },
@@ -43,9 +48,16 @@ const ViewedProducts = ({viewedProducts}: Props) => {
               slidesPerView: 5,
               spaceBetween: 60,
             },
+            2500: {
+              slidesPerView: 7,
+              spaceBetween: 60,
+            },
           }}
           spaceBetween={30}
-          navigation={true}
+          navigation={{
+            nextEl: '.review-swiper-button-next',
+            prevEl: '.review-swiper-button-prev',
+          }}
           modules={[Navigation]}
           className="viewedProductsSwiper"
         >
@@ -60,7 +72,9 @@ const ViewedProducts = ({viewedProducts}: Props) => {
             )
           })}
         </Swiper>
-      </Box>
+        <IconButton fontSize={['16', '24', '24', '44']} icon={<MdArrowForwardIos/>} aria-label='next'
+                    className='review-swiper-button-next'/>
+      </Flex>
 
     </Box>
   );

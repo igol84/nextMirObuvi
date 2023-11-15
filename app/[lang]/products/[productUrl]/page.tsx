@@ -8,6 +8,7 @@ import {createWithEmptySizes} from "@/utility/sizes";
 import '@/app/theme/style.scss'
 import {redirect} from 'next/navigation'
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
+import {getViewedProducts} from "@/lib/viewedProducts";
 
 type Props = {
   params: {
@@ -69,9 +70,9 @@ async function Page({params: {productUrl, lang}}: Props) {
   if (!productFetchData) redirect(`/`)
   const productData: ProductType = productFabrice(lang, productFetchData)
   const breadCrumbData: BreadCrumbData = getBreadCrumbData(lang, productFetchData)
-
+  const viewedProducts = await getViewedProducts(lang)
   return (
-    <ProductPage productData={productData} breadCrumbData={breadCrumbData}/>
+    <ProductPage productData={productData} breadCrumbData={breadCrumbData} viewedProducts={viewedProducts}/>
   )
 }
 

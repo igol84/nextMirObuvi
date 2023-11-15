@@ -117,5 +117,8 @@
     "InProgress": "in progress",
     "Done": "done",
     "NotDone": "not done"
+  },
+  "viewedProducts": {
+    "beforeThatYouLooked": "До цього ви дивилися"
   }
 }

@@ -117,5 +117,8 @@
     "InProgress": "в процесі",
     "Done": "доставлене",
     "NotDone": "не доставлене"
+  },
+  "viewedProducts": {
+    "beforeThatYouLooked": "Before that you looked"
   }
 }

@@ -1,18 +1,21 @@
 'use client'
 import {ProductType} from "@/components/product/types";
+import {ProductType as CardProductType} from "@/components/Products/types";
 import {productFactory} from "@/components/product/ProductFactory";
 import React, {useEffect} from "react";
 import {Box, Flex, Heading} from "@chakra-ui/react";
 import Gallery from "@/components/product/Galarey";
 import BreadCrumb, {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {saveViewedProducts} from "@/app/[lang]/products/[productUrl]/functions";
+import ViewedProducts from "@/components/Container/ViewedProducts";
 
 type Props = {
   productData: ProductType
   breadCrumbData: BreadCrumbData
+  viewedProducts: CardProductType[]
 }
 const IMAGES = ['03', '13', '23', '33']
-const ProductPage = ({productData, breadCrumbData}: Props) => {
+const ProductPage = ({productData, breadCrumbData, viewedProducts}: Props) => {
   const product = productFactory(productData)
   const images = productData.images.filter(url => IMAGES.some(name => url.includes(name)))
   useEffect(() => {
@@ -32,6 +35,11 @@ const ProductPage = ({productData, breadCrumbData}: Props) => {
       </Flex>
       <Heading>{productData.name}</Heading>
       <div className='desc' dangerouslySetInnerHTML={{__html: productData.desc}}/>
+      {viewedProducts.length > 0 && (
+        <Box pt={4}>
+          <ViewedProducts viewedProducts={viewedProducts}/>
+        </Box>
+      )}
     </>
   )
 };
