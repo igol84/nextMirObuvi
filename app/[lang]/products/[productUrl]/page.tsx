@@ -9,6 +9,9 @@ import '@/app/theme/style.scss'
 import {redirect} from 'next/navigation'
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getViewedProducts} from "@/lib/viewedProducts";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/configs/auth";
+import {getUser} from "@/lib/db/user";
 
 type Props = {
   params: {
@@ -34,7 +37,7 @@ export async function generateStaticParams() {
   return productsData.map((product) => ({productUrl: product.url}))
 }
 
-function productFabrice(lang: Lang, product: ProductSchema): ProductType {
+function productFabrice(lang: Lang, product: ProductSchema, userId: string | undefined, isFavorite: boolean): ProductType {
   const name = lang === 'en' ? product.name : product.name_ua
   const desc = lang === 'en' ? product.desc : product.desc_ua
   const price_prefix = lang === 'en' ? '₴' : 'грн.'
@@ -42,14 +45,14 @@ function productFabrice(lang: Lang, product: ProductSchema): ProductType {
     case "product": {
       return {
         name, product_key: product.url, price: product.price, price_prefix, type: 'product',
-        images: product.images, desc
+        images: product.images, desc, userId, isFavorite
       }
     }
     case "shoes": {
       const allSizes = createWithEmptySizes(product.sizes)
       return {
         name, product_key: product.url, price: product.price, price_prefix, type: 'shoes',
-        images: product.images, desc, sizes: allSizes
+        images: product.images, desc, userId, isFavorite, sizes: allSizes
       }
     }
   }
@@ -68,7 +71,17 @@ function getBreadCrumbData(lang: Lang, product: ProductSchema): BreadCrumbData {
 async function Page({params: {productUrl, lang}}: Props) {
   const productFetchData = await getProductData(productUrl)
   if (!productFetchData) redirect(`/`)
-  const productData: ProductType = productFabrice(lang, productFetchData)
+  const session = await getServerSession(authOptions)
+  const userId = session?.user.id
+  const favoriteProducts = []
+  if (userId) {
+    const user = await getUser(userId)
+    if (user) {
+      favoriteProducts.push(...user.favoriteProducts)
+    }
+  }
+  const isProductFavorite = favoriteProducts.includes(productUrl)
+  const productData: ProductType = productFabrice(lang, productFetchData, userId, isProductFavorite)
   const breadCrumbData: BreadCrumbData = getBreadCrumbData(lang, productFetchData)
   const viewedProducts = await getViewedProducts(lang)
   return (

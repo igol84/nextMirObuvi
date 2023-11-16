@@ -4,6 +4,7 @@ import {ShoesType} from "@/components/product/types";
 import Size from "@/components/product/Shoes/Size";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import AddToCartButton from "@/components/product/AddToCartButton";
+import Like from "@/components/product/Like";
 
 type Props = {
   shoesData: ShoesType
@@ -43,13 +44,16 @@ const Shoes = ({shoesData}: Props) => {
       <Text fontSize={36}>
         {shoesData.name}
       </Text>
-      <Flex alignItems='baseline' color='price'>
-        <Text fontSize={64} fontWeight='bold'>
-          {UAHFormat.format(shoesData.price)}
-        </Text>
-        <Text fontSize={24}>
-          {shoesData.price_prefix}
-        </Text>
+      <Flex wrap='wrap' alignItems='center' justifyContent='space-between'>
+        <Flex alignItems='baseline' color='price'>
+          <Text fontSize={64} fontWeight='bold'>
+            {UAHFormat.format(shoesData.price)}
+          </Text>
+          <Text fontSize={24}>
+            {shoesData.price_prefix}
+          </Text>
+        </Flex>
+        <Like productUrl={shoesData.product_key} userId={shoesData.userId} isFavorite={shoesData.isFavorite}/>
       </Flex>
       <Flex gap={2} alignItems='center' wrap='wrap' pb={4}>
         <Text>{ds('sizes')}</Text>

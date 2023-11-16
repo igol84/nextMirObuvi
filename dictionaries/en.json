@@ -120,5 +120,10 @@
   },
   "viewedProducts": {
     "beforeThatYouLooked": "До цього ви дивилися"
+  },
+  "favorite": {
+    "loginIn": "Sign in to add an item to your wishlist",
+    "inFan": "In Fan",
+    "fan": "Fan"
   }
 }

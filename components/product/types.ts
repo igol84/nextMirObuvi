@@ -8,6 +8,8 @@ export interface ProductBase {
   price: number
   price_prefix: string
   images: string[]
+  userId: string | undefined
+  isFavorite: boolean
 }
 
 export interface SimpleProductProps extends ProductBase {
