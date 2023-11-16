@@ -19,6 +19,7 @@ const ProductPage = ({productData, breadCrumbData, viewedProducts}: Props) => {
   const product = productFactory(productData)
   const images = productData.images.filter(url => IMAGES.some(name => url.includes(name)))
   useEffect(() => {
+    window.scrollTo(0, 0);
     saveViewedProducts(productData.product_key)
   }, [productData.product_key])
 

@@ -40,9 +40,7 @@ export const pushFavoriteProduct = async (userId: string, productUrl: string): P
     })
     if (!user) return false
     const userFavoriteProducts = new Set(user.favoriteProducts)
-    console.log(user.favoriteProducts)
     userFavoriteProducts.add(productUrl)
-    console.log(Array.from(userFavoriteProducts))
     await prisma.user.update({
       where: {id: userId},
       data: {
@@ -63,9 +61,7 @@ export const putFavoriteProduct = async (userId: string, productUrl: string): Pr
     })
     if (!user) return false
     const userFavoriteProducts = new Set(user.favoriteProducts)
-    console.log(user.favoriteProducts)
     userFavoriteProducts.delete(productUrl)
-    console.log(Array.from(userFavoriteProducts))
     await prisma.user.update({
       where: {id: userId},
       data: {
