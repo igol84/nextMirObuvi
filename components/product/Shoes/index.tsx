@@ -53,7 +53,7 @@ const Shoes = ({shoesData}: Props) => {
             {shoesData.price_prefix}
           </Text>
         </Flex>
-        <Like productUrl={shoesData.product_key} userId={shoesData.userId} isFavorite={shoesData.isFavorite}/>
+        <Like productUrl={shoesData.product_key}/>
       </Flex>
       <Flex gap={2} alignItems='center' wrap='wrap' pb={4}>
         <Text>{ds('sizes')}</Text>

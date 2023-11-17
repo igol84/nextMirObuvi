@@ -24,7 +24,7 @@ const SimpleProduct = ({productData}: Props) => {
             {productData.price_prefix}
           </Text>
         </Flex>
-        <Like productUrl={productData.product_key} userId={productData.userId} isFavorite={productData.isFavorite}/>
+        <Like productUrl={productData.product_key}/>
       </Flex>
       <AddToCartButton productId={productData.product_key}/>
     </>

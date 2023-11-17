@@ -1,44 +1,45 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Flex, Text, Tooltip} from "@chakra-ui/react";
 import {Icon} from "@chakra-ui/icons";
 import {serverActionPushProductLike, serverActionPutProductLike} from "@/components/product/actions";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {useUser} from "@/lib/store/user";
 
 interface Props {
-  userId: string | undefined
   productUrl: string
-  isFavorite: boolean
 }
 
-
-const Like = ({userId, productUrl, isFavorite}: Props) => {
+const Like = ({productUrl}: Props) => {
+  const [user, pushFavoriteProduct, putFavoriteProduct] = useUser(
+    (state) => [state.user, state.pushFavoriteProduct, state.putFavoriteProduct]
+  )
+  const isFavorite = user ? user.favoriteProducts.includes(productUrl) : false
   const d = useDictionaryTranslate("favorite")
-  const [isFavoriteUI, setIsFavoriteUI] = useState(isFavorite)
-  const isAuth = !!userId
+  const isAuth = !!user
   const label = isAuth ? '' : d('loginIn')
 
-  const color = isFavoriteUI ? 'secondary' : 'primary'
+  const color = isFavorite ? 'secondary' : 'primary'
   const onLikeClick = !isAuth
     ? () => undefined
-    : isFavoriteUI
+    : isFavorite
       ? async () => {
-        setIsFavoriteUI(false)
-        const result = await serverActionPutProductLike(userId, productUrl)
+        putFavoriteProduct(productUrl)
+        const result = await serverActionPutProductLike(user.id, productUrl)
         if (!result)
-          setIsFavoriteUI(true)
+          pushFavoriteProduct(productUrl)
       } : async () => {
-        setIsFavoriteUI(true)
-        const result = await serverActionPushProductLike(userId, productUrl)
+        pushFavoriteProduct(productUrl)
+        const result = await serverActionPushProductLike(user.id, productUrl)
         if (!result)
-          setIsFavoriteUI(false)
+          putFavoriteProduct(productUrl)
       }
   return (
     <Tooltip hasArrow label={label}>
       <Flex gap={4} alignItems='center' color={color} _hover={{cursor: 'pointer', color: 'secondary'}}
             onClick={onLikeClick}>
-        <Icon as={isFavoriteUI ? FaHeart : FaRegHeart} boxSize={16}/>
-        <Text>{isFavoriteUI ? d('inFan') : d('fan')}</Text>
+        <Icon as={isFavorite ? FaHeart : FaRegHeart} boxSize={16}/>
+        <Text>{isFavorite ? d('inFan') : d('fan')}</Text>
       </Flex>
     </Tooltip>
   );

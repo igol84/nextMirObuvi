@@ -12,19 +12,17 @@ import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import styled from '@emotion/styled'
 import {MoonIcon, SunIcon} from "@chakra-ui/icons";
 import {LangContext} from "@/locale/LangProvider";
-import {Session} from "next-auth";
 import {ProductCart} from "@/lib/cartFunctions";
 import {Item} from "@/components/Container/Navbar/types";
 
 type Props = {
-  session: Session | null
   onMenuOpen: () => void
   onMenuClose: () => void
   cartProducts: ProductCart[]
   brandsItems: Item[]
 }
 
-const Header = ({session, onMenuOpen, onMenuClose, cartProducts, brandsItems}: Props) => {
+const Header = ({onMenuOpen, onMenuClose, cartProducts, brandsItems}: Props) => {
   const StickNav = styled(Flex)` position: sticky;
     z-index: 10;
     top: 0;`
@@ -61,7 +59,7 @@ const Header = ({session, onMenuOpen, onMenuClose, cartProducts, brandsItems}: P
                                   onClose={onClose}>
                 <Cart cartProducts={cartProducts}/>
               </ShoppingCartButton>
-              <UserMenuButton session={session}/>
+              <UserMenuButton/>
             </Flex>
           </Flex>
           <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor'

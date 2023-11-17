@@ -1,5 +1,4 @@
 "use client";
-import {Session} from "next-auth";
 import {signIn, signOut} from "next-auth/react";
 import {
   Avatar,
@@ -18,49 +17,47 @@ import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import Link from "next/link";
 import {IsAdminContext} from "@/app/providers";
 import {LangContext} from "@/locale/LangProvider";
+import {useUser} from "@/lib/store/user";
 
-interface Props {
-  session: Session | null;
-}
 
-export default function UserMenuButton({session}: Props) {
-  const user = session?.user;
+export default function UserMenuButton() {
+  const user = useUser(
+    (state) => state.user
+  )
   const {onOpen, onClose, isOpen} = useDisclosure()
   const d = useDictionaryTranslate("home")
   const lang = useContext(LangContext)
   const isAdmin = useContext(IsAdminContext)
+  const text = {admin: d('admin'), orders: d('orders'), signOut: d('signOut'), signIn: d('signIn')}
   return (
     <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose} autoFocus={false}>
       <PopoverTrigger>
-        {user ? (
-            <Avatar name={user?.name || ''} src={user?.image || undefined} size={'sm'} sx={{cursor: 'pointer'}}/>
-          )
-          :
-          <IconButton icon={<BiUser/>} aria-label={'user'} fontSize={[20, 25, 30, 35]} isRound={true} minW={[1, 2]}/>
+        {user
+          ? <Avatar name={user.name || ''} src={user.image || undefined} size={'sm'} sx={{cursor: 'pointer'}}/>
+          : <IconButton icon={<BiUser/>} aria-label={'user'} fontSize={[20, 25, 30, 35]} isRound={true} minW={[1, 2]}/>
         }
       </PopoverTrigger>
       <PopoverContent w='auto'>
         <PopoverArrow/>
         <PopoverBody>
-
           {user ? (
               <VStack align='flex-start'>
                 {isAdmin && (
                   <Link href={`/${lang}/admin/orders`} onClick={onClose}>
-                    {d('admin')}
+                    {text.admin}
                   </Link>
                 )}
                 <Link href={`/${lang}/profile/orders-list`} onClick={onClose}>
-                  {d('orders')}
+                  {text.orders}
                 </Link>
                 <Link href='#' onClick={() => signOut()}>
-                  {d('signOut')}
+                  {text.signOut}
                 </Link>
               </VStack>
             )
             : (
               <Link href='#' onClick={() => signIn()}>
-                {d('signIn')}
+                {text.signIn}
               </Link>
             )
           }

@@ -32,13 +32,13 @@ export const getUserWithOrders = async (userId: string): Promise<UserWithOrders 
   }
 }
 
-export const pushFavoriteProduct = async (userId: string, productUrl: string): Promise<boolean> => {
+export const pushFavoriteProduct = async (userId: string, productUrl: string): Promise<null | string[]> => {
   try {
     const user = await prisma.user.findUnique({
       where: {id: userId},
       include: {orders: {include: {orderItems: true}, orderBy: {createdAt: 'desc'}}}
     })
-    if (!user) return false
+    if (!user) return null
     const userFavoriteProducts = new Set(user.favoriteProducts)
     userFavoriteProducts.add(productUrl)
     await prisma.user.update({
@@ -47,19 +47,19 @@ export const pushFavoriteProduct = async (userId: string, productUrl: string): P
         favoriteProducts: Array.from(userFavoriteProducts)
       }
     })
-    return true
+    return Array.from(userFavoriteProducts)
   } catch {
-    return false
+    return null
   }
 }
 
-export const putFavoriteProduct = async (userId: string, productUrl: string): Promise<boolean> => {
+export const putFavoriteProduct = async (userId: string, productUrl: string): Promise<null | string[]> => {
   try {
     const user = await prisma.user.findUnique({
       where: {id: userId},
       include: {orders: {include: {orderItems: true}, orderBy: {createdAt: 'desc'}}}
     })
-    if (!user) return false
+    if (!user) return null
     const userFavoriteProducts = new Set(user.favoriteProducts)
     userFavoriteProducts.delete(productUrl)
     await prisma.user.update({
@@ -68,8 +68,8 @@ export const putFavoriteProduct = async (userId: string, productUrl: string): Pr
         favoriteProducts: Array.from(userFavoriteProducts)
       }
     })
-    return true
+    return Array.from(userFavoriteProducts)
   } catch {
-    return false
+    return null
   }
 }
