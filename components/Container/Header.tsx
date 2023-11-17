@@ -14,6 +14,7 @@ import {MoonIcon, SunIcon} from "@chakra-ui/icons";
 import {LangContext} from "@/locale/LangProvider";
 import {ProductCart} from "@/lib/cartFunctions";
 import {Item} from "@/components/Container/Navbar/types";
+import FavoriteProductsIcon from "@/components/Container/FavoriteProductsIcon";
 
 type Props = {
   onMenuOpen: () => void
@@ -55,6 +56,7 @@ const Header = ({onMenuOpen, onMenuClose, cartProducts, brandsItems}: Props) => 
               <IconButton icon={<ThemeIcon/>} aria-label={d("themeIcon")} fontSize={[20, 25, 30, 35]} isRound={true}
                           onClick={toggleColorMode} minW={[1, 2]}/>
               <LocaleSwitcher/>
+              <Box display={['none', 'block']}><FavoriteProductsIcon/></Box>
               <ShoppingCartButton totalData={getCartProductsCount(cartProducts)} isOpen={isOpen} onToggle={onToggle}
                                   onClose={onClose}>
                 <Cart cartProducts={cartProducts}/>

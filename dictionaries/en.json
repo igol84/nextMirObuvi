@@ -122,6 +122,7 @@
     "beforeThatYouLooked": "До цього ви дивилися"
   },
   "favorite": {
+    "header": "Add items to your wish list",
     "loginIn": "Sign in to add an item to your wishlist",
     "inFan": "In Fan",
     "fan": "Fan"

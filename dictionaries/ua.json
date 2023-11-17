@@ -122,6 +122,7 @@
     "beforeThatYouLooked": "Before that you looked"
   },
   "favorite": {
+    "header": "Додайте товари до списку бажань",
     "loginIn": "Увійдіть, щоб додати товар у список бажань",
     "inFan": "В бажаннях",
     "fan": "В бажання"
