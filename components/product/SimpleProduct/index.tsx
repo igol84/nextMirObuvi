@@ -2,7 +2,8 @@ import React from 'react';
 import {Flex, Text} from "@chakra-ui/react";
 import {SimpleProductProps} from "@/components/product/types";
 import AddToCartButton from "@/components/product/AddToCartButton";
-import Like from "@/components/product/Like";
+import dynamic from "next/dynamic";
+const Like = dynamic(() => import('@/components/product/Like'), { ssr: false })
 
 type Props = {
   productData: SimpleProductProps

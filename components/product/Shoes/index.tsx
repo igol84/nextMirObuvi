@@ -4,7 +4,8 @@ import {ShoesType} from "@/components/product/types";
 import Size from "@/components/product/Shoes/Size";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import AddToCartButton from "@/components/product/AddToCartButton";
-import Like from "@/components/product/Like";
+import dynamic from "next/dynamic";
+const Like = dynamic(() => import('@/components/product/Like'), { ssr: false })
 
 type Props = {
   shoesData: ShoesType

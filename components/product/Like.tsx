@@ -4,14 +4,15 @@ import {Icon} from "@chakra-ui/icons";
 import {serverActionPushProductLike, serverActionPutProductLike} from "@/components/product/actions";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import {useUser} from "@/lib/store/user";
+import {useStore} from "@/lib/store";
+
 
 interface Props {
   productUrl: string
 }
 
 const Like = ({productUrl}: Props) => {
-  const [user, pushFavoriteProduct, putFavoriteProduct] = useUser(
+  const [user, pushFavoriteProduct, putFavoriteProduct] = useStore(
     (state) => [state.user, state.pushFavoriteProduct, state.putFavoriteProduct]
   )
   const isFavorite = user ? user.favoriteProducts.includes(productUrl) : false

@@ -17,11 +17,11 @@ import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import Link from "next/link";
 import {IsAdminContext} from "@/app/providers";
 import {LangContext} from "@/locale/LangProvider";
-import {useUser} from "@/lib/store/user";
+import {useStore} from "@/lib/store";
 
 
 export default function UserMenuButton() {
-  const user = useUser(
+  const user = useStore(
     (state) => state.user
   )
   const {onOpen, onClose, isOpen} = useDisclosure()

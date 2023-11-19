@@ -1,12 +1,12 @@
 import React from 'react';
 import {Box, IconButton, Tooltip} from "@chakra-ui/react";
 import {FaRegHeart} from "react-icons/fa";
-import {useUser} from "@/lib/store/user";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {useStore} from "@/lib/store";
 
 const FavoriteProductsIcon = () => {
   const d = useDictionaryTranslate("favorite")
-  const user = useUser(
+  const user = useStore(
     state => state.user
   )
   const count = user ? user.favoriteProducts.length : 0

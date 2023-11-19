@@ -7,8 +7,8 @@ import {Item} from "@/components/Container/Navbar/types";
 import {ProductCart} from "@/lib/cartFunctions";
 import Header from "@/components/Container/Header";
 import Footer from "@/components/Container/Footer";
-import {useUser} from "@/lib/store/user";
 import {User} from "@/lib/store/types";
+import {useStore} from "@/lib/store";
 
 type Props = {
   children: ReactNode
@@ -27,7 +27,7 @@ const Container = ({children, brands, cartProducts, user}: Props) => {
     {title: brand.name, url: brand.url}
   ))
 
-  const setUser = useUser(
+  const setUser = useStore(
     state => state.setUser
   )
 

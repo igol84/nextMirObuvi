@@ -1,25 +1,32 @@
-import {createWithEqualityFn} from 'zustand/traditional'
 import {User} from "@/lib/store/types";
 import {User as userDB} from "@/lib/db/user";
-import {shallow} from "zustand/shallow";
+import {StateCreator} from "zustand";
 
+type State = {
+  user: User | undefined
+}
 
-type UseUser = {
-  user?: User | undefined
-  loading: boolean
-  setUser: (user: User) => void,
+type Actions = {
+  setUser: (user: User | undefined) => void,
   setFavoriteProducts: (favoriteProducts: string[]) => void,
   pushFavoriteProduct: (favoriteProduct: string) => void,
   putFavoriteProduct: (favoriteProduct: string) => void
 }
 
-export const useUser = createWithEqualityFn<UseUser>()((set) => ({
+export type UserSlice = State & Actions
+
+export const createUserSlice: StateCreator<
+  UserSlice,
+  [],
+  [],
+  UserSlice
+> = ((set) => ({
   user: undefined,
   loading: false,
-  setUser: async (user: User) => {
+  setUser: (user) => {
     set({user})
   },
-  setFavoriteProducts: async (favoriteProducts: string[]) => {
+  setFavoriteProducts: (favoriteProducts) => {
     set(state => {
       const user: User | undefined = state.user
         ? {...state.user, favoriteProducts}
@@ -28,7 +35,7 @@ export const useUser = createWithEqualityFn<UseUser>()((set) => ({
     })
   },
 
-  pushFavoriteProduct: async (favoriteProduct: string) => {
+  pushFavoriteProduct: (favoriteProduct) => {
     set(state => {
       let user: User | undefined = undefined
       if(state.user) {
@@ -40,7 +47,7 @@ export const useUser = createWithEqualityFn<UseUser>()((set) => ({
     })
   },
 
-  putFavoriteProduct: async (favoriteProduct: string) => {
+  putFavoriteProduct: (favoriteProduct) => {
     set(state => {
       let user: User | undefined = undefined
       if(state.user) {
@@ -52,7 +59,7 @@ export const useUser = createWithEqualityFn<UseUser>()((set) => ({
     })
   }
 
-}), shallow)
+}))
 
 export const userConvertFromDB = (user: userDB): User => {
   return {id: user.id, name: user.name, image: user.image, favoriteProducts: user.favoriteProducts}
