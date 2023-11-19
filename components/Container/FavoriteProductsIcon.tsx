@@ -9,7 +9,7 @@ const FavoriteProductsIcon = () => {
   const user = useStore(
     state => state.user
   )
-  const count = user ? user.favoriteProducts.length : 0
+  const count = user ? user.favoriteProducts.size : 0
   const label = count ? '' : d('header')
   return (
     <Tooltip hasArrow label={label}>

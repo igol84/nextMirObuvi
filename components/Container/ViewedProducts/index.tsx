@@ -3,12 +3,6 @@ import {Box, Flex, Heading, IconButton, WrapItem} from "@chakra-ui/react";
 import {ProductType} from "@/components/Products/types";
 import {productCardFactory} from "@/components/Products/ProductCardFactory";
 import {Swiper, SwiperSlide} from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import './styles.scss';
 import {Navigation} from 'swiper/modules';
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {MdArrowBackIosNew, MdArrowForwardIos} from "react-icons/md";

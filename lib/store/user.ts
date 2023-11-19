@@ -8,7 +8,6 @@ type State = {
 
 type Actions = {
   setUser: (user: User | undefined) => void,
-  setFavoriteProducts: (favoriteProducts: string[]) => void,
   pushFavoriteProduct: (favoriteProduct: string) => void,
   putFavoriteProduct: (favoriteProduct: string) => void
 }
@@ -22,26 +21,15 @@ export const createUserSlice: StateCreator<
   UserSlice
 > = ((set) => ({
   user: undefined,
-  loading: false,
   setUser: (user) => {
     set({user})
-  },
-  setFavoriteProducts: (favoriteProducts) => {
-    set(state => {
-      const user: User | undefined = state.user
-        ? {...state.user, favoriteProducts}
-        : undefined
-      return {user}
-    })
   },
 
   pushFavoriteProduct: (favoriteProduct) => {
     set(state => {
       let user: User | undefined = undefined
       if(state.user) {
-        const userFavoriteProducts = new Set(state.user.favoriteProducts)
-        userFavoriteProducts.add(favoriteProduct)
-        user = {...state.user, favoriteProducts: Array.from(userFavoriteProducts)}
+        user = {...state.user, favoriteProducts: state.user.favoriteProducts.add(favoriteProduct)}
       }
       return {user}
     })
@@ -51,9 +39,9 @@ export const createUserSlice: StateCreator<
     set(state => {
       let user: User | undefined = undefined
       if(state.user) {
-        const userFavoriteProducts = new Set(state.user.favoriteProducts)
+        const userFavoriteProducts = state.user.favoriteProducts
         userFavoriteProducts.delete(favoriteProduct)
-        user = {...state.user, favoriteProducts: Array.from(userFavoriteProducts)}
+        user = {...state.user, favoriteProducts: userFavoriteProducts}
       }
       return {user}
     })
@@ -62,5 +50,5 @@ export const createUserSlice: StateCreator<
 }))
 
 export const userConvertFromDB = (user: userDB): User => {
-  return {id: user.id, name: user.name, image: user.image, favoriteProducts: user.favoriteProducts}
+  return {id: user.id, name: user.name, image: user.image, favoriteProducts: new Set(user.favoriteProducts)}
 }

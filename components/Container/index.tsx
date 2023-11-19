@@ -9,6 +9,11 @@ import Header from "@/components/Container/Header";
 import Footer from "@/components/Container/Footer";
 import {User} from "@/lib/store/types";
 import {useStore} from "@/lib/store";
+import 'swiper/scss';
+import 'swiper/scss/free-mode';
+import 'swiper/scss/navigation';
+import 'swiper/scss/thumbs';
+import './styles.scss';
 
 type Props = {
   children: ReactNode

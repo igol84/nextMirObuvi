@@ -2,5 +2,5 @@ export interface User {
   id: string
   name : string | null
   image: string | null
-  favoriteProducts: string[]
+  favoriteProducts: Set<string>
 }

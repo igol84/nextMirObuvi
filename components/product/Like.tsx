@@ -15,7 +15,7 @@ const Like = ({productUrl}: Props) => {
   const [user, pushFavoriteProduct, putFavoriteProduct] = useStore(
     (state) => [state.user, state.pushFavoriteProduct, state.putFavoriteProduct]
   )
-  const isFavorite = user ? user.favoriteProducts.includes(productUrl) : false
+  const isFavorite = user ? user.favoriteProducts.has(productUrl) : false
   const d = useDictionaryTranslate("favorite")
   const isAuth = !!user
   const label = isAuth ? '' : d('loginIn')
