@@ -11,7 +11,7 @@ type Props = {
 
 const Brands = ({brands}: Props) => {
   return (
-    <Wrap align='center' justify={{base: 'center', lg: 'flex-start'}} spacing={4}>
+    <Wrap align='center' justify={{base: 'center', lg: 'flex-start'}} spacing={[4, 4, 4, 2, 4]}>
       {brands.map(brand => (
         <WrapItem as='article' key={brand.brandId}>
           <BrandCard isFirst={brand.isFirst} brandId={brand.brandId} brandName={brand.brandName} url={brand.url}/>
