@@ -15,7 +15,7 @@ type Props = {
 
 const Products = ({brandData, productsData}: Props) => {
   return (
-    <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={4}>
+    <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={[4, 4, 4, 2, 4]}>
       {!!brandData && (
         <WrapItem flexDirection="column">
           <ChakraNextImage

@@ -1,18 +1,22 @@
-export type productType = 'product' | 'shoes'
+export type ProductTypeType = 'product' | 'shoes'
+export type PageType = 'catalog' | 'viewed'
+
 export interface ProductBase {
-  type: productType
+  type: ProductTypeType
   id: number
   product_key: string
   url: string
   name: string
   price: number
   price_prefix: string
+  page: PageType
 }
-export interface SimpleProductProps extends ProductBase{
+
+export interface SimpleProductProps extends ProductBase {
   type: 'product'
 }
 
-export interface ShoesType extends ProductBase{
+export interface ShoesType extends ProductBase {
   type: 'shoes'
   sizes: number[]
 }

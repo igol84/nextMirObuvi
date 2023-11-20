@@ -14,17 +14,13 @@ const ProductCard = ({product}: Props) => {
   const lang = useContext(LangContext)
   let UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   return (
-    <Flex flexDirection='column' gap={4}>
-      <Link
-        as={NextLink} href={`/${lang}/products/${url}`}
-        _hover={{color: 'hoverLinkTextColor'}}
-      >
+    <Flex flexDirection='column' gap={4} w={product.page === 'viewed' ? [200, 249] : 249}>
+      <Link as={NextLink} href={`/${lang}/products/${url}`} _hover={{color: 'hoverLinkTextColor'}}>
         <ChakraNextImage
-          shadow='base' borderRadius={[30, 15]} as={NextImage}
-          width={249} height={249} alt={name}
-          src={`https://mirobuvi.com.ua/ftp_products/${product_key}/02.jpg`}
+          shadow='base' alt={name} borderRadius={[30, 15]} as={NextImage} width={0} height={0} sizes="100vw"
+          style={{width: '100%', height: 'auto'}} src={`https://mirobuvi.com.ua/ftp_products/${product_key}/02.jpg`}
         />
-        <Center width={249}><Text>{name}</Text></Center>
+        <Center><Text>{name}</Text></Center>
         <Center alignItems='baseline' color='price'>
           <Text fontSize={24} fontWeight='bold'>
             {UAHFormat.format(price)}
