@@ -26,14 +26,11 @@ const Like = ({productUrl}: Props) => {
     : isFavorite
       ? async () => {
         putFavoriteProduct(productUrl)
-        const result = await serverActionPutProductLike(user.id, productUrl)
-        if (!result)
-          pushFavoriteProduct(productUrl)
-      } : async () => {
+        await serverActionPutProductLike(user.id, productUrl)
+      }
+      : async () => {
         pushFavoriteProduct(productUrl)
-        const result = await serverActionPushProductLike(user.id, productUrl)
-        if (!result)
-          putFavoriteProduct(productUrl)
+        await serverActionPushProductLike(user.id, productUrl)
       }
   return (
     <Tooltip hasArrow label={label}>

@@ -3,7 +3,7 @@ import {BrandCardPropsWithFirst} from "@/components/Brands/types";
 import {getBrandsData} from "@/app/api/fetchFunctions";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import BrandPage from "@/app/[lang]/brands/BrandPage";
-import {getViewedProducts} from "@/lib/viewedProducts";
+import {getViewedProducts} from "@/lib/productsGetter";
 
 type Props = {
   params: {

@@ -7,7 +7,7 @@ import {BrandProps} from "@/components/Brands/types";
 import {ProductType} from "@/components/Products/types";
 import {redirect} from "next/navigation";
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
-import {getViewedProducts} from "@/lib/viewedProducts";
+import {getViewedProducts} from "@/lib/productsGetter";
 import {createProduct} from "@/lib/productCardData";
 
 type Props = {

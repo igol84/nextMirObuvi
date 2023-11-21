@@ -60,7 +60,7 @@ const ViewedProducts = ({viewedProducts}: Props) => {
             const ProductComponent = productCardFactory(product)
             return (
               <SwiperSlide key={product.id} className="viewedProductsSwiperSlide">
-                <WrapItem as='article' key={product.id}>
+                <WrapItem key={product.id}>
                   {ProductComponent}
                 </WrapItem>
               </SwiperSlide>

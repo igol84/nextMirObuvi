@@ -4,14 +4,13 @@ import {Center, Text, Wrap, WrapItem} from "@chakra-ui/react";
 import ChakraNextImage from "@/components/base/ChakraNextImage";
 import NextImage from "next/image";
 import {BrandProps} from "@/components/Brands/types";
-import {productCardFactory} from "@/components/Products/ProductCardFactory";
+import Product from "@/components/Products/Product";
 
 
 type Props = {
   brandData?: BrandProps
   productsData: ProductType[]
 }
-
 
 const Products = ({brandData, productsData}: Props) => {
   return (
@@ -26,10 +25,9 @@ const Products = ({brandData, productsData}: Props) => {
         </WrapItem>
       )}
       {productsData.map(product => {
-        const ProductComponent = productCardFactory(product)
         return (
           <WrapItem as='article' key={product.id}>
-            {ProductComponent}
+            <Product product={product}/>
           </WrapItem>
         )
       })}

@@ -126,5 +126,12 @@
     "loginIn": "Sign in to add an item to your wishlist",
     "inFan": "In Fan",
     "fan": "Fan"
+  },
+  "favoriteList": {
+    "title": "Favorite products",
+    "description": "List of favorites products",
+    "heading": "Favorite products",
+    "buttonLabel": "button - delete favorite product",
+    "NoFavoriteProducts": "No favorite products"
   }
 }

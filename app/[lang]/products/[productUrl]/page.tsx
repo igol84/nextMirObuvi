@@ -8,7 +8,7 @@ import {createWithEmptySizes} from "@/utility/sizes";
 import '@/app/theme/style.scss'
 import {redirect} from 'next/navigation'
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
-import {getViewedProducts} from "@/lib/viewedProducts";
+import {getViewedProducts} from "@/lib/productsGetter";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/configs/auth";
 import {getUser} from "@/lib/db/user";
