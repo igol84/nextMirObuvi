@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, IconButton} from "@chakra-ui/react";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {productCardFactory} from "@/components/Products/ProductCardFactory";
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const Product = ({product}: Props) => {
+  const [isHover, setIsHover] = useState(false)
   const ProductComponent = productCardFactory(product)
   const [user, pushFavoriteProduct, putFavoriteProduct] = useStore(
     state => [state.user, state.pushFavoriteProduct, state.putFavoriteProduct]
@@ -35,9 +36,12 @@ const Product = ({product}: Props) => {
       ? () => onClickOnFavorite(user.id, product.url)
       : () => onClickOnNotFavorite(user.id, product.url)
   return (
-    <Box position='relative'>
-      <IconButton icon={icon} position='absolute' right={3} top={3} color='secondary' onClick={onClick}
-                  size='sm' variant='link' aria-label={''}/>
+    <Box position='relative' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+      <IconButton
+        icon={icon} position='absolute' right={3} top={3} color='secondary' onClick={onClick} size='sm'
+        _hover={{transform: 'scale(1.5)', transitionDuration: '0.2s', transitionTimingFunction: "ease-in-out"}}
+        variant='link' aria-label={''} hidden={(!isFavorite && !isHover) || !isAuth}
+      />
       {ProductComponent}
     </Box>
   )
