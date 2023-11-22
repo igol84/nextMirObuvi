@@ -14,11 +14,11 @@ type Props = {
 
 const Products = ({brandData, productsData}: Props) => {
   return (
-    <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={[4, 4, 4, 2, 4]}>
+    <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={0}>
       {!!brandData && (
-        <WrapItem flexDirection="column">
+        <WrapItem flexDirection="column" p={[1, 1, 1, 0, 1]} >
           <ChakraNextImage
-            as={NextImage} shadow='base' borderRadius={[30, 15]} width={249} height={249} alt={brandData.brandName}
+            as={NextImage} borderRadius={[30, 15]} width={249} height={249} alt={brandData.brandName}
             src={`https://mirobuvi.com.ua/ftp_brands/${brandData.brandId}.jpg`} priority={true}
           />
           <Center width={249}><Text fontSize='2rem' fontWeight='bold'>{brandData.brandName}</Text></Center>

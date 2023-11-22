@@ -17,7 +17,7 @@ const ProductCard = ({product}: Props) => {
     <Flex flexDirection='column' gap={4} w={product.page === 'viewed' ? [200, 249] : 249}>
       <Link as={NextLink} href={`/${lang}/products/${url}`} _hover={{color: 'hoverLinkTextColor'}}>
         <ChakraNextImage
-          shadow='base' alt={name} borderRadius={[30, 15]} as={NextImage} width={0} height={0} sizes="100vw"
+          alt={name} borderRadius={[30, 15]} as={NextImage} width={0} height={0} sizes="100vw"
           style={{width: '100%', height: 'auto'}} src={`https://mirobuvi.com.ua/ftp_products/${product_key}/02.jpg`}
         />
         <Center><Text>{name}</Text></Center>

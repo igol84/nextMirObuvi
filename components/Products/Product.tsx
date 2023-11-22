@@ -36,11 +36,17 @@ const Product = ({product}: Props) => {
       ? () => onClickOnFavorite(user.id, product.url)
       : () => onClickOnNotFavorite(user.id, product.url)
   return (
-    <Box position='relative' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <IconButton
-        icon={icon} position='absolute' right={3} top={3} color='secondary' onClick={onClick} size='sm'
-        _hover={{transform: 'scale(1.5)', transitionDuration: '0.2s', transitionTimingFunction: "ease-in-out"}}
-        variant='link' aria-label={''} hidden={(!isFavorite && !isHover) || !isAuth}
+    <Box sx={{transitionDuration: '0.2s', transitionTimingFunction: "ease-in-out"}} p={[1, 1, 1, 0, 1]} h='full'
+         position='relative' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}
+         borderRadius={15} shadow={isHover ? '2xl' : 'none'} _dark={{shadow: isHover ? 'dark-lg' : 'none'}}>
+      <IconButton sx={{transitionDuration: '0.2s', transitionTimingFunction: "ease-in-out"}}
+                  icon={icon} position='absolute' right={3} top={4} color='secondary' onClick={onClick} size='sm'
+                  _hover={{
+                    transform: 'scale(1.5)',
+                    transitionDuration: '0.2s',
+                    transitionTimingFunction: "ease-in-out"
+                  }}
+                  variant='link' aria-label={''} hidden={(!isFavorite && !isHover) || !isAuth}
       />
       {ProductComponent}
     </Box>
