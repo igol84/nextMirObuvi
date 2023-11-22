@@ -26,6 +26,7 @@ const ViewedProducts = ({viewedProducts}: Props) => {
             640: {
               slidesPerView: 1,
               spaceBetween: 20,
+              centeredSlides: true
             },
             768: {
               slidesPerView: 2,
