@@ -25,7 +25,7 @@ export async function getProductsData(): Promise<ProductSchema[]> {
 
 export async function getProductsDataByBrandId(brandId: number): Promise<ProductSchema[] | undefined> {
   try {
-    const res = await fetch(`${api}/showcase/products-by-brand-id/${brandId}`, {next: {revalidate: 3600}})
+    const res = await fetch(`${api}/showcase/products-by-brand-id/${brandId}`, {next: {revalidate: 60}})
     if (res.ok)
       return await res.json()
   } catch (error) {
@@ -35,7 +35,7 @@ export async function getProductsDataByBrandId(brandId: number): Promise<Product
 
 export async function getProductData(url: string): Promise<ProductSchema | null | undefined> {
   try {
-    const res = await fetch(`${api}/showcase/product-by-url/${url}`, {next: {revalidate: 3600}})
+    const res = await fetch(`${api}/showcase/product-by-url/${url}`, {next: {revalidate: 60}})
     if (res.ok)
       return await res.json()
     if (res.status === 404){

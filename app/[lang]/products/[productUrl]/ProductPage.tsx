@@ -8,6 +8,7 @@ import Gallery from "@/components/product/Galarey";
 import BreadCrumb, {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {saveViewedProducts} from "@/app/[lang]/products/[productUrl]/functions";
 import ViewedProducts from "@/components/Container/ViewedProducts";
+import NewIcon from "@/app/[lang]/products/[productUrl]/NewIcon";
 
 type Props = {
   productData: ProductType
@@ -22,12 +23,12 @@ const ProductPage = ({productData, breadCrumbData, viewedProducts}: Props) => {
     window.scrollTo(0, 0);
     saveViewedProducts(productData.product_key)
   }, [productData.product_key])
-
   return (
     <>
       <BreadCrumb data={breadCrumbData}/>
       <Flex flexDirection={{base: 'column', lg: 'row'}} pb={8}>
-        <Box w={{base: '100%', lg: '60%'}}>
+        <Box w={{base: '100%', lg: '60%'}} position='relative'>
+          <NewIcon hidden={!productData.isNew}/>
           <Gallery images={images}/>
         </Box>
         <Box w={{base: '100%', lg: '38%'}}>

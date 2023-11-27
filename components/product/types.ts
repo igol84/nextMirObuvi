@@ -10,6 +10,7 @@ export interface ProductBase {
   images: string[]
   userId: string | undefined
   isFavorite: boolean
+  isNew: boolean
 }
 
 export interface SimpleProductProps extends ProductBase {

@@ -12,6 +12,7 @@ import {getViewedProducts} from "@/lib/productsGetter";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/configs/auth";
 import {getUser} from "@/lib/db/user";
+import {dateDiffInDays, DAYS_IS_NEW, formatStringToData} from "@/utility/functions";
 
 type Props = {
   params: {
@@ -41,18 +42,21 @@ function productFabrice(lang: Lang, product: ProductSchema, userId: string | und
   const name = lang === 'en' ? product.name : product.name_ua
   const desc = lang === 'en' ? product.desc : product.desc_ua
   const price_prefix = lang === 'en' ? '₴' : 'грн.'
+  const date = formatStringToData(product.date)
+  const daysInterval = dateDiffInDays(date, new Date())
+  const isNew = daysInterval < DAYS_IS_NEW
   switch (product.type) {
     case "product": {
       return {
         name, product_key: product.url, price: product.price, price_prefix, type: 'product',
-        images: product.images, desc, userId, isFavorite
+        images: product.images, desc, userId, isFavorite, isNew
       }
     }
     case "shoes": {
       const allSizes = createWithEmptySizes(product.sizes)
       return {
         name, product_key: product.url, price: product.price, price_prefix, type: 'shoes',
-        images: product.images, desc, userId, isFavorite, sizes: allSizes
+        images: product.images, desc, userId, isFavorite, isNew, sizes: allSizes
       }
     }
   }

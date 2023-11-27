@@ -33,6 +33,7 @@ export interface ProductSchema {
   desc: string
   desc_ua: string
   youtube: string | null
+  date: string
 }
 
 export interface Data {

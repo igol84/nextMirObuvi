@@ -10,6 +10,8 @@ export interface ProductBase {
   price: number
   price_prefix: string
   page: PageType
+  date: Date
+  isNew: boolean
 }
 
 export interface SimpleProductProps extends ProductBase {
