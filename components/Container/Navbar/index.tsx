@@ -30,7 +30,7 @@ const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
         const depthLevel = 0;
         return <MenuItems items={menu} key={index} depthLevel={depthLevel} isMobile={isMobile} onClose={onClose}/>;
       })}
-      <Flex display={{base: "inherit", sm: "none"}} justifyContent='center' alignItems='center'>
+      <Flex display={{base: "inherit", sm: "none"}} justifyContent='center' alignItems='center' onClick={onClose}>
         <FavoriteProductsIcon/>
       </Flex>
       <IconButton as={'a'} className="link _icon-viber" aria-label={d("themeIcon")} isRound={true}
