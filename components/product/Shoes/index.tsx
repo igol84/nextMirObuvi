@@ -5,19 +5,23 @@ import Size from "@/components/product/Shoes/Size";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import AddToCartButton from "@/components/product/AddToCartButton";
 import dynamic from "next/dynamic";
-const Like = dynamic(() => import('@/components/product/Like'), { ssr: false })
+
+const Like = dynamic(() => import('@/components/product/Like'), {ssr: false})
 
 type Props = {
   shoesData: ShoesType
 }
 
 const Shoes = ({shoesData}: Props) => {
+  const d = useDictionaryTranslate("product")
   const ds = useDictionaryTranslate("shoes")
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   const [selectedSize, setSelectedSize] = useState<number | null>(null)
   const [sizeDesc, setSizeDesc] = useState<string>(ds('select_size'))
   const textLength = ds('insole_length')
   const textSelect = ds('select_size')
+  const textNotAvailable = d('notAvailable')
+  const textSizes = ds('sizes')
 
   const changeLengthText = (length: number | null) => {
     const lengthText = length ? `${textLength} ${length}cm` : ''
@@ -56,23 +60,28 @@ const Shoes = ({shoesData}: Props) => {
         </Flex>
         <Like productUrl={shoesData.product_key}/>
       </Flex>
-      <Flex gap={2} alignItems='center' wrap='wrap' pb={4}>
-        <Text>{ds('sizes')}</Text>
-        {shoesData.sizes.map(sizeData => {
-            const selected = selectedSize === sizeData.size
-            return (
-              <Size
-                key={sizeData.size} sizeData={sizeData} selected={selected} onClickSize={onClickSize}
-                onHoverSize={onHoverSize} onLiveSize={onLiveSize}
-              />
-            )
-          }
-        )}
-      </Flex>
-      <Box color='secondary' h={8}>
-        {sizeDesc}
-      </Box>
-      <AddToCartButton productId={shoesData.product_key} size={selectedSize}/>
+      {shoesData.qty > 0 ? (
+        <>
+          <Flex gap={2} alignItems='center' wrap='wrap' pb={4}>
+            <Text>{textSizes}</Text>
+            {shoesData.sizes.map(sizeData => {
+                const selected = selectedSize === sizeData.size
+                return (
+                  <Size
+                    key={sizeData.size} sizeData={sizeData} selected={selected} onClickSize={onClickSize}
+                    onHoverSize={onHoverSize} onLiveSize={onLiveSize}
+                  />
+                )
+              }
+            )}
+          </Flex>
+          <Box color='secondary' h={8}>
+            {sizeDesc}
+          </Box>
+          <AddToCartButton productId={shoesData.product_key} size={selectedSize}/>
+        </>
+      ) : <Text color='red.400'>{textNotAvailable}</Text>}
+
     </>
   );
 };

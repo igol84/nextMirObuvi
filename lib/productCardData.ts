@@ -12,14 +12,14 @@ export const createProduct = (product: ProductSchema, lang: Lang, page: PageType
   switch (product.type) {
     case "product": {
       return {
-        id: product.id, name, url: product.url, product_key: product.product_key,
+        id: product.id, name, url: product.url, product_key: product.product_key, qty: product.qty,
         price: product.price, price_prefix, type: 'product', page, date, isNew
       }
     }
     case "shoes": {
       const sizes: number[] = product.sizes.map(size => size.size)
       return {
-        id: product.id, name, url: product.url, product_key: product.product_key,
+        id: product.id, name, url: product.url, product_key: product.product_key, qty: product.qty,
         price: product.price, price_prefix, type: 'shoes', sizes, page, date, isNew
       }
     }

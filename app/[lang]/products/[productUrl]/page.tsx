@@ -48,14 +48,14 @@ function productFabrice(lang: Lang, product: ProductSchema, userId: string | und
   switch (product.type) {
     case "product": {
       return {
-        name, product_key: product.url, price: product.price, price_prefix, type: 'product',
+        name, product_key: product.url, price: product.price, price_prefix, type: 'product', qty: product.qty,
         images: product.images, desc, userId, isFavorite, isNew
       }
     }
     case "shoes": {
       const allSizes = createWithEmptySizes(product.sizes)
       return {
-        name, product_key: product.url, price: product.price, price_prefix, type: 'shoes',
+        name, product_key: product.url, price: product.price, price_prefix, type: 'shoes', qty: product.qty,
         images: product.images, desc, userId, isFavorite, isNew, sizes: allSizes
       }
     }

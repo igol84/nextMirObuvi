@@ -12,6 +12,7 @@ export interface ProductBase {
   page: PageType
   date: Date
   isNew: boolean
+  qty: number
 }
 
 export interface SimpleProductProps extends ProductBase {

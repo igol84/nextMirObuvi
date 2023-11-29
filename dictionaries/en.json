@@ -73,6 +73,7 @@
   },
   "product": {
     "buy": "Buy",
+    "notAvailable": "Not available",
     "addedOnCart": "Added on Cart"
   },
   "shoes": {

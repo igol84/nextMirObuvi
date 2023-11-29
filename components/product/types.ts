@@ -11,6 +11,7 @@ export interface ProductBase {
   userId: string | undefined
   isFavorite: boolean
   isNew: boolean
+  qty: number
 }
 
 export interface SimpleProductProps extends ProductBase {

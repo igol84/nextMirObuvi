@@ -73,6 +73,7 @@
   },
   "product": {
     "buy": "Купити",
+    "notAvailable": "Немає в наявності",
     "addedOnCart": "Додано в кошик"
   },
   "shoes": {

@@ -9,6 +9,7 @@ import {redirect} from "next/navigation";
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getViewedProducts} from "@/lib/productsGetter";
 import {createProduct} from "@/lib/productCardData";
+import _ from "lodash";
 
 type Props = {
   params: {
@@ -39,12 +40,12 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
   if (!brandData) redirect(`/`)
   const productsData = await getProductsDataByBrandId(brandData.id)
   if (!productsData) redirect(`/`)
-
   const brand: BrandProps = {
     brandId: brandData.id, brandName: brandData.name, url: brandData.url,
     desc: lang === 'en' ? brandData.desc : brandData.desc_ua
   }
-  const products: ProductType[] = productsData.map(product => createProduct(product, lang))
+  const sortedProductsDataByAvailable = _.orderBy(productsData, [product => product.qty > 0], ['desc'])
+  const products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
   const breadCrumbData: BreadCrumbData = {
     brand: brandData.name,
     brandUrl: brandData.url,

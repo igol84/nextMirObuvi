@@ -3,6 +3,8 @@ import {SizeType} from "@/components/product/types";
 import {SizeSchema} from "@/schemas/data";
 
 export const createWithEmptySizes = (sizesData: SizeSchema[]): SizeType[] => {
+  if (sizesData.length === 0)
+    return []
   const sizes = sizesData.map(size => size.size)
   const minSize = floor(Math.min(...sizes))
   const maxSize = floor(Math.max(...sizes))

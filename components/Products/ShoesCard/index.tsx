@@ -6,21 +6,27 @@ import ChakraNextImage from "@/components/base/ChakraNextImage";
 import {LangContext} from "@/locale/LangProvider";
 import {ShoesType} from "@/components/Products/types";
 import Sizes from "@/components/Products/ShoesCard/Sizes";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 type Props = {
   product: ShoesType
 }
 
 const ShoesCard = ({product}: Props) => {
+  const d = useDictionaryTranslate("product")
+  const textNotAvailable = d('notAvailable')
   const {name, product_key, price, price_prefix, sizes, url} = product
   const lang = useContext(LangContext)
   let UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
+  const filter = product.qty > 0 ? undefined : 'auto'
+  const brightness = product.qty > 0 ? undefined : '40%'
   return (
     <Flex flexDirection='column' gap={4} w={product.page === 'viewed' ? [200, 249] : 249}>
       <Link as={NextLink} href={`/${lang}/products/${url}`} _hover={{color: 'hoverLinkTextColor'}}>
         <ChakraNextImage
-          borderRadius={[30, 15]} as={NextImage} width={0} height={0} sizes="100vw" alt={name}
-          style={{width: '100%', height: 'auto'}} src={`https://mirobuvi.com.ua/ftp_products/${product_key}/02.jpg`}
+          borderRadius={[30, 15]} as={NextImage} width={0} height={0} sizes="100vw" alt={name} filter={filter}
+          brightness={brightness} style={{width: '100%', height: 'auto'}}
+          src={`https://mirobuvi.com.ua/ftp_products/${product_key}/02.jpg`}
         />
         <Center><Text>{name}</Text></Center>
         <Center alignItems='baseline' color='price'>
@@ -30,7 +36,7 @@ const ShoesCard = ({product}: Props) => {
           <Text fontSize={16}>{price_prefix}</Text>
         </Center>
         <Center>
-          <Sizes sizes={sizes}/>
+          {product.qty > 0 ? <Sizes sizes={sizes}/> : <Text color='red.400'>{textNotAvailable}</Text>}
         </Center>
       </Link>
     </Flex>
