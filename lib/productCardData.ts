@@ -1,9 +1,17 @@
-import {ProductSchema} from "@/schemas/data";
+import {ProductSchema, ProductWithoutDescriptionSchema} from "@/schemas/data";
 import {Lang} from "@/dictionaries/get-dictionary";
 import {PageType, ProductType} from "@/components/Products/types";
 import {dateDiffInDays, DAYS_IS_NEW, formatStringToData} from "@/utility/functions";
 
-export const createProduct = (product: ProductSchema, lang: Lang, page: PageType = 'catalog'): ProductType => {
+interface CreateProduct {
+  (
+    product: ProductSchema | ProductWithoutDescriptionSchema,
+    lang: Lang,
+    page?: PageType
+  ): ProductType
+}
+
+export const createProduct: CreateProduct = (product, lang, page = 'catalog') => {
   const name = lang === 'en' ? product.name : product.name_ua
   const price_prefix = lang === 'en' ? '₴' : 'грн.'
   const date = formatStringToData(product.date)

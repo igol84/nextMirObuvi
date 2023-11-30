@@ -9,6 +9,10 @@ export const menuItemsEn: Item[] = [
     title: 'About',
     url: 'about',
   },
+  {
+    title: 'Products',
+    url: 'products',
+  },
 ];
 
 export const menuItemsUa: Item[] = [
@@ -19,6 +23,10 @@ export const menuItemsUa: Item[] = [
   {
     title: 'О нас',
     url: 'about',
+  },
+  {
+    title: 'Продукти',
+    url: 'products',
   },
 ];
 

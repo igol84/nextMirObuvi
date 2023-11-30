@@ -134,5 +134,9 @@
     "heading": "Favorite products",
     "buttonLabel": "button - delete favorite product",
     "NoFavoriteProducts": "No favorite products"
+  },
+  "productList": {
+    "title": "Product list",
+    "description": "Product list"
   }
 }

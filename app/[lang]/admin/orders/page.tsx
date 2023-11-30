@@ -14,16 +14,16 @@ export async function generateMetadata({params: {lang}}: { params: { lang: Lang 
 }
 
 interface Props {
-  searchParams: { page: string };
+  searchParams: { page?: string };
   params: { lang: Lang }
 }
 
 const pageSize = 6
-const Page = async ({searchParams: {page = "1"}, params: {lang}}: Props) => {
+const Page = async ({params: {lang}, searchParams: {page = "1"}}: Props) => {
   const dict = await getDictionary(lang)
   const currentPage = parseInt(page)
   const totalOrderCount = await getTotalOrderCount()
-  const totalPages = Math.ceil(totalOrderCount / pageSize);
+  const totalPages = Math.ceil(totalOrderCount / pageSize)
   const ordersData = await getOrders(currentPage, pageSize)
   if (!ordersData || ordersData.length === 0)
     return <div>{dict.orderList.ordersNotFound}</div>

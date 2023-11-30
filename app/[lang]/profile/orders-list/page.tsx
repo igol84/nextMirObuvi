@@ -7,7 +7,13 @@ import {redirect} from "next/navigation";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import {IOrder, IOrderItem} from "@/app/[lang]/profile/orders-list/types";
 
-export async function generateMetadata({ params: {lang} }: { params: { lang: Lang } }) {
+type Props = {
+  params: {
+    lang: Lang
+  }
+}
+
+export async function generateMetadata({ params: {lang} }: Props) {
   const dict = await getDictionary(lang)
   return {
     title: dict.orderList.title,
@@ -15,11 +21,6 @@ export async function generateMetadata({ params: {lang} }: { params: { lang: Lan
   }
 }
 
-type Props = {
-  params: {
-    lang: Lang
-  }
-}
 
 const OrdersListPage = async ({params: {lang}}: Props) => {
   const session = await getServerSession(authOptions)
@@ -29,7 +30,6 @@ const OrdersListPage = async ({params: {lang}}: Props) => {
       const dict = await getDictionary(lang)
       return <div>{dict.orderList.ordersNotFound}</div>
     }
-
 
     const orderData: IOrder[] = orders.map(order => {
       const orderItems: IOrderItem[] = order.orderItems.map(orderItem => ({

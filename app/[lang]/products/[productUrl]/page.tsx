@@ -1,6 +1,6 @@
 import React from 'react';
 import {Lang} from "@/dictionaries/get-dictionary";
-import {getProductData, getProductsData} from "@/app/api/fetchFunctions";
+import {getProductData, getProductUrls} from "@/app/api/fetchFunctions";
 import ProductPage from "@/app/[lang]/products/[productUrl]/ProductPage";
 import {ProductType} from "@/components/product/types";
 import {ProductSchema} from "@/schemas/data";
@@ -34,8 +34,8 @@ export async function generateMetadata({params: {productUrl, lang}}: Props) {
 }
 
 export async function generateStaticParams() {
-  const productsData = await getProductsData()
-  return productsData.map((product) => ({productUrl: product.url}))
+  const productUrls = await getProductUrls()
+  return productUrls.map((product) => ({productUrl: product.url}))
 }
 
 function productFabrice(lang: Lang, product: ProductSchema, userId: string | undefined, isFavorite: boolean): ProductType {

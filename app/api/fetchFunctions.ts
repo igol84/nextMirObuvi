@@ -1,5 +1,5 @@
 import 'server-only'
-import {BrandSchema, ProductSchema} from "@/schemas/data";
+import {BrandSchema, ProductSchema, ProductUrlSchema, ProductWithoutDescriptionSchema} from "@/schemas/data";
 
 const api = 'https://31.148.245.50'
 
@@ -18,12 +18,17 @@ export async function getBrandData(name: string): Promise<BrandSchema | undefine
   }
 }
 
-export async function getProductsData(): Promise<ProductSchema[]> {
-  const res = await fetch(`${api}/showcase/light`, {next: {revalidate: 3600}})
+export async function getProducts(): Promise<ProductWithoutDescriptionSchema[]> {
+  const res = await fetch(`${api}/showcase/products`, {next: {revalidate: 60}})
   return await res.json()
 }
 
-export async function getProductsDataByBrandId(brandId: number): Promise<ProductSchema[] | undefined> {
+export async function getProductUrls(): Promise<ProductUrlSchema[]> {
+  const res = await fetch(`${api}/showcase/light`, {next: {revalidate: 60}})
+  return await res.json()
+}
+
+export async function getProductsDataByBrandId(brandId: number): Promise<ProductWithoutDescriptionSchema[] | undefined> {
   try {
     const res = await fetch(`${api}/showcase/products-by-brand-id/${brandId}`, {next: {revalidate: 60}})
     if (res.ok) {

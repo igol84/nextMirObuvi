@@ -35,6 +35,8 @@ export interface ProductSchema {
   youtube: string | null
   date: string
 }
+export type ProductUrlSchema = Pick<ProductSchema, 'url'>
+export type ProductWithoutDescriptionSchema = Omit<ProductSchema, 'desc' | 'desc_ua' | 'youtube'>
 
 export interface Data {
   brands: BrandSchema[]
