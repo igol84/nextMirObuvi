@@ -4,13 +4,14 @@ import {Search2Icon} from "@chakra-ui/icons";
 import {usePathname, useSearchParams} from "next/navigation";
 import submit from "@/components/Container/Navbar/SearchInput/actions";
 import {LangContext} from "@/locale/LangProvider";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 const isProductsPage = (path: string): boolean => {
   return path.includes('products')
 }
 const SearchInput = () => {
   const lang = useContext(LangContext)
-
+  const d = useDictionaryTranslate("home")
   const params = useSearchParams()
   const searchParams = params.get('search') ? params.get('search') as string : ''
   const [searchValue, setSearchValue] = useState(searchParams)
@@ -28,11 +29,12 @@ const SearchInput = () => {
         <InputLeftElement pointerEvents="none">
           <Search2Icon color="gray.600"/>
         </InputLeftElement>
-        <Input name='search' value={searchValue} onChange={onChange} borderRadius={8} type="text" placeholder="Search..."/>
+        <Input name='search' value={searchValue} onChange={onChange} borderRadius={8} type="text"
+               placeholder={`${d('search')}...`}/>
         <input name='lang' type='hidden' defaultValue={lang}/>
         <InputRightAddon p={0} border="none" borderEndRadius={8}>
           <Button type='submit'>
-            Search
+            {d('search')}
           </Button>
         </InputRightAddon>
       </InputGroup>
