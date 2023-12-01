@@ -7,6 +7,7 @@ import {Item} from "@/components/Container/Navbar/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {LangContext} from "@/locale/LangProvider";
 import FavoriteProductsIcon from "@/components/Container/FavoriteProductsIcon";
+import SearchInput from "@/components/Container/Navbar/SearchInput";
 
 type Props = {
   brandsItems: Item[]
@@ -30,6 +31,9 @@ const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
         const depthLevel = 0;
         return <MenuItems items={menu} key={index} depthLevel={depthLevel} isMobile={isMobile} onClose={onClose}/>;
       })}
+      <Flex justifyContent='center' alignItems='center' py={{base: 2, sm: 0}}>
+      <SearchInput/>
+      </Flex>
       <Flex display={{base: "inherit", sm: "none"}} justifyContent='center' alignItems='center' onClick={onClose}>
         <FavoriteProductsIcon/>
       </Flex>

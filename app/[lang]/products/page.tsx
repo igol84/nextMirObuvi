@@ -11,7 +11,8 @@ type Props = {
     lang: Lang
   },
   searchParams: {
-    page: string
+    page?: string
+    search?: string
   }
 }
 
@@ -26,13 +27,20 @@ export async function generateMetadata({params: {lang}}: Props) {
   }
 }
 const pageSize = 48
-const Page = async ({params: {lang}, searchParams: {page = '1'}}: Props) => {
-  const currentPage = parseInt(page)
+const Page = async ({params: {lang}, searchParams: {page = '1', search}}: Props) => {
+  let currentPage = parseInt(page)
   const productsData = await getProducts()
-  const totalProductsCount = productsData.length
-  const totalPages = Math.ceil(totalProductsCount / pageSize)
+
+
   const sortedProductsDataByAvailable = _.orderBy(productsData, [product => product.qty > 0], ['desc'])
-  const products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
+  let products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
+
+  if(search) {
+    products = products.filter(product => product.name.toLowerCase().includes(search.trim().toLowerCase()))
+  }
+  const totalProductsCount = products.length
+  const totalPages = Math.ceil(totalProductsCount / pageSize)
+  currentPage = currentPage > totalPages ? totalPages : currentPage
   const skip = (currentPage - 1) * pageSize
   const productsSlice = products.slice(skip, skip + pageSize)
   const paginationBar: PaginationBarProps = {pageSize, totalPages, currentPage}

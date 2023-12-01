@@ -3,9 +3,10 @@ import {Box} from "@chakra-ui/react";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {productCardFactory} from "@/components/Products/ProductCardFactory";
 import {ProductType} from "@/components/Products/types";
-import FavoriteIcon from "@/components/Products/FavoriteIcon";
 import NewIcon from "@/components/Products/NewIcon";
 import {useFavorite} from "@/components/Products/favorirwHooks";
+import dynamic from "next/dynamic";
+const FavoriteIcon = dynamic(() => import('@/components/Products/FavoriteIcon'), {ssr: false})
 
 
 interface Props {

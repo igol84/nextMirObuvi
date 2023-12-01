@@ -10,3 +10,7 @@ export type Lang = keyof typeof dictionaries
 export const getDictionary = async (locale: Lang) => {
   return dictionaries[Object.keys(dictionaries).includes(locale) ? locale : defaultLanguage]()
 };
+
+export const checkDictionary = (locale: string): Lang => {
+  return Object.keys(dictionaries).includes(locale) ? locale as Lang : defaultLanguage
+};

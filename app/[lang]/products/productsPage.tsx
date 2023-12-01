@@ -1,9 +1,11 @@
 'use client'
 import React from 'react';
-import {Flex, Wrap, WrapItem} from "@chakra-ui/react";
+import {Flex, Heading, Wrap, WrapItem} from "@chakra-ui/react";
 import Product from "@/components/Products/Product";
 import {ProductType} from "@/components/Products/types";
 import PaginationBar, {PaginationBarProps} from "@/components/base/PaginationBar";
+import {useSearchParams} from "next/navigation";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 interface Props {
   products: ProductType[]
@@ -11,6 +13,13 @@ interface Props {
 }
 
 const ProductsPage = ({products, paginationBar: {pageSize, totalPages, currentPage}}: Props) => {
+  const d = useDictionaryTranslate("home")
+  const searchParams = useSearchParams()
+  if (products.length === 0) {
+    return <Heading>{d('notFound')}</Heading>
+  }
+  const search = searchParams.get('search') ? searchParams.get('search') as string : ''
+  const path = search ? '?search=nike&' : '?'
   return (
     <Flex flexDirection='column' gap={4} pb={{base: 4, sm: 0}}>
       <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={[0, 0, 0, 1, 0]}>
@@ -23,9 +32,8 @@ const ProductsPage = ({products, paginationBar: {pageSize, totalPages, currentPa
         })}
       </Wrap>
       <Flex w='full' justifyContent='center'>
-        <PaginationBar currentPage={currentPage} totalPages={totalPages} pageSize={pageSize}/>
+        <PaginationBar currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} path={path}/>
       </Flex>
-
     </Flex>
 
   );

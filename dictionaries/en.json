@@ -16,7 +16,9 @@
     "signIn": "Sign In",
     "orders": "Orders",
     "admin": "Admin Panel",
-    "notAdmin": "You are not admin!"
+    "notAdmin": "You are not admin!",
+    "search": "Search",
+    "notFound": "Products not found"
   },
   "breadcrumb": {
     "home": "Home",

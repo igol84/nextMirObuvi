@@ -8,9 +8,10 @@ export interface PaginationBarProps {
   currentPage: number
   totalPages: number
   pageSize: number
+  path?: string
 }
 
-const PaginationBar = ({currentPage, totalPages, pageSize}: PaginationBarProps) => {
+const PaginationBar = ({currentPage, totalPages, pageSize, path = '?'}: PaginationBarProps) => {
   const router = useRouter()
   const maxPage = Math.min(totalPages, Math.max(currentPage + 3, pageSize));
   const minPage = Math.max(1, Math.min(currentPage - 3, maxPage - pageSize - 1));
@@ -22,9 +23,10 @@ const PaginationBar = ({currentPage, totalPages, pageSize}: PaginationBarProps) 
   const onClick = (page: number, isCurrentPage: boolean) => {
     if (isCurrentPage)
       return
-    router.push('?page=' + page)
+    router.push(path + 'page=' + page)
   }
-  if (totalPages === 1) return null
+
+  if (totalPages <= 1) return null
   return (
     <ButtonGroup size='sm' isAttached boxShadow='2xl'>
       <IconButton aria-label='First Page' icon={<BiFirstPage/>} variant={'pagination' + variantFirstPage}
