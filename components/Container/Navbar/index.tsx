@@ -32,7 +32,7 @@ const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
         return <MenuItems items={menu} key={index} depthLevel={depthLevel} isMobile={isMobile} onClose={onClose}/>;
       })}
       <Flex justifyContent='center' alignItems='center' py={{base: 2, sm: 0}}>
-      <SearchInput/>
+      <SearchInput onClose={onClose}/>
       </Flex>
       <Flex display={{base: "inherit", sm: "none"}} justifyContent='center' alignItems='center' onClick={onClose}>
         <FavoriteProductsIcon/>

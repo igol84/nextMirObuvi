@@ -1,21 +1,28 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Input, InputGroup, InputLeftElement, InputRightAddon} from "@chakra-ui/react";
+import {Button, Input, InputGroup, InputLeftElement, InputRightAddon, Spinner} from "@chakra-ui/react";
 import {Search2Icon} from "@chakra-ui/icons";
 import {usePathname, useSearchParams} from "next/navigation";
-import submit from "@/components/Container/Navbar/SearchInput/actions";
 import {LangContext} from "@/locale/LangProvider";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import serverActionSearch from "@/components/Container/Navbar/SearchInput/actions";
+import {searchData} from "@/components/Container/Navbar/SearchInput/types";
 
 const isProductsPage = (path: string): boolean => {
   return path.includes('products')
 }
-const SearchInput = () => {
+
+interface Props {
+  onClose?: () => void
+}
+
+const SearchInput = ({onClose = () => undefined}: Props) => {
   const lang = useContext(LangContext)
   const d = useDictionaryTranslate("home")
   const params = useSearchParams()
   const searchParams = params.get('search') ? params.get('search') as string : ''
   const [searchValue, setSearchValue] = useState(searchParams)
-  const onChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+  const [loading, setLoading] = useState(false)
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value)
   }
   const pathname = usePathname()
@@ -23,11 +30,21 @@ const SearchInput = () => {
     if (!isProductsPage(pathname))
       setSearchValue('')
   }, [pathname])
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const searchData: searchData = {search: searchValue, lang}
+    setLoading(true)
+    await serverActionSearch(searchData)
+    onClose()
+    setLoading(false)
+  }
+
   return (
-    <form action={submit}>
+    <form onSubmit={onSubmit}>
       <InputGroup>
         <InputLeftElement pointerEvents="none">
-          <Search2Icon color="gray.600"/>
+          {loading ? <Spinner color="gray.600"/> : <Search2Icon color="gray.600"/>}
         </InputLeftElement>
         <Input name='search' value={searchValue} onChange={onChange} borderRadius={8} type="text"
                placeholder={`${d('search')}...`}/>
