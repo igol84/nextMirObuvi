@@ -26,17 +26,21 @@ export async function generateMetadata({params: {lang}}: Props) {
     },
   }
 }
+
 const pageSize = 48
 const Page = async ({params: {lang}, searchParams: {page = '1', search}}: Props) => {
   let currentPage = parseInt(page)
   const productsData = await getProducts()
 
-
   const sortedProductsDataByAvailable = _.orderBy(productsData, [product => product.qty > 0], ['desc'])
   let products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
 
-  if(search) {
-    products = products.filter(product => product.name.toLowerCase().includes(search.trim().toLowerCase()))
+  if (search) {
+    products = products.filter(product => {
+      const whereSearch = product.name.toLowerCase()
+      const whatSearch = search.trim().toLowerCase()
+      return whereSearch.includes(whatSearch)
+    })
   }
   const totalProductsCount = products.length
   const totalPages = Math.ceil(totalProductsCount / pageSize)

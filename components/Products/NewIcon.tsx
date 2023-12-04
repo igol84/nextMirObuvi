@@ -8,7 +8,7 @@ interface Props{
 const NewIcon = ({hidden}: Props) => {
   return (
     <Badge display={!hidden ? 'block' : 'none'} colorScheme='green' variant='solid' position='absolute' left={3}
-           top={4}>
+           top={4} pointerEvents="none">
       new
     </Badge>
   );
