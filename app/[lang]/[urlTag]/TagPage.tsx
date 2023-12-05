@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect} from 'react';
 import {Box, Heading} from "@chakra-ui/react";
-import {saveViewedProducts} from "@/app/[lang]/products/[productUrl]/functions";
+import {useSearchParams} from "next/navigation";
 
 interface Props{
   children: React.ReactNode
@@ -10,10 +10,10 @@ interface Props{
 }
 
 const TagPage = ({children, title, desc}: Props) => {
+  const searchParams = useSearchParams()
   useEffect(() => {
     window.scrollTo(0, 0);
-    saveViewedProducts(title)
-  }, [title])
+  }, [searchParams])
   return (
     <Box>
       <Heading>{title}</Heading>
