@@ -12,7 +12,7 @@ interface Props {
   paginationBar: PaginationBarProps
 }
 
-const ProductsPage = ({products, paginationBar: {pageSize, totalPages, currentPage}}: Props) => {
+const ProductsList = ({products, paginationBar: {pageSize, totalPages, currentPage}}: Props) => {
   const d = useDictionaryTranslate("home")
   const searchParams = useSearchParams()
   if (products.length === 0) {
@@ -39,4 +39,4 @@ const ProductsPage = ({products, paginationBar: {pageSize, totalPages, currentPa
   );
 };
 
-export default ProductsPage;
+export default ProductsList;

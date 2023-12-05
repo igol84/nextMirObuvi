@@ -18,7 +18,8 @@
     "admin": "Admin Panel",
     "notAdmin": "You are not admin!",
     "search": "Search",
-    "notFound": "Products not found"
+    "notFound": "Products not found",
+    "products": "Products"
   },
   "breadcrumb": {
     "home": "Home",

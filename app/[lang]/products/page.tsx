@@ -1,5 +1,5 @@
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import ProductsPage from "@/app/[lang]/products/productsPage";
+import ProductsList from "@/components/base/productsList";
 import {getProducts} from "@/app/api/fetchFunctions";
 import _ from "lodash";
 import {ProductType} from "@/components/Products/types";
@@ -49,7 +49,7 @@ const Page = async ({params: {lang}, searchParams: {page = '1', search}}: Props)
   const productsSlice = products.slice(skip, skip + pageSize)
   const paginationBar: PaginationBarProps = {pageSize, totalPages, currentPage}
   return (
-    <ProductsPage products={productsSlice} paginationBar={paginationBar}/>
+    <ProductsList products={productsSlice} paginationBar={paginationBar}/>
   )
 }
 

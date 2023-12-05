@@ -80,6 +80,23 @@ const Button = defineStyleConfig({
         },
       }
     },
+    navButtonSelected: {
+      w: '100%',
+      justifyContent: 'left',
+      fontWeight: 'inherit',
+      h: '100%',
+      borderRadius: "none",
+      pointerEvents: 'none',
+      px: 3,
+      py: 4,
+      bg: 'primary.300',
+      color: 'primary.900',
+      textDecoration: 'none',
+      _dark: {
+        bg: 'primary.200',
+        color: 'primary.900',
+      }
+    },
     cart: {
       bg: 'teal.200',
       color: 'teal.900',

@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import {Box, Button, Text} from "@chakra-ui/react";
 import {LangContext} from "@/locale/LangProvider";
 import {Item} from "@/components/Container/Navbar/types";
+import {usePathname} from "next/navigation";
 
 type Props = {
   items: Item
@@ -40,6 +41,7 @@ const MenuItems = ({items, depthLevel, isMobile, onClose}: Props) => {
   const closeDropdown = () => {
     !isMobile && dropdown && setDropdown(false);
   };
+  const currentUrl = usePathname()
   return (
     <Box as={'li'} position='relative' className="menu-items" ref={ref} onMouseEnter={onMouseEnter}
          onMouseLeave={onMouseLeave} onClick={closeDropdown}
@@ -68,7 +70,8 @@ const MenuItems = ({items, depthLevel, isMobile, onClose}: Props) => {
           />
         </>
       ) : items.url !== undefined ? (
-        <Button h={!isMobile && depthLevel > 0 ? 1: 'none'} onClick={onClose} variant='navButton'
+        <Button h={!isMobile && depthLevel > 0 ? 1: 'none'} onClick={onClose}
+                variant={`/${lang}/${items.url}` === currentUrl ? 'navButtonSelected' : 'navButton'}
                 pl={isMobile && depthLevel>0 ? 2*(depthLevel+2) : 2} as={NextLink}
                 href={`/${lang}/${items.url}`}>{items.title}</Button
         >
