@@ -12,7 +12,7 @@ interface Props{
 const TagPage = ({children, title, desc}: Props) => {
   const searchParams = useSearchParams()
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0)
   }, [searchParams])
   return (
     <Box>
