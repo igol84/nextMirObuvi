@@ -1,6 +1,7 @@
 'use client'
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, Heading} from "@chakra-ui/react";
+import {saveViewedProducts} from "@/app/[lang]/products/[productUrl]/functions";
 
 interface Props{
   children: React.ReactNode
@@ -9,6 +10,10 @@ interface Props{
 }
 
 const TagPage = ({children, title, desc}: Props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    saveViewedProducts(title)
+  }, [title])
   return (
     <Box>
       <Heading>{title}</Heading>
