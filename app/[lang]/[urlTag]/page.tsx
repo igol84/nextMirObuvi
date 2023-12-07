@@ -1,9 +1,9 @@
 import React from 'react';
+import '@/app/theme/style.scss'
 import {Lang} from "@/dictionaries/get-dictionary";
-import {data} from "@/app/[lang]/[urlTag]/data";
 import {redirect} from "next/navigation";
-import {Tag} from "@/app/[lang]/[urlTag]/types";
-import {getProducts} from "@/app/api/fetchFunctions";
+import {TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctions";
 import _ from "lodash";
 import {ProductType} from "@/components/Products/types";
 import {createProduct} from "@/lib/productCardData";
@@ -20,13 +20,34 @@ type Props = {
     page?: string
   }
 }
+
+export async function generateMetadata({params: {lang, urlTag}}: Props) {
+  const fetchData = await getTagUrlData(urlTag)
+  if (!fetchData) redirect(`/`)
+  const tagData: TagUrl = lang === 'ua'
+    ? {url:fetchData.url, search: fetchData.search_ua, desc: fetchData.desc_ua, text: fetchData.text_ua}
+    : {url:fetchData.url, search: fetchData.search, desc: fetchData.desc, text: fetchData.text}
+  return {
+    title: tagData.search,
+    description: tagData.desc,
+    openGraph: {
+      images: ['https://mirobuvi.com.ua/images/slide/Adidas_Nite_Jogger_Black_Black.jpg'],
+    },
+  }
+}
+
+export async function generateStaticParams() {
+  const tagsUrlData = await getTagsUrlData()
+  return tagsUrlData.map((tag) => ({urlTag: tag.url}))
+}
+
 const productsOnPage = 24
 const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props) => {
-  const fetchData = data.find(tag => tag.tagUrl === urlTag)
+  const fetchData = await getTagUrlData(urlTag)
   if (!fetchData) redirect(`/`)
-  const tagData: Tag = lang === 'ua'
-    ? {search: fetchData.searchUa, desc: fetchData.descUa}
-    : {search: fetchData.search, desc: fetchData.desc}
+  const tagData: TagUrl = lang === 'ua'
+    ? {url:fetchData.url, search: fetchData.search_ua, desc: fetchData.desc_ua, text: fetchData.text_ua}
+    : {url:fetchData.url, search: fetchData.search, desc: fetchData.desc, text: fetchData.text}
 
   let currentPage = parseInt(page)
   const productsData = await getProducts()
@@ -48,7 +69,7 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
   const paginationBar: PaginationBarProps = {pageSize: productsOnPage, totalPages, currentPage}
 
   return (
-    <TagPage title={tagData.search} desc={tagData.desc}>
+    <TagPage desc={tagData.text}>
       <ProductsList products={productsSlice} paginationBar={paginationBar}/>
     </TagPage>
 

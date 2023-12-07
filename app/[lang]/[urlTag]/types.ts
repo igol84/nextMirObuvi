@@ -1,12 +1,6 @@
-export interface  FetchTag {
-  tagUrl: string
-  search: string
-  searchUa: string
-  desc: string
-  descUa: string
-}
-
-export interface  Tag {
+export interface TagUrl {
+  url: string
   search: string
   desc: string
+  text: string
 }

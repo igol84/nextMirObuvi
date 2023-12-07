@@ -14,15 +14,17 @@ import 'swiper/scss/free-mode';
 import 'swiper/scss/navigation';
 import 'swiper/scss/thumbs';
 import './styles.scss';
+import {TagUrl} from "@/app/[lang]/[urlTag]/types";
 
 type Props = {
   children: ReactNode
   brands: BrandSchema[]
   cartProducts: ProductCart[]
   user: User | null
+  tagsUrl: TagUrl[]
 }
 
-const Container = ({children, brands, cartProducts, user}: Props) => {
+const Container = ({children, brands, cartProducts, user, tagsUrl}: Props) => {
   const {
     isOpen: isMenuOpen,
     onOpen: onMenuOpen,
@@ -44,14 +46,14 @@ const Container = ({children, brands, cartProducts, user}: Props) => {
   return (
     <Flex direction='column' minH='100%' mx={[2, 4, 8, 16, 24]}>
       <Header onMenuOpen={onMenuOpen} onMenuClose={onMenuClose} cartProducts={cartProducts}
-              brandsItems={brandsItems}/>
+              brandsItems={brandsItems} tagsUrl={tagsUrl}/>
       <Flex direction='column' flex={1} backgroundColor='bodyColor' p={[1, 4, 8, 16]} roundedBottom={6}>
         <Flex as='main' flex={1} direction='column'>
           {children}
         </Flex>
       </Flex>
       <Footer isAuthorized={!!user}/>
-      <DrawerMenu brandsItems={brandsItems} isOpen={isMenuOpen} onClose={onMenuClose}/>
+      <DrawerMenu brandsItems={brandsItems} isOpen={isMenuOpen} onClose={onMenuClose} tagsUrl={tagsUrl}/>
     </Flex>
   );
 };

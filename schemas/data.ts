@@ -35,10 +35,21 @@ export interface ProductSchema {
   youtube: string | null
   date: string
 }
+
 export type ProductUrlSchema = Pick<ProductSchema, 'url'>
 export type ProductWithoutDescriptionSchema = Omit<ProductSchema, 'desc' | 'desc_ua' | 'youtube'>
 
 export interface Data {
   brands: BrandSchema[]
   products: ProductSchema[]
+}
+
+export interface TagUrlSchema {
+  url: string
+  search: string
+  search_ua: string
+  desc: string
+  desc_ua: string
+  text: string
+  text_ua: string
 }

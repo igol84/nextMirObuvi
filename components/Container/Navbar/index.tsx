@@ -8,15 +8,16 @@ import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {LangContext} from "@/locale/LangProvider";
 import FavoriteProductsIcon from "@/components/Container/FavoriteProductsIcon";
 import SearchInput from "@/components/Container/Navbar/SearchInput";
-import {data} from "@/app/[lang]/[urlTag]/data";
+import {TagUrl} from "@/app/[lang]/[urlTag]/types";
 
 type Props = {
   brandsItems: Item[]
+  tagsUrl: TagUrl[]
   isMobile?: boolean
   onClose: () => void
 }
 
-const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
+const Navbar = ({brandsItems, isMobile, tagsUrl, onClose}: Props) => {
   const lang = useContext(LangContext)
   const d = useDictionaryTranslate("home")
   const updatedBrandItems = brandsItems.map(item => {
@@ -24,7 +25,7 @@ const Navbar = ({brandsItems, isMobile, onClose}: Props) => {
     return {...item, url}
   })
   const brandsNav: Item = {title: d('brands'), url: '/brands/', submenu: updatedBrandItems}
-  const tagsItems: Item[] = data.map(tag=>({url: tag.tagUrl, title: lang==='ua' ? tag.searchUa : tag.search}))
+  const tagsItems: Item[] = tagsUrl.map(tag=>({url: tag.url, title: tag.search}))
   const tagNav: Item = {title: d('products'), url: '/products/', submenu: tagsItems}
   const menuItems = lang === 'en' ? menuItemsEn : menuItemsUa
   const allItems = menuItems.concat([tagNav, brandsNav])

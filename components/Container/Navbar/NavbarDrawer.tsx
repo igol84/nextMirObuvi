@@ -5,13 +5,15 @@ import React from "react";
 import Navbar from "@/components/Container/Navbar/index";
 import {Item} from "@/components/Container/Navbar/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import {TagUrl} from "@/app/[lang]/[urlTag]/types";
 type Props = {
   isOpen: boolean,
   onClose: () => void
   brandsItems: Item[]
+  tagsUrl: TagUrl[]
 }
 
-const DrawerMenu = ({isOpen, onClose, brandsItems}: Props) => {
+const DrawerMenu = ({isOpen, onClose, brandsItems, tagsUrl}: Props) => {
   const btnRef = React.useRef(null)
   const d = useDictionaryTranslate("home")
   return (
@@ -28,7 +30,7 @@ const DrawerMenu = ({isOpen, onClose, brandsItems}: Props) => {
           <DrawerHeader>{d('menu')}</DrawerHeader>
 
           <DrawerBody>
-            <Navbar brandsItems={brandsItems} isMobile={true} onClose={onClose}/>
+            <Navbar brandsItems={brandsItems} isMobile={true} onClose={onClose} tagsUrl={tagsUrl}/>
           </DrawerBody>
 
           <DrawerFooter>

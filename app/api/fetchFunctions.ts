@@ -1,5 +1,11 @@
 import 'server-only'
-import {BrandSchema, ProductSchema, ProductUrlSchema, ProductWithoutDescriptionSchema} from "@/schemas/data";
+import {
+  BrandSchema,
+  ProductSchema,
+  ProductUrlSchema,
+  ProductWithoutDescriptionSchema,
+  TagUrlSchema
+} from "@/schemas/data";
 
 const api = 'https://31.148.245.50'
 
@@ -49,5 +55,21 @@ export async function getProductData(url: string): Promise<ProductSchema | null 
     }
   } catch (error) {
     return undefined
+  }
+}
+
+export async function getTagsUrlData(): Promise<TagUrlSchema[]> {
+  const res = await fetch(`${api}/tag_url/`, {next: {revalidate: 3600}})
+  return await res.json()
+}
+
+
+export async function getTagUrlData(url: string): Promise<TagUrlSchema | undefined> {
+  try {
+    const res = await fetch(`${api}/tag_url/${url}`, {next: {revalidate: 3600}})
+    if (res.ok)
+      return await res.json()
+  } catch (error) {
+    console.log('There was an error', error);
   }
 }

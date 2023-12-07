@@ -15,15 +15,17 @@ import {LangContext} from "@/locale/LangProvider";
 import {ProductCart} from "@/lib/cartFunctions";
 import {Item} from "@/components/Container/Navbar/types";
 import FavoriteProductsIcon from "@/components/Container/FavoriteProductsIcon";
+import {TagUrl} from "@/app/[lang]/[urlTag]/types";
 
 type Props = {
   onMenuOpen: () => void
   onMenuClose: () => void
   cartProducts: ProductCart[]
   brandsItems: Item[]
+  tagsUrl: TagUrl[]
 }
 
-const Header = ({onMenuOpen, onMenuClose, cartProducts, brandsItems}: Props) => {
+const Header = ({onMenuOpen, onMenuClose, cartProducts, brandsItems, tagsUrl}: Props) => {
   const StickNav = styled(Flex)` position: sticky;
     z-index: 10;
     top: 0;`
@@ -66,7 +68,7 @@ const Header = ({onMenuOpen, onMenuClose, cartProducts, brandsItems}: Props) => 
           </Flex>
           <Flex as='nav' px={2} display={{base: "none", lg: "inherit"}} backgroundColor='bodyColor'
                 boxShadow={'base'}>
-            <Navbar brandsItems={brandsItems} isMobile={false} onClose={onMenuClose}/>
+            <Navbar tagsUrl={tagsUrl} brandsItems={brandsItems} isMobile={false} onClose={onMenuClose}/>
           </Flex>
         </Flex>
       </Flex>
