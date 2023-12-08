@@ -2,7 +2,7 @@ import React from 'react';
 import '@/app/theme/style.scss'
 import {Lang} from "@/dictionaries/get-dictionary";
 import {redirect} from "next/navigation";
-import {TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {convertToTagUrlFromDB, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctions";
 import _ from "lodash";
 import {ProductType} from "@/components/Products/types";
@@ -24,9 +24,7 @@ type Props = {
 export async function generateMetadata({params: {lang, urlTag}}: Props) {
   const fetchData = await getTagUrlData(urlTag)
   if (!fetchData) redirect(`/`)
-  const tagData: TagUrl = lang === 'ua'
-    ? {url:fetchData.url, search: fetchData.search_ua, desc: fetchData.desc_ua, text: fetchData.text_ua}
-    : {url:fetchData.url, search: fetchData.search, desc: fetchData.desc, text: fetchData.text}
+  const tagData: TagUrl = convertToTagUrlFromDB(fetchData, lang)
   return {
     title: tagData.search,
     description: tagData.desc,
@@ -38,16 +36,14 @@ export async function generateMetadata({params: {lang, urlTag}}: Props) {
 
 export async function generateStaticParams() {
   const tagsUrlData = await getTagsUrlData()
-  return tagsUrlData.map((tag) => ({urlTag: tag.url}))
+  return tagsUrlData.filter(tag => tag.search !== '').map(tag => ({urlTag: tag.url}))
 }
 
 const productsOnPage = 24
 const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props) => {
   const fetchData = await getTagUrlData(urlTag)
   if (!fetchData) redirect(`/`)
-  const tagData: TagUrl = lang === 'ua'
-    ? {url:fetchData.url, search: fetchData.search_ua, desc: fetchData.desc_ua, text: fetchData.text_ua}
-    : {url:fetchData.url, search: fetchData.search, desc: fetchData.desc, text: fetchData.text}
+  const tagData: TagUrl = convertToTagUrlFromDB(fetchData, lang)
 
   let currentPage = parseInt(page)
   const productsData = await getProducts()

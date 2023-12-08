@@ -9,6 +9,8 @@ import BreadCrumb, {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {saveViewedProducts} from "@/app/[lang]/products/[productUrl]/functions";
 import ViewedProducts from "@/components/Container/ViewedProducts";
 import NewIcon from "@/app/[lang]/products/[productUrl]/NewIcon";
+import NextImage from "next/image";
+import ChakraNextImage from "@/components/base/ChakraNextImage";
 
 type Props = {
   productData: ProductType
@@ -17,8 +19,11 @@ type Props = {
 }
 const IMAGES = ['03', '13', '23', '33']
 const ProductPage = ({productData, breadCrumbData, viewedProducts}: Props) => {
+  console.log(productData.images)
   const product = productFactory(productData)
   const images = productData.images.filter(url => IMAGES.some(name => url.includes(name)))
+  const bigImage = productData.images.find(url => url.includes('/4.jpg'))
+  console.log(bigImage)
   useEffect(() => {
     window.scrollTo(0, 0)
     saveViewedProducts(productData.product_key)
@@ -37,6 +42,11 @@ const ProductPage = ({productData, breadCrumbData, viewedProducts}: Props) => {
       </Flex>
       <Heading>{productData.name}</Heading>
       <div className='desc' dangerouslySetInnerHTML={{__html: productData.desc}}/>
+      {!!bigImage && (
+        <ChakraNextImage as={NextImage} src={bigImage} alt={'big image'} width={0} height={0} sizes="100vw"
+                         style={{width: '100%', maxWidth: '590px', height: 'auto'}}/>
+      )}
+
       {viewedProducts.length > 0 && (
         <Box pt={4}>
           <ViewedProducts viewedProducts={viewedProducts}/>
