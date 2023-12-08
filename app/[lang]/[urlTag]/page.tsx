@@ -2,7 +2,7 @@ import React from 'react';
 import '@/app/theme/style.scss'
 import {Lang} from "@/dictionaries/get-dictionary";
 import {redirect} from "next/navigation";
-import {convertToTagUrlFromDB, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {convertToTagUrlFromDB, isSinglePage, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctions";
 import _ from "lodash";
 import {ProductType} from "@/components/Products/types";
@@ -45,6 +45,11 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
   if (!fetchData) redirect(`/`)
   const tagData: TagUrl = convertToTagUrlFromDB(fetchData, lang)
 
+  if(isSinglePage(tagData)){
+    return (
+      <TagPage desc={tagData.text}/>
+    )
+  }
   let currentPage = parseInt(page)
   const productsData = await getProducts()
 
@@ -68,7 +73,6 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
     <TagPage desc={tagData.text}>
       <ProductsList products={productsSlice} paginationBar={paginationBar}/>
     </TagPage>
-
   )
 };
 

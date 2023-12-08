@@ -4,11 +4,11 @@ import {Box} from "@chakra-ui/react";
 import {useSearchParams} from "next/navigation";
 
 interface Props {
-  children: React.ReactNode
+  children?: React.ReactNode
   desc: string
 }
 
-const TagPage = ({children, desc}: Props) => {
+const TagPage = ({children=undefined, desc}: Props) => {
   const searchParams = useSearchParams()
   useEffect(() => {
     window.scrollTo(0, 0)

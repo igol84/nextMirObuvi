@@ -16,3 +16,5 @@ export const convertToTagUrlFromDB = (tagUrlDB: TagUrlSchema, lang: Lang): TagUr
     text: lang === 'en' ? tagUrlDB.text : tagUrlDB.text_ua
   }
 }
+
+export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
