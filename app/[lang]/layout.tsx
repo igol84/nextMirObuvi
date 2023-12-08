@@ -4,7 +4,7 @@ import {Providers} from "@/app/providers";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import './globals.scss'
 import Container from "@/components/Container";
-import {convertTagUrlFromDB, getBrandsData, getTagsUrlData} from "@/app/api/fetchFunctions";
+import {getBrandsData, getTagsUrlData} from "@/app/api/fetchFunctions";
 import {getCart} from "@/lib/db/cart";
 import {getCartData, ProductCart} from "@/lib/cartFunctions";
 import {getServerSession} from "next-auth";
@@ -12,7 +12,7 @@ import {authOptions} from "@/configs/auth";
 import {env} from "@/lib/env";
 import {getUser} from "@/lib/db/user";
 import {userConvertFromDB} from "@/lib/store/user";
-import {TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {convertToTagUrlFromDB, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {TagUrlSchema} from "@/schemas/data";
 
 export const dynamic = 'force-dynamic'
@@ -54,7 +54,7 @@ export default async function RootLayout(
   const isAdmin = admins.includes(userEmail)
   const cartProducts: ProductCart[] = cart ? await getCartData(cart, lang) : []
   const fetchTagsUrl: TagUrlSchema[] = await getTagsUrlData()
-  const tagsUrl: TagUrl[] = fetchTagsUrl.map(tag => convertTagUrlFromDB(tag, lang))
+  const tagsUrl: TagUrl[] = fetchTagsUrl.map(tag => convertToTagUrlFromDB(tag, lang))
   const userId = session?.user.id
   let user = null
   if (userId) {

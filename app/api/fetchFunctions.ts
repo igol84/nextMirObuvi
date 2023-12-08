@@ -6,8 +6,6 @@ import {
   ProductWithoutDescriptionSchema,
   TagUrlSchema
 } from "@/schemas/data";
-import {TagUrl} from "@/app/[lang]/[urlTag]/types";
-import {Lang} from "@/dictionaries/get-dictionary";
 
 const api = 'https://31.148.245.50'
 
@@ -63,15 +61,6 @@ export async function getProductData(url: string): Promise<ProductSchema | null 
 export async function getTagsUrlData(): Promise<TagUrlSchema[]> {
   const res = await fetch(`${api}/tag_url/`, {next: {revalidate: 3600}})
   return await res.json()
-}
-
-export const convertTagUrlFromDB = (tagUrlDB: TagUrlSchema, lang: Lang): TagUrl => {
-  return {
-    url: tagUrlDB.url,
-    search: lang === 'en' ? tagUrlDB.search : tagUrlDB.search_ua,
-    desc: lang === 'en' ? tagUrlDB.desc : tagUrlDB.desc_ua,
-    text: lang === 'en' ? tagUrlDB.text : tagUrlDB.text_ua
-  }
 }
 
 
