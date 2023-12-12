@@ -21,14 +21,14 @@ export const createProduct: CreateProduct = (product, lang, page = 'catalog') =>
     case "product": {
       return {
         id: product.id, name, url: product.url, product_key: product.product_key, qty: product.qty,
-        price: product.price, price_prefix, type: 'product', page, date, isNew
+        price: product.price, price_prefix, type: 'product', page, date, isNew, tags: product.tags
       }
     }
     case "shoes": {
       const sizes: number[] = product.sizes.map(size => size.size)
       return {
         id: product.id, name, url: product.url, product_key: product.product_key, qty: product.qty,
-        price: product.price, price_prefix, type: 'shoes', sizes, page, date, isNew
+        price: product.price, price_prefix, type: 'shoes', sizes, page, date, isNew, tags: product.tags
       }
     }
   }

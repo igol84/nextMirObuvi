@@ -34,6 +34,7 @@ export interface ProductSchema {
   desc_ua: string
   youtube: string | null
   date: string
+  tags: string
 }
 
 export type ProductUrlSchema = Pick<ProductSchema, 'url'>

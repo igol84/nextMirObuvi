@@ -13,6 +13,7 @@ export interface ProductBase {
   date: Date
   isNew: boolean
   qty: number
+  tags: string
 }
 
 export interface SimpleProductProps extends ProductBase {
@@ -26,5 +27,5 @@ export interface ShoesType extends ProductBase {
 
 export type ProductType = SimpleProductProps | ShoesType
 
-export const isShoes = (product: ProductType) => 'sizes' in product
+// export const isShoes = (product: ProductType) => 'sizes' in product
 

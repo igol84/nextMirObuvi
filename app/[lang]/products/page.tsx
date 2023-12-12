@@ -34,12 +34,12 @@ const Page = async ({params: {lang}, searchParams: {page = '1', search}}: Props)
 
   const sortedProductsDataByAvailable = _.orderBy(productsData, [product => product.qty > 0], ['desc'])
   let products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
-
   if (search) {
     products = products.filter(product => {
-      const whereSearch = product.name.toLowerCase()
+      const searchInName = product.name.toLowerCase()
+      const searchInTags = product.tags.toLowerCase()
       const whatSearch = search.trim().toLowerCase()
-      return whereSearch.includes(whatSearch)
+      return searchInName.includes(whatSearch) || searchInTags.includes(whatSearch)
     })
   }
   const totalProductsCount = products.length
