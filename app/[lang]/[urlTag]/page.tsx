@@ -57,12 +57,10 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
   let products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
 
   products = products.filter(product => {
-    const searchInName = product.name.toLowerCase()
-    const searchInTags = product.tags.toLowerCase()
-    const whatSearch = tagData.search.toLowerCase()
-    return searchInName.includes(whatSearch) || searchInTags.includes(whatSearch)
+    const searchInTags = _.startCase(product.tags)
+    const whatSearchInTags = _.startCase(tagData.search)
+    return searchInTags.includes(whatSearchInTags)
   })
-
   const totalProductsCount = products.length
   const totalPages = Math.ceil(totalProductsCount / productsOnPage)
   currentPage = currentPage > totalPages ? totalPages : currentPage
