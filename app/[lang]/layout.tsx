@@ -54,7 +54,18 @@ export default async function RootLayout(
   const isAdmin = admins.includes(userEmail)
   const cartProducts: ProductCart[] = cart ? await getCartData(cart, lang) : []
   const fetchTagsUrl: TagUrlSchema[] = await getTagsUrlData()
-  const tagsUrl: TagUrl[] = fetchTagsUrl.map(tag => convertToTagUrlFromDB(tag, lang))
+  const fetchParentTagsUrl = fetchTagsUrl.filter(tag => tag.parent === '')
+  const fetchSubTagsUrl = fetchTagsUrl.filter(tag => tag.parent !== '')
+  const tagsUrl: TagUrl[] = []
+  fetchParentTagsUrl.forEach(parentTag => {
+    const submenu = fetchSubTagsUrl
+      .filter(tag => tag.parent === parentTag.url)
+      .map(tag => convertToTagUrlFromDB(tag, lang))
+
+    const tagUrl: TagUrl = convertToTagUrlFromDB(parentTag, lang, submenu)
+    tagsUrl.push(tagUrl)
+  })
+
   const userId = session?.user.id
   let user = null
   if (userId) {

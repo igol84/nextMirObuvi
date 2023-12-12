@@ -48,10 +48,15 @@ const MenuItems = ({items, depthLevel, isMobile, onClose}: Props) => {
     >
       {items.submenu && items.url ? (
         <>
-          <Button variant='navButton' aria-haspopup="menu" pl={2} aria-expanded={dropdown ? "true" : "false"}
+          <Button h={!isMobile && depthLevel > 0 ? 1: 'none'} variant='navButton' aria-haspopup="menu" pl={2}
+                  aria-expanded={dropdown ? "true" : "false"} w='100%'
                   onClick={() => setDropdown(prev => !prev)}
           >
-            <Text as={NextLink} href={`/${lang}/${items.url}`} onClick={onClose}>{items.title}</Text>
+            <Text as={NextLink} href={`/${lang}/${items.url}`} onClick={onClose}
+                  w={!isMobile ? 'full' : undefined } textAlign={!isMobile ? 'left' : undefined }
+            >
+              {items.title}
+            </Text>
             {depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow"/>}
           </Button>
           <Dropdown submenus={items.submenu} dropdown={dropdown} depthLevel={depthLevel} isMobile={isMobile}

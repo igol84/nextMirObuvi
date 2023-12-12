@@ -46,6 +46,8 @@ export interface Data {
 
 export interface TagUrlSchema {
   url: string
+  parent: string
+  order_number: number
   search: string
   search_ua: string
   desc: string
