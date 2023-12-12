@@ -19,7 +19,7 @@ const ProductsList = ({products, paginationBar: {pageSize, totalPages, currentPa
     return <Heading>{d('notFound')}</Heading>
   }
   const search = searchParams.get('search') ? searchParams.get('search') as string : ''
-  const path = search ? '?search=nike&' : '?'
+  const path = search ? `?search=${search}&` : '?'
   return (
     <Flex flexDirection='column' gap={4} pb={{base: 4, sm: 0}}>
       <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={[0, 0, 0, 1, 0]}>
