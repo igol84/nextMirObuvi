@@ -14,6 +14,7 @@ import {getUser} from "@/lib/db/user";
 import {userConvertFromDB} from "@/lib/store/user";
 import {convertToTagUrlFromDB, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {TagUrlSchema} from "@/schemas/data";
+import _ from "lodash";
 
 export const dynamic = 'force-dynamic'
 
@@ -55,13 +56,14 @@ export default async function RootLayout(
   const cartProducts: ProductCart[] = cart ? await getCartData(cart, lang) : []
   const fetchTagsUrl: TagUrlSchema[] = await getTagsUrlData()
   const fetchParentTagsUrl = fetchTagsUrl.filter(tag => tag.parent === '')
+  const orderedFetchParentTagsUrl = _.orderBy(fetchParentTagsUrl, ['order_number'], ['asc'])
   const fetchSubTagsUrl = fetchTagsUrl.filter(tag => tag.parent !== '')
+  const orderedFetchSubTagsUrl = _.orderBy(fetchSubTagsUrl, ['order_number'], ['asc'])
   const tagsUrl: TagUrl[] = []
-  fetchParentTagsUrl.forEach(parentTag => {
-    const submenu = fetchSubTagsUrl
+  orderedFetchParentTagsUrl.forEach(parentTag => {
+    const submenu = orderedFetchSubTagsUrl
       .filter(tag => tag.parent === parentTag.url)
       .map(tag => convertToTagUrlFromDB(tag, lang))
-
     const tagUrl: TagUrl = convertToTagUrlFromDB(parentTag, lang, submenu)
     tagsUrl.push(tagUrl)
   })
