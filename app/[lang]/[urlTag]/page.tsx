@@ -26,7 +26,7 @@ export async function generateMetadata({params: {lang, urlTag}}: Props) {
   if (!fetchData) redirect(`/`)
   const tagData: TagUrl = convertToTagUrlFromDB(fetchData, lang)
   return {
-    title: tagData.search,
+    title: tagData.search ? tagData.search : tagData.desc,
     description: tagData.desc,
     openGraph: {
       images: ['https://mirobuvi.com.ua/images/slide/Adidas_Nite_Jogger_Black_Black.jpg'],
