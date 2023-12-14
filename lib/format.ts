@@ -5,3 +5,8 @@ export function formatPrice(price: number, lang: Lang = 'ua') {
   const prefix = lang === 'ua' ? 'грн.' : '₴'
   return `${UAHFormat.format(price)}${prefix}`
 }
+
+export const createUrl = (path: string, params: string) => {
+  if (params) return path + '?' + params
+  return path
+}
