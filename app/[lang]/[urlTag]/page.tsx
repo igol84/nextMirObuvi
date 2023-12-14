@@ -10,6 +10,7 @@ import {createProduct} from "@/lib/productCardData";
 import {PaginationBarProps} from "@/components/base/PaginationBar";
 import ProductsList from "@/components/base/productsList";
 import TagPage from "@/app/[lang]/[urlTag]/TagPage";
+import {getBreadCrumbData} from "@/app/[lang]/[urlTag]/serverFunctions";
 
 type Props = {
   params: {
@@ -45,9 +46,10 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
   if (!fetchData) redirect(`/`)
   const tagData: TagUrl = convertToTagUrlFromDB(fetchData, lang)
 
-  if(isSinglePage(tagData)){
+  if (isSinglePage(tagData)) {
+    const breadCrumbs = getBreadCrumbData(tagData.desc)
     return (
-      <TagPage desc={tagData.text}/>
+      <TagPage desc={tagData.text} breadCrumbs={breadCrumbs}/>
     )
   }
   let currentPage = parseInt(page)
@@ -67,9 +69,9 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
   const skip = (currentPage - 1) * productsOnPage
   const productsSlice = products.slice(skip, skip + productsOnPage)
   const paginationBar: PaginationBarProps = {pageSize: productsOnPage, totalPages, currentPage}
-
+  const breadCrumbs = getBreadCrumbData(tagData.search)
   return (
-    <TagPage desc={tagData.text}>
+    <TagPage desc={tagData.text} breadCrumbs={breadCrumbs}>
       <ProductsList products={productsSlice} paginationBar={paginationBar}/>
     </TagPage>
   )

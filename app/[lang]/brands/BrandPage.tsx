@@ -6,6 +6,7 @@ import Brands from "@/components/Brands";
 import {Box} from "@chakra-ui/react";
 import ViewedProducts from "@/components/Container/ViewedProducts";
 import {ProductType} from "@/components/Products/types";
+import {useBrandCrumbs} from "@/app/[lang]/brands/hooks";
 
 interface Props{
   brands: BrandCardPropsWithFirst[]
@@ -13,9 +14,10 @@ interface Props{
 }
 
 const BrandPage = ({brands, viewedProducts}: Props) => {
+  const breadCrumbs = useBrandCrumbs()
   return (
     <>
-      <BreadCrumb data={{current: "brands"}} />
+      <BreadCrumb breadCrumbs={breadCrumbs} />
       <Brands brands={brands}/>
       {viewedProducts.length > 0 && (
         <Box pt={4}>

@@ -14,23 +14,21 @@ import ChakraNextImage from "@/components/base/ChakraNextImage";
 
 type Props = {
   productData: ProductType
-  breadCrumbData: BreadCrumbData
+  breadCrumbData: BreadCrumbData[]
   viewedProducts: CardProductType[]
 }
 const IMAGES = ['03', '13', '23', '33']
 const ProductPage = ({productData, breadCrumbData, viewedProducts}: Props) => {
-  console.log(productData.images)
   const product = productFactory(productData)
   const images = productData.images.filter(url => IMAGES.some(name => url.includes(name)))
   const bigImage = productData.images.find(url => url.includes('/4.jpg'))
-  console.log(bigImage)
   useEffect(() => {
     window.scrollTo(0, 0)
     saveViewedProducts(productData.product_key)
   }, [productData.product_key])
   return (
     <>
-      <BreadCrumb data={breadCrumbData}/>
+      <BreadCrumb breadCrumbs={breadCrumbData}/>
       <Flex flexDirection={{base: 'column', lg: 'row'}} pb={8}>
         <Box w={{base: '100%', lg: '60%'}} position='relative'>
           <NewIcon hidden={!productData.isNew}/>

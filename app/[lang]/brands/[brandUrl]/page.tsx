@@ -6,7 +6,6 @@ import {Lang} from "@/dictionaries/get-dictionary";
 import {BrandProps} from "@/components/Brands/types";
 import {ProductType} from "@/components/Products/types";
 import {redirect} from "next/navigation";
-import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getViewedProducts} from "@/lib/productsGetter";
 import {createProduct} from "@/lib/productCardData";
 import _ from "lodash";
@@ -46,15 +45,9 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
   }
   const sortedProductsDataByAvailable = _.orderBy(productsData, [product => product.qty > 0], ['desc'])
   const products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
-  const breadCrumbData: BreadCrumbData = {
-    brand: brandData.name,
-    brandUrl: brandData.url,
-    current: 'brand'
-  }
   const viewedProducts = await getViewedProducts(lang)
   return (
-    <BrandPage brandData={brand} productsData={products} breadCrumbData={breadCrumbData}
-               viewedProducts={viewedProducts}/>
+    <BrandPage brandData={brand} productsData={products} viewedProducts={viewedProducts}/>
   )
 }
 

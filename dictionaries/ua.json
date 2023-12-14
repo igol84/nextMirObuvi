@@ -23,7 +23,8 @@
   },
   "breadcrumb": {
     "home": "Додому",
-    "brands": "Бренди"
+    "brands": "Бренди",
+    "products": "Продукти"
   },
   "orderForm": {
     "clientData": "Дані клієнта",

@@ -23,7 +23,8 @@
   },
   "breadcrumb": {
     "home": "Home",
-    "brands": "Brands"
+    "brands": "Brands",
+    "products": "Products"
   },
   "orderForm": {
     "clientData": "Client data",

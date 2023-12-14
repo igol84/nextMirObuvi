@@ -3,8 +3,7 @@ import {Lang} from "@/dictionaries/get-dictionary";
 import {getProductData, getProductUrls} from "@/app/api/fetchFunctions";
 import ProductPage from "@/app/[lang]/products/[productUrl]/ProductPage";
 import {ProductType} from "@/components/product/types";
-import {ProductSchema} from "@/schemas/data";
-import {createWithEmptySizes} from "@/utility/sizes";
+
 import '@/app/theme/style.scss'
 import {redirect} from 'next/navigation'
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
@@ -12,7 +11,8 @@ import {getViewedProducts} from "@/lib/productsGetter";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/configs/auth";
 import {getUser} from "@/lib/db/user";
-import {dateDiffInDays, DAYS_IS_NEW, formatStringToData} from "@/utility/functions";
+import {getBreadCrumbData, productFabrice} from "@/app/[lang]/products/[productUrl]/serverFunctions";
+
 
 type Props = {
   params: {
@@ -38,40 +38,6 @@ export async function generateStaticParams() {
   return productUrls.map((product) => ({productUrl: product.url}))
 }
 
-function productFabrice(lang: Lang, product: ProductSchema, userId: string | undefined, isFavorite: boolean): ProductType {
-  const name = lang === 'en' ? product.name : product.name_ua
-  const desc = lang === 'en' ? product.desc : product.desc_ua
-  const price_prefix = lang === 'en' ? '₴' : 'грн.'
-  const date = formatStringToData(product.date)
-  const daysInterval = dateDiffInDays(date, new Date())
-  const isNew = daysInterval < DAYS_IS_NEW
-  switch (product.type) {
-    case "product": {
-      return {
-        name, product_key: product.url, price: product.price, price_prefix, type: 'product', qty: product.qty,
-        images: product.images, desc, userId, isFavorite, isNew
-      }
-    }
-    case "shoes": {
-      const allSizes = createWithEmptySizes(product.sizes)
-      return {
-        name, product_key: product.url, price: product.price, price_prefix, type: 'shoes', qty: product.qty,
-        images: product.images, desc, userId, isFavorite, isNew, sizes: allSizes
-      }
-    }
-  }
-}
-
-function getBreadCrumbData(lang: Lang, product: ProductSchema): BreadCrumbData {
-  const name = lang === 'en' ? product.name : product.name_ua
-  return {
-    product: name,
-    brand: product.brand ? product.brand : '',
-    brandUrl: product.brand_url ? product.brand_url : '',
-    current: 'product'
-  }
-}
-
 async function Page({params: {productUrl, lang}}: Props) {
   const productFetchData = await getProductData(productUrl)
   if (!productFetchData) redirect(`/`)
@@ -86,7 +52,7 @@ async function Page({params: {productUrl, lang}}: Props) {
   }
   const isProductFavorite = favoriteProducts.includes(productUrl)
   const productData: ProductType = productFabrice(lang, productFetchData, userId, isProductFavorite)
-  const breadCrumbData: BreadCrumbData = getBreadCrumbData(lang, productFetchData)
+  const breadCrumbData: BreadCrumbData[] = await getBreadCrumbData(lang, productFetchData)
   const viewedProducts = await getViewedProducts(lang)
   return (
     <ProductPage productData={productData} breadCrumbData={breadCrumbData} viewedProducts={viewedProducts}/>

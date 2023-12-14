@@ -1,51 +1,42 @@
 'use client'
 import React, {useContext} from 'react';
-import {Breadcrumb, BreadcrumbItem, BreadcrumbLink} from "@chakra-ui/react";
+import {Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text} from "@chakra-ui/react";
 import NextLink from "next/link";
 import {LangContext} from "@/locale/LangProvider";
-import {useDictionaryTranslate} from "@/dictionaries/hooks";
 import {Icon} from "@chakra-ui/icons";
 import {AiFillHome} from "react-icons/ai";
 
-export interface BreadCrumbData{
-  current: 'brands' | 'brand' | 'product'
-  brand?: string
-  brandUrl?: string
-  product?: string
+export interface BreadCrumbData {
+  label: string
+  href: string
 }
 
-interface Props{
-  data: BreadCrumbData
+interface Props {
+  breadCrumbs: BreadCrumbData[]
 }
 
-const BreadCrumb = ({data: {brand, brandUrl, product, current}}: Props) => {
+const BreadCrumb = ({breadCrumbs}: Props) => {
   const lang = useContext(LangContext)
-  const d = useDictionaryTranslate("breadcrumb")
   return (
-    <Breadcrumb pb={[2, 4]} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis' >
+    <Breadcrumb pb={[2, 4]} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>
+
       <BreadcrumbItem>
         <BreadcrumbLink display='flex' alignItems='center' as={NextLink} href={`/${lang}`}>
           <Icon as={AiFillHome}/>
         </BreadcrumbLink>
       </BreadcrumbItem>
 
-      <BreadcrumbItem isCurrentPage={current === 'brands'}>
-        <BreadcrumbLink as={current === 'brands' ? 'a' : NextLink} href={`/${lang}/brands`}>{d('brands')}</BreadcrumbLink>
-      </BreadcrumbItem>
-
-      {!!brand && (
-        <BreadcrumbItem isCurrentPage={current === 'brand'}>
-          <BreadcrumbLink as={current === 'brand' ? 'a' : NextLink} href={`/${lang}/brands/${brandUrl}`}>{brand}</BreadcrumbLink>
-        </BreadcrumbItem>
-      )}
-
-
-      {!!product && (
-        <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href='#'>{product}</BreadcrumbLink>
-        </BreadcrumbItem>
-      )}
-
+      {breadCrumbs.map((breadCrumb, index) => {
+        const isCurrent = index + 1 === breadCrumbs.length
+        return (
+          <BreadcrumbItem key={index} isCurrentPage={isCurrent}>
+            {isCurrent
+              ? <Text>{breadCrumb.label}</Text>
+              : <BreadcrumbLink as={NextLink} href={breadCrumb.href}>{breadCrumb.label}</BreadcrumbLink>
+            }
+          </BreadcrumbItem>
+        )
+      })}
     </Breadcrumb>
   );
 };
