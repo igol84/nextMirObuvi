@@ -1,12 +1,16 @@
 import {IconProps} from '@chakra-ui/icons'
 import {ComponentWithAs} from "@chakra-ui/react";
+
 import {
   Adidas,
   Asics,
   Boots,
   Converse,
   FlipFlops,
+  NewBalance,
   Nike,
+  Puma,
+  Reebok,
   RenBen,
   Sneakers,
   Ugg
@@ -33,6 +37,9 @@ export const icons: Icon[] = [
   {name: 'brands/Converse', icon: Converse},
   {name: 'brands/RenBen', icon: RenBen},
   {name: 'brands/Asics', icon: Asics},
+  {name: 'brands/Puma', icon: Puma},
+  {name: 'brands/Reebok', icon: Reebok},
+  {name: 'brands/new-balance', icon: NewBalance},
 ]
 
 export const getIcon = (name: string) => icons.find(icon => name === icon.name.toLowerCase())?.icon
