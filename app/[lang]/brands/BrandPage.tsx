@@ -17,7 +17,7 @@ const BrandPage = ({brands, viewedProducts}: Props) => {
   const breadCrumbs = useBrandCrumbs()
   return (
     <>
-      <BreadCrumb breadCrumbs={breadCrumbs} />
+      <BreadCrumb breadCrumbs={breadCrumbs}/>
       <Brands brands={brands}/>
       {viewedProducts.length > 0 && (
         <Box pt={4}>

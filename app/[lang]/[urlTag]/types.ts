@@ -10,7 +10,7 @@ export interface TagUrl {
   text: string
 }
 
-export const convertToTagUrlFromDB = (tagUrlDB: TagUrlSchema, lang: Lang, submenu?:TagUrl[] ): TagUrl => {
+export const convertToTagUrlFromDB = (tagUrlDB: TagUrlSchema, lang: Lang, submenu?: TagUrl[]): TagUrl => {
   return {
     url: tagUrlDB.url,
     submenu,
@@ -21,4 +21,7 @@ export const convertToTagUrlFromDB = (tagUrlDB: TagUrlSchema, lang: Lang, submen
   }
 }
 
-export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
+export interface ParentTagForBreadCrumb {
+  name: string
+  url: string
+}

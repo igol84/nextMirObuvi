@@ -21,14 +21,14 @@ const Navbar = ({brandsItems, isMobile, tagsUrl, onClose}: Props) => {
     const url = `brands/${item.url}`
     return {...item, url}
   })
-  const brandsNav: Item = {title: d('brands'), url: '/brands/', submenu: updatedBrandItems}
+  const brandsNav: Item = {title: d('brands'), url: 'brands/', submenu: updatedBrandItems}
   const tagsItems: Item[] = tagsUrl.filter(tag => tag.search !== '').map(tag => {
     const submenu: undefined | Item[] = tag.submenu?.map(subTag => ({url: subTag.url, title: subTag.search}))
     return {url: tag.url, title: tag.search, submenu: submenu?.length ? submenu : undefined}
   })
 
   const pageItems: Item[] = tagsUrl.filter(tag => tag.search === '').map(tag => ({url: tag.url, title: tag.desc}))
-  const tagNav: Item = {title: d('products'), url: '/products/', submenu: tagsItems}
+  const tagNav: Item = {title: d('products'), url: 'products/', submenu: tagsItems}
   const allItems = [...pageItems, tagNav, brandsNav]
   return (
     <Flex as='ul' sx={{listStyle: 'none'}} flexDirection={isMobile ? 'column' : 'row'}>
