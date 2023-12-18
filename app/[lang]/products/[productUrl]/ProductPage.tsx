@@ -28,7 +28,9 @@ const ProductPage = ({productData, breadCrumbData, viewedProducts}: Props) => {
   }, [productData.product_key])
   return (
     <>
-      <BreadCrumb breadCrumbs={breadCrumbData}/>
+      <Box display='flex' justifyContent='space-between' flexWrap='wrap' alignItems="center" pb={[2, 4]}>
+        <BreadCrumb breadCrumbs={breadCrumbData}/>
+      </Box>
       <Flex flexDirection={{base: 'column', lg: 'row'}} pb={8}>
         <Box w={{base: '100%', lg: '60%'}} position='relative'>
           <NewIcon hidden={!productData.isNew}/>

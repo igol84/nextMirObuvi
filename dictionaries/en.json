@@ -142,5 +142,12 @@
   "productList": {
     "title": "Product list",
     "description": "Product list"
+  },
+  "sortingForm": {
+    "sortingBy": "Sorting:",
+    "byOrder": "by order",
+    "byIncreasingPrice": "by increasing price",
+    "byDecreasingPrice": "by decreasing price",
+    "byName": "by name"
   }
 }

@@ -3,6 +3,8 @@ import 'server-only'
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import {ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {ProductType} from "@/components/Products/types";
+import _ from "lodash";
 
 export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
 
@@ -46,3 +48,10 @@ export const getBreadCrumbData: getBreadCrumbData = async (lang, pageName, paren
   return breadCrumbs
 }
 
+export const searchProducts = (products: ProductType[], searchValue: string): ProductType[] => {
+  return  products.filter(product => {
+    const searchInTags = _.startCase(product.tags)
+    const whatSearchInTags = _.startCase(searchValue)
+    return searchInTags.includes(whatSearchInTags)
+  })
+}

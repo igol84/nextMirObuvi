@@ -6,12 +6,18 @@ import {convertToTagUrlFromDB, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang
 import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctions";
 import ProductsList from "@/components/base/productsList";
 import TagPage from "@/app/[lang]/[urlTag]/TagPage";
-import {getBreadCrumbData, getBreadCrumbDataSinglePage, isSinglePage} from "@/app/[lang]/[urlTag]/serverFunctions";
+import {
+  getBreadCrumbData,
+  getBreadCrumbDataSinglePage,
+  isSinglePage,
+  searchProducts
+} from "@/app/[lang]/[urlTag]/serverFunctions";
 import {getViewedProducts} from "@/lib/productsGetter";
-import _ from "lodash";
 import {ProductType} from "@/components/Products/types";
 import {createProduct} from "@/lib/productCardData";
-import {getPageData} from "@/lib/store/serverFunctions";
+import {getPageData, sortingProducts} from "@/lib/store/serverFunctions";
+import {SortingType} from "@/components/base/SortingSelect/types";
+import SimplePage from "@/app/[lang]/[urlTag]/SimplePage";
 
 type Props = {
   params: {
@@ -20,6 +26,7 @@ type Props = {
   },
   searchParams: {
     page?: string
+    sortingBy?: SortingType
   }
 }
 
@@ -42,7 +49,7 @@ export async function generateStaticParams() {
 }
 
 
-const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props) => {
+const Page = async ({params: {lang, urlTag}, searchParams: {page = '1', sortingBy = 'byOrder'}}: Props) => {
   const tagsUrlData = await getTagsUrlData()
   const fetchData = tagsUrlData.find(tag => tag.url === urlTag)
   if (!fetchData) redirect(`/`)
@@ -52,7 +59,7 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
   if (isSinglePage(tagData)) {
     const breadCrumbs = getBreadCrumbDataSinglePage(tagData.desc)
     return (
-      <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts}/>
+      <SimplePage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts}/>
     )
   }
   const parentData = tagsUrlData.find(tag => tag.url === fetchData.parent)
@@ -64,16 +71,12 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1'}}: Props)
 
   const productsData = await getProducts()
   let products: ProductType[] = productsData.map(product => createProduct(product, lang))
-  products = products.filter(product => {
-    const searchInTags = _.startCase(product.tags)
-    const whatSearchInTags = _.startCase(tagData.search)
-    return searchInTags.includes(whatSearchInTags)
-  })
-  const sortedProductsDataByAvailable = _.orderBy(products, [product => product.qty > 0], ['desc'])
-  const [productsSlice, paginationBar] = await getPageData(sortedProductsDataByAvailable, parseInt(page))
+  products = searchProducts(products, tagData.search)
+  products = sortingProducts(products, sortingBy)
+  const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
 
   return (
-    <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts}>
+    <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts} sortingBy={sortingBy}>
       <ProductsList products={productsSlice} paginationBar={paginationBar}/>
     </TagPage>
   )

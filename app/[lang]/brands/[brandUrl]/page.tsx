@@ -9,11 +9,16 @@ import {redirect} from "next/navigation";
 import {getViewedProducts} from "@/lib/productsGetter";
 import {createProduct} from "@/lib/productCardData";
 import _ from "lodash";
+import {SortingType} from "@/components/base/SortingSelect/types";
+import {sortingProducts} from "@/lib/store/serverFunctions";
 
 type Props = {
   params: {
     brandUrl: string
     lang: Lang
+  }
+  searchParams: {
+    sortingBy?: SortingType
   }
 }
 
@@ -34,7 +39,7 @@ export async function generateStaticParams() {
   return brandsData.map((brand) => ({brandUrl: brand.url}))
 }
 
-const Page = async ({params: {brandUrl, lang}}: Props) => {
+const Page = async ({params: {brandUrl, lang}, searchParams: {sortingBy='byOrder'}}: Props) => {
   const brandData = await getBrandData(brandUrl)
   if (!brandData) redirect(`/`)
   const productsData = await getProductsDataByBrandId(brandData.id)
@@ -44,10 +49,11 @@ const Page = async ({params: {brandUrl, lang}}: Props) => {
     desc: lang === 'en' ? brandData.desc : brandData.desc_ua
   }
   const sortedProductsDataByAvailable = _.orderBy(productsData, [product => product.qty > 0], ['desc'])
-  const products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
+  let products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
+  products = sortingProducts(products, sortingBy)
   const viewedProducts = await getViewedProducts(lang)
   return (
-    <BrandPage brandData={brand} productsData={products} viewedProducts={viewedProducts}/>
+    <BrandPage brandData={brand} productsData={products} sortingBy={sortingBy} viewedProducts={viewedProducts}/>
   )
 }
 

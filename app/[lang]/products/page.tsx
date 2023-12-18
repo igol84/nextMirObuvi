@@ -1,19 +1,21 @@
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
 import {getProducts} from "@/app/api/fetchFunctions";
-import _ from "lodash";
 import {ProductType} from "@/components/Products/types";
 import {createProduct} from "@/lib/productCardData";
 import ProductsPage from "@/app/[lang]/products/ProductsPage";
 import {getViewedProducts} from "@/lib/productsGetter";
-import {getPageData} from "@/lib/store/serverFunctions";
+import {getPageData, sortingProducts} from "@/lib/store/serverFunctions";
+import {SortingType} from "@/components/base/SortingSelect/types";
+import {searchProducts} from "@/app/[lang]/products/serverFunctions";
 
 type Props = {
   params: {
     lang: Lang
   },
   searchParams: {
-    page?: string
+    page: string
     search?: string
+    sortingBy?: SortingType
   }
 }
 
@@ -28,23 +30,18 @@ export async function generateMetadata({params: {lang}}: Props) {
   }
 }
 
-const Page = async ({params: {lang}, searchParams: {page = '1', search}}: Props) => {
+const Page = async ({params: {lang}, searchParams: {page = '1', search, sortingBy='byOrder'}}: Props) => {
   const productsData = await getProducts()
 
-  const sortedProductsDataByAvailable = _.orderBy(productsData, [product => product.qty > 0], ['desc'])
-  let products: ProductType[] = sortedProductsDataByAvailable.map(product => createProduct(product, lang))
+  let products: ProductType[] = productsData.map(product => createProduct(product, lang))
   if (search) {
-    products = products.filter(product => {
-      const searchInName = product.name.toLowerCase()
-      const searchInTags = product.tags.toLowerCase()
-      const whatSearch = search.trim().toLowerCase()
-      return searchInName.includes(whatSearch) || searchInTags.includes(whatSearch)
-    })
+    products = searchProducts(products, search)
   }
+  products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
   const viewedProducts = await getViewedProducts(lang)
   return (
-    <ProductsPage products={productsSlice} paginationBar={paginationBar} viewedProducts={viewedProducts}/>
+    <ProductsPage products={productsSlice} sortingBy={sortingBy} paginationBar={paginationBar} viewedProducts={viewedProducts}/>
   )
 }
 

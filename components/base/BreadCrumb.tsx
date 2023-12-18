@@ -18,7 +18,7 @@ interface Props {
 const BreadCrumb = ({breadCrumbs}: Props) => {
   const lang = useContext(LangContext)
   return (
-    <Breadcrumb pb={[2, 4]} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>
+    <Breadcrumb whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>
 
       <BreadcrumbItem>
         <BreadcrumbLink display='flex' alignItems='center' as={NextLink} href={`/${lang}`}>
