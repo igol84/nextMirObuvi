@@ -40,18 +40,29 @@ export const getBreadCrumbData: getBreadCrumbData = async (lang, pageName, paren
     }
     breadCrumbs.push(parentCrumb)
   }
-
-  const pageCrumb: BreadCrumbData = {
-    label: pageName, href: ''
+  if(pageName!=='header'){
+    const pageCrumb: BreadCrumbData = {
+      label: pageName, href: ''
+    }
+    breadCrumbs.push(pageCrumb)
   }
-  breadCrumbs.push(pageCrumb)
+
   return breadCrumbs
 }
 
-export const searchProducts = (products: ProductType[], searchValue: string): ProductType[] => {
+export const searchProductsByTag = (products: ProductType[], searchValue: string): ProductType[] => {
   return  products.filter(product => {
     const searchInTags = _.startCase(product.tags)
     const whatSearchInTags = _.startCase(searchValue)
     return searchInTags.includes(whatSearchInTags)
+  })
+}
+
+export const searchProducts = (products: ProductType[], searchValue: string): ProductType[] => {
+  return  products.filter(product => {
+    const searchInName = product.name.toLowerCase()
+    const searchInTags = product.tags.toLowerCase()
+    const whatSearch = searchValue.trim().toLowerCase()
+    return searchInName.includes(whatSearch) || searchInTags.includes(whatSearch)
   })
 }

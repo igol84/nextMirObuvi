@@ -22,7 +22,7 @@ const Navbar = ({brandsItems, isMobile, tagsUrl, onClose}: Props) => {
     return {...item, url}
   })
   const brandsNav: Item = {title: d('brands'), url: 'brands/', submenu: updatedBrandItems}
-  const tagsItems: Item[] = tagsUrl.filter(tag => tag.search !== '').map(tag => {
+  const tagsItems: Item[] = tagsUrl.filter(tag => tag.search !== '' && tag.search !== 'header').map(tag => {
     const submenu: undefined | Item[] = tag.submenu?.map(subTag => ({url: subTag.url, title: subTag.search}))
     return {url: tag.url, title: tag.search, submenu: submenu?.length ? submenu : undefined}
   })

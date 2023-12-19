@@ -10,7 +10,7 @@ import {
   getBreadCrumbData,
   getBreadCrumbDataSinglePage,
   isSinglePage,
-  searchProducts
+  searchProducts, searchProductsByTag
 } from "@/app/[lang]/[urlTag]/serverFunctions";
 import {getViewedProducts} from "@/lib/productsGetter";
 import {ProductType} from "@/components/Products/types";
@@ -27,6 +27,7 @@ type Props = {
   searchParams: {
     page?: string
     sortingBy?: SortingType
+    search?: string
   }
 }
 
@@ -49,7 +50,7 @@ export async function generateStaticParams() {
 }
 
 
-const Page = async ({params: {lang, urlTag}, searchParams: {page = '1', sortingBy = 'byOrder'}}: Props) => {
+const Page = async ({params: {lang, urlTag}, searchParams: {page = '1', sortingBy = 'byOrder', search}}: Props) => {
   const tagsUrlData = await getTagsUrlData()
   const fetchData = tagsUrlData.find(tag => tag.url === urlTag)
   if (!fetchData) redirect(`/`)
@@ -71,7 +72,10 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1', sortingB
 
   const productsData = await getProducts()
   let products: ProductType[] = productsData.map(product => createProduct(product, lang))
-  products = searchProducts(products, tagData.search)
+  if(tagData.search!=='header')
+    products = searchProductsByTag(products, tagData.search)
+  if(search)
+    products = searchProducts(products, search)
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
 
