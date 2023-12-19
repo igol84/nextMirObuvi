@@ -21,7 +21,7 @@ export const getPageData: GetPageData = async (items:  any[], currentPage: numbe
   currentPage = currentPage > totalPages ? totalPages : currentPage
   const skip = (currentPage - 1) * itemsOnPage
   const itemsSlice = items.slice(skip, skip + itemsOnPage)
-  const paginationBar: PaginationBarProps = {pageSize: itemsOnPage, totalPages, currentPage}
+  const paginationBar: PaginationBarProps = {totalPages, currentPage}
 
   return [itemsSlice, paginationBar]
 }
