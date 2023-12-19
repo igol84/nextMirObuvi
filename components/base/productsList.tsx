@@ -11,7 +11,7 @@ interface Props {
   paginationBar: PaginationBarProps
 }
 
-const ProductsList = ({products, paginationBar: {pageSize, totalPages, currentPage}}: Props) => {
+const ProductsList = ({products, paginationBar: {totalPages, currentPage}}: Props) => {
   const d = useDictionaryTranslate("home")
   if (products.length === 0) {
     return <Heading>{d('notFound')}</Heading>
@@ -28,7 +28,7 @@ const ProductsList = ({products, paginationBar: {pageSize, totalPages, currentPa
         })}
       </Wrap>
       <Flex w='full' justifyContent='center'>
-        <PaginationBar currentPage={currentPage} totalPages={totalPages} pageSize={pageSize}/>
+        <PaginationBar currentPage={currentPage} totalPages={totalPages}/>
       </Flex>
     </Flex>
 

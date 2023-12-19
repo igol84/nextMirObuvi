@@ -10,15 +10,15 @@ interface Props {
   pagination: PaginationBarProps
 }
 
-const OrdersPage = ({orders, pagination: {currentPage, totalPages, pageSize}}: Props) => {
+const OrdersPage = ({orders, pagination: {currentPage, totalPages}}: Props) => {
   return (
     <Box>
       <Flex pb={2} justifyContent='center'>
-        <PaginationBar currentPage={currentPage} totalPages={totalPages} pageSize={pageSize}/>
+        <PaginationBar currentPage={currentPage} totalPages={totalPages}/>
       </Flex>
       {orders.map(order => <Order key={order.id} order={order}/>)}
       <Flex pt={2} justifyContent='center'>
-        <PaginationBar currentPage={currentPage} totalPages={totalPages} pageSize={pageSize}/>
+        <PaginationBar currentPage={currentPage} totalPages={totalPages}/>
       </Flex>
     </Box>
   );

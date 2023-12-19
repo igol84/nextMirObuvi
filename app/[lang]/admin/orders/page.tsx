@@ -62,7 +62,7 @@ const Page = async ({params: {lang}, searchParams: {page = "1"}}: Props) => {
   }
 
   return (
-    <OrdersPage orders={orders} pagination={{pageSize, totalPages, currentPage}}/>
+    <OrdersPage orders={orders} pagination={{totalPages, currentPage}}/>
   );
 };
 
