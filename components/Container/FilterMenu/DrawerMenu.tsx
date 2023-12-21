@@ -18,6 +18,10 @@ interface Props{
 }
 
 const DrawerMenu = ({children, isOpen, onClose, onSubmit}: Props) => {
+  const onClick = () => {
+    onClose()
+    onSubmit()
+  }
   return (
     <Drawer
       isOpen={isOpen}
@@ -37,7 +41,7 @@ const DrawerMenu = ({children, isOpen, onClose, onSubmit}: Props) => {
           <Button variant='outline' mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button colorScheme='blue' onClick={onSubmit}>Submit</Button>
+          <Button colorScheme='blue' onClick={onClick}>Submit</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
