@@ -25,3 +25,13 @@ export interface ParentTagForBreadCrumb {
   name: string
   url: string
 }
+
+export type FilterMenuPriceType = {
+  minInitial: number
+  maxInitial: number
+  minValue?: number
+  maxValue?: number
+}
+export type FilterMenuType = {
+  filterMenuPriceType: FilterMenuPriceType
+}

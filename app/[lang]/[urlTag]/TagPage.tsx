@@ -1,7 +1,6 @@
 'use client'
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Box, Flex, IconButton, useDisclosure} from "@chakra-ui/react";
-import {useSearchParams} from "next/navigation";
 import BreadCrumb, {BreadCrumbData} from "@/components/base/BreadCrumb";
 import ViewedProducts from "@/components/Container/ViewedProducts";
 import {ProductType} from "@/components/Products/types";
@@ -10,6 +9,8 @@ import {SortingType} from "@/components/base/SortingSelect/types";
 import FilterMenu from "@/components/Container/FilterMenu";
 import {FaFilter} from "react-icons/fa";
 import DrawerMenu from "@/components/Container/FilterMenu/DrawerMenu";
+import {UseFilters, useScroll} from "@/app/[lang]/[urlTag]/hooks";
+import {FilterMenuType} from "@/app/[lang]/[urlTag]/types";
 
 
 interface Props {
@@ -18,27 +19,30 @@ interface Props {
   sortingBy: SortingType
   breadCrumbs: BreadCrumbData[]
   viewedProducts: ProductType[]
+  filterMenuType: FilterMenuType
 }
 
-const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProducts}: Props) => {
-  const searchParams = useSearchParams()
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [searchParams])
+const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProducts, filterMenuType}: Props) => {
+  useScroll()
+
   const filterMenu = useDisclosure();
+  const {filterMenuPriceType} = filterMenuType
+  const {priceFilterType, onSubmit} = UseFilters(filterMenuPriceType)
+
   return (
     <Box>
       <Flex justifyContent='space-between' flexWrap='wrap' alignItems="center" pb={[2, 4]}>
         <BreadCrumb breadCrumbs={breadCrumbs}/>
         <Flex justifyContent='space-between' flexWrap='wrap' alignItems="center">
           <SortingSelect value={sortingBy}/>
-          <IconButton display={{base: "inherit", md: "none"}} aria-label='Toggle Filter Menu' icon={<FaFilter/>}
-                      onClick={filterMenu.onToggle} isRound={true}/>
+          <IconButton display={{base: "inherit", lg: "none"}} aria-label='Toggle Filter Menu' icon={<FaFilter/>}
+                      onClick={filterMenu.onToggle} isRound={true}
+          />
         </Flex>
       </Flex>
-      <Flex>
-        <Box display={{base: "none", md: "inherit"}}>
-          <FilterMenu/>
+      <Flex gap={5}>
+        <Box display={{base: "none", lg: "inline"}}>
+          <FilterMenu priceFilterType={priceFilterType} onSubmit={onSubmit}/>
         </Box>
         <Box>
           {children}
@@ -50,8 +54,8 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
           <ViewedProducts viewedProducts={viewedProducts}/>
         </Box>
       )}
-      <DrawerMenu isOpen={filterMenu.isOpen} onClose={filterMenu.onClose}>
-        <FilterMenu/>
+      <DrawerMenu isOpen={filterMenu.isOpen} onClose={filterMenu.onClose} onSubmit={onSubmit}>
+        <FilterMenu priceFilterType={priceFilterType}/>
       </DrawerMenu>
     </Box>
   );

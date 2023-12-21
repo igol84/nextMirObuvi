@@ -7,10 +7,14 @@ import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctio
 import ProductsList from "@/components/base/productsList";
 import TagPage from "@/app/[lang]/[urlTag]/TagPage";
 import {
+  filterProductsByMaxPrice,
+  filterProductsByMinPrice,
   getBreadCrumbData,
   getBreadCrumbDataSinglePage,
+  getFiltersType,
   isSinglePage,
-  searchProducts, searchProductsByTag
+  searchProducts,
+  searchProductsByTag
 } from "@/app/[lang]/[urlTag]/serverFunctions";
 import {getViewedProducts} from "@/lib/productsGetter";
 import {ProductType} from "@/components/Products/types";
@@ -28,6 +32,8 @@ type Props = {
     page?: string
     sortingBy?: SortingType
     search?: string
+    minPrice?: string
+    maxPrice?: string
   }
 }
 
@@ -36,7 +42,7 @@ export async function generateMetadata({params: {lang, urlTag}}: Props) {
   if (!fetchData) redirect(`/`)
   const tagData: TagUrl = convertToTagUrlFromDB(fetchData, lang)
   return {
-    title: tagData.search && tagData.search!=='header' ? tagData.search : tagData.desc,
+    title: tagData.search && tagData.search !== 'header' ? tagData.search : tagData.desc,
     description: tagData.desc,
     openGraph: {
       images: ['https://mirobuvi.com.ua/images/slide/Adidas_Nite_Jogger_Black_Black.jpg'],
@@ -50,7 +56,10 @@ export async function generateStaticParams() {
 }
 
 
-const Page = async ({params: {lang, urlTag}, searchParams: {page = '1', sortingBy = 'byOrder', search}}: Props) => {
+const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
+  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice} = searchParams
+  const minPriceValue = minPrice ? Number(minPrice) : undefined
+  const maxPriceValue = maxPrice ? Number(maxPrice) : undefined
   const tagsUrlData = await getTagsUrlData()
   const fetchData = tagsUrlData.find(tag => tag.url === urlTag)
   if (!fetchData) redirect(`/`)
@@ -72,15 +81,23 @@ const Page = async ({params: {lang, urlTag}, searchParams: {page = '1', sortingB
 
   const productsData = await getProducts()
   let products: ProductType[] = productsData.map(product => createProduct(product, lang))
-  if(tagData.search!=='header')
+
+  const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue)
+  if (minPriceValue)
+    products = filterProductsByMinPrice(products, minPriceValue)
+  if (maxPriceValue)
+    products = filterProductsByMaxPrice(products, maxPriceValue)
+  if (tagData.search !== 'header')
     products = searchProductsByTag(products, tagData.search)
-  if(search)
+  if (search)
     products = searchProducts(products, search)
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
 
   return (
-    <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts} sortingBy={sortingBy}>
+    <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts} sortingBy={sortingBy}
+             filterMenuType={filterMenuType}
+    >
       <ProductsList products={productsSlice} paginationBar={paginationBar}/>
     </TagPage>
   )

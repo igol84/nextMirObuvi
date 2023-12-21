@@ -16,7 +16,7 @@ const PaginationBar = ({currentPage, totalPages}: PaginationBarProps) => {
   const pageSize = 2
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  let params = new URLSearchParams(searchParams.toString());
+  let params = new URLSearchParams(searchParams.toString())
   const maxPage = Math.min(totalPages, Math.max(currentPage + pageSize, pageSize));
   const minPage = Math.max(1, Math.min(currentPage - pageSize, maxPage - pageSize - 1));
   const pagesArray = _.range(minPage, maxPage + 1)
