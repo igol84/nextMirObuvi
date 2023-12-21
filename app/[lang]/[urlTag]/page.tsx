@@ -81,16 +81,15 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
 
   const productsData = await getProducts()
   let products: ProductType[] = productsData.map(product => createProduct(product, lang))
-
+  if (tagData.search !== 'header')
+    products = searchProductsByTag(products, tagData.search)
+  if (search)
+    products = searchProducts(products, search)
   const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue)
   if (minPriceValue)
     products = filterProductsByMinPrice(products, minPriceValue)
   if (maxPriceValue)
     products = filterProductsByMaxPrice(products, maxPriceValue)
-  if (tagData.search !== 'header')
-    products = searchProductsByTag(products, tagData.search)
-  if (search)
-    products = searchProducts(products, search)
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
 
