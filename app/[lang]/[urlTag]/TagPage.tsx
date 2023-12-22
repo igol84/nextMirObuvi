@@ -11,6 +11,7 @@ import {FaFilter} from "react-icons/fa";
 import DrawerMenu from "@/components/Container/FilterMenu/DrawerMenu";
 import {UseFilters, useScroll} from "@/app/[lang]/[urlTag]/hooks";
 import {FilterMenuType} from "@/app/[lang]/[urlTag]/types";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 
 interface Props {
@@ -28,14 +29,14 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
   const mobileFilterMenu = useDisclosure();
   const {filterMenuPriceType} = filterMenuType
   const {priceFilterType} = UseFilters(filterMenuPriceType)
-
+  const d = useDictionaryTranslate("filter")
   return (
     <Box>
       <Flex justifyContent='space-between' flexWrap='wrap' alignItems="center" pb={[2, 4]}>
         <BreadCrumb breadCrumbs={breadCrumbs}/>
         <Flex justifyContent='space-between' flexWrap='wrap' alignItems="center">
           <SortingSelect value={sortingBy}/>
-          <IconButton display={{base: "inherit", lg: "none"}} aria-label='Toggle Filter Menu' icon={<FaFilter/>}
+          <IconButton display={{base: "inherit", lg: "none"}} aria-label={d('openFilterMenu')} icon={<FaFilter/>}
                       onClick={mobileFilterMenu.onOpen} isRound={true}
           />
         </Flex>

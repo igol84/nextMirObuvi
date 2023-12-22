@@ -9,6 +9,7 @@ import {
   DrawerHeader,
   DrawerOverlay
 } from "@chakra-ui/react";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
 
 interface Props{
   children: React.ReactNode
@@ -17,6 +18,7 @@ interface Props{
 }
 
 const DrawerMenu = ({children, isOpen, onClose}: Props) => {
+  const d = useDictionaryTranslate("global")
   return (
     <Drawer
       isOpen={isOpen}
@@ -34,7 +36,7 @@ const DrawerMenu = ({children, isOpen, onClose}: Props) => {
 
         <DrawerFooter>
           <Button variant='outline' mr={3} onClick={onClose}>
-            Cancel
+            {d('cancel')}
           </Button>
         </DrawerFooter>
       </DrawerContent>

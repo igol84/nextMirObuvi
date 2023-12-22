@@ -1,6 +1,8 @@
 import React from 'react';
 import {Box, RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack, Text} from "@chakra-ui/react";
 import {usePricePrefix} from "@/lib/hooks";
+import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import _ from "lodash";
 
 export type PriceFilterType = {
   minInitial: number
@@ -19,6 +21,8 @@ export interface PriceFilterProps {
 
 const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => {
   const {minInitial, min, onMinChange, maxInitial, max, onMaxChange, onSubmit} = priceFilterData
+  const dg = useDictionaryTranslate("global")
+  const d = useDictionaryTranslate("filter")
   const pricePrefix = usePricePrefix()
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   const minPrice = UAHFormat.format(min)
@@ -30,7 +34,7 @@ const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => 
     onMaxChange(value[1])
   }
   const getAriaValueText = (index: number) => {
-    return index === 0 ? 'min price' : 'max price'
+    return index === 0 ? d('minPrice') : d('maxPrice')
   }
   const onChangeEnd = () => {
     onMobileMenuClose && onMobileMenuClose()
@@ -38,7 +42,7 @@ const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => 
   }
   return (
     <Box>
-      <Text>Price: {headerText}</Text>
+      <Text>{_.upperFirst(dg('price'))}: {headerText}</Text>
       <Box>
         <RangeSlider getAriaValueText={getAriaValueText} value={[min, max]} onChange={onChange} min={minInitial}
                      max={maxInitial} step={10} onChangeEnd={onChangeEnd}

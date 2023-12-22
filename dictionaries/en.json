@@ -1,6 +1,8 @@
 {
   "global": {
-    "piece": "piece"
+    "piece": "piece",
+    "price": "price",
+    "cancel": "Cancel"
   },
   "home": {
     "title": "Buy sneakers and sneakers in the online store, cheap sneakers in Kyiv, Kharkov, Ukraine - online shoe store Mirobuvi.com.ua",
@@ -149,5 +151,10 @@
     "byIncreasingPrice": "by increasing price",
     "byDecreasingPrice": "by decreasing price",
     "byName": "by name"
+  },
+  "filter": {
+    "openFilterMenu": "Open filter menu",
+    "minPrice": "minimally price",
+    "maxPrice": "maximally price"
   }
 }
