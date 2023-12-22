@@ -14,7 +14,7 @@ type GetPageData = {
     paginationBar: PaginationBarProps,
   ]>
 }
-const itemsOnPage = 24
+const itemsOnPage = 25
 export const getPageData: GetPageData = async (items:  any[], currentPage: number) => {
   const totalProductsCount = items.length
   const totalPages = Math.ceil(totalProductsCount / itemsOnPage)

@@ -10,7 +10,7 @@ export interface FilterMenuProps {
 
 const FilterMenu = ({priceFilterType, onMobileMenuClose}: FilterMenuProps) => {
   return (
-    <Box whiteSpace='nowrap' w={270}>
+    <Box whiteSpace='nowrap' w={240}>
       <PriceFilter priceFilterData={priceFilterType} onMobileMenuClose={onMobileMenuClose}/>
     </Box>
   );
