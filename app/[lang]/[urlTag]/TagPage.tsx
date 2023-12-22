@@ -25,9 +25,9 @@ interface Props {
 const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProducts, filterMenuType}: Props) => {
   useScroll()
 
-  const filterMenu = useDisclosure();
+  const mobileFilterMenu = useDisclosure();
   const {filterMenuPriceType} = filterMenuType
-  const {priceFilterType, onSubmit} = UseFilters(filterMenuPriceType)
+  const {priceFilterType} = UseFilters(filterMenuPriceType)
 
   return (
     <Box>
@@ -36,13 +36,13 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
         <Flex justifyContent='space-between' flexWrap='wrap' alignItems="center">
           <SortingSelect value={sortingBy}/>
           <IconButton display={{base: "inherit", lg: "none"}} aria-label='Toggle Filter Menu' icon={<FaFilter/>}
-                      onClick={filterMenu.onToggle} isRound={true}
+                      onClick={mobileFilterMenu.onOpen} isRound={true}
           />
         </Flex>
       </Flex>
       <Flex gap={5}>
         <Box display={{base: "none", lg: "inline"}}>
-          <FilterMenu priceFilterType={priceFilterType} onSubmit={onSubmit}/>
+          <FilterMenu priceFilterType={priceFilterType}/>
         </Box>
         <Box>
           {children}
@@ -54,8 +54,8 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
           <ViewedProducts viewedProducts={viewedProducts}/>
         </Box>
       )}
-      <DrawerMenu isOpen={filterMenu.isOpen} onClose={filterMenu.onClose} onSubmit={onSubmit}>
-        <FilterMenu priceFilterType={priceFilterType}/>
+      <DrawerMenu isOpen={mobileFilterMenu.isOpen} onClose={mobileFilterMenu.onClose}>
+        <FilterMenu priceFilterType={priceFilterType} onMobileMenuClose={mobileFilterMenu.onClose}/>
       </DrawerMenu>
     </Box>
   );

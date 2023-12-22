@@ -9,14 +9,16 @@ export type PriceFilterType = {
   maxInitial: number
   max: number
   onMaxChange: (max: number) => void
+  onSubmit: () => void
 }
 
 export interface PriceFilterProps {
-  priceFilterType: PriceFilterType
+  priceFilterData: PriceFilterType
+  onMobileMenuClose?: () =>void
 }
 
-const PriceFilter = ({priceFilterType}: PriceFilterProps) => {
-  const {minInitial, min, onMinChange, maxInitial, max, onMaxChange} = priceFilterType
+const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => {
+  const {minInitial, min, onMinChange, maxInitial, max, onMaxChange, onSubmit} = priceFilterData
   const pricePrefix = usePricePrefix()
   const UAHFormat = new Intl.NumberFormat('ru-RU', {style: 'decimal'})
   const minPrice = UAHFormat.format(min)
@@ -28,14 +30,18 @@ const PriceFilter = ({priceFilterType}: PriceFilterProps) => {
     onMaxChange(value[1])
   }
   const getAriaValueText = (index: number) => {
-    return index === 0 ? 'min' : 'max'
+    return index === 0 ? 'min price' : 'max price'
+  }
+  const onChangeEnd = () => {
+    onMobileMenuClose && onMobileMenuClose()
+    onSubmit()
   }
   return (
     <Box>
       <Text>Price: {headerText}</Text>
       <Box>
         <RangeSlider getAriaValueText={getAriaValueText} value={[min, max]} onChange={onChange} min={minInitial}
-                     max={maxInitial} step={10}
+                     max={maxInitial} step={10} onChangeEnd={onChangeEnd}
         >
           <RangeSliderTrack>
             <RangeSliderFilledTrack/>

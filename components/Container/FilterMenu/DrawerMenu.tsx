@@ -14,14 +14,9 @@ interface Props{
   children: React.ReactNode
   isOpen: boolean
   onClose: ()=>void
-  onSubmit:()=>void
 }
 
-const DrawerMenu = ({children, isOpen, onClose, onSubmit}: Props) => {
-  const onClick = () => {
-    onClose()
-    onSubmit()
-  }
+const DrawerMenu = ({children, isOpen, onClose}: Props) => {
   return (
     <Drawer
       isOpen={isOpen}
@@ -41,7 +36,6 @@ const DrawerMenu = ({children, isOpen, onClose, onSubmit}: Props) => {
           <Button variant='outline' mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button colorScheme='blue' onClick={onClick}>Submit</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

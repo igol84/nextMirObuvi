@@ -8,7 +8,7 @@ type UseFiltersPrice = {
   (
     filterMenuPriceType: FilterMenuPriceType
   ): {
-    priceFilterType: PriceFilterType,
+    priceFilterTypeWithoutOnSubmit: Omit<PriceFilterType, 'onSubmit'>,
     onSubmitPrice: (params: URLSearchParams) => void
   }
 }
@@ -33,7 +33,7 @@ export const useFiltersPrice: UseFiltersPrice = (filterMenuPriceType) => {
   const onMaxChange = (max: number) => {
     setMax(max)
   }
-  const priceFilterType: PriceFilterType = {
+  const priceFilterTypeWithoutOnSubmit: Omit<PriceFilterType, 'onSubmit'>  = {
     minInitial, min, onMinChange, maxInitial, max, onMaxChange
   }
   const minPrice = min === minInitial ? undefined : min
@@ -51,7 +51,7 @@ export const useFiltersPrice: UseFiltersPrice = (filterMenuPriceType) => {
       params.delete('maxPrice')
     }
   }
-  return {priceFilterType, onSubmitPrice}
+  return {priceFilterTypeWithoutOnSubmit, onSubmitPrice}
 }
 
 
@@ -60,7 +60,6 @@ type UseFilters = {
     filterMenuPriceType: FilterMenuPriceType
   ): {
     priceFilterType: PriceFilterType,
-    onSubmit: () => void
   }
 }
 
@@ -68,16 +67,17 @@ export const UseFilters: UseFilters = (filterMenuPriceType) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-  const {priceFilterType, onSubmitPrice} = useFiltersPrice(filterMenuPriceType)
+  const {priceFilterTypeWithoutOnSubmit, onSubmitPrice} = useFiltersPrice(filterMenuPriceType)
   let params = new URLSearchParams(searchParams.toString())
 
-  const onSubmit = () => {
+  const onSubmit = (onSubmitFilter: (params: URLSearchParams) => void) => () => {
     params.delete('page')
-    onSubmitPrice(params)
+    onSubmitFilter(params)
     const url = createUrl(pathname, params.toString())
     router.push(url)
   }
-  return {priceFilterType, onSubmit}
+  const priceFilterType: PriceFilterType = {...priceFilterTypeWithoutOnSubmit, onSubmit: onSubmit(onSubmitPrice)}
+  return {priceFilterType}
 }
 
 

@@ -1,21 +1,17 @@
 import React from 'react';
-import {Box, Button} from "@chakra-ui/react";
+import {Box} from "@chakra-ui/react";
 import PriceFilter, {PriceFilterType} from "@/components/Container/FilterMenu/PriceFilter";
 
 
 export interface FilterMenuProps {
   priceFilterType: PriceFilterType
-  onSubmit?: ()=> void
+  onMobileMenuClose?: ()=>void
 }
 
-const FilterMenu = ({priceFilterType, onSubmit}: FilterMenuProps) => {
+const FilterMenu = ({priceFilterType, onMobileMenuClose}: FilterMenuProps) => {
   return (
     <Box whiteSpace='nowrap' w={270}>
-      <PriceFilter priceFilterType={priceFilterType}/>
-      {onSubmit && (
-        <Button onClick={onSubmit}>Submit</Button>
-      )}
-
+      <PriceFilter priceFilterData={priceFilterType} onMobileMenuClose={onMobileMenuClose}/>
     </Box>
   );
 };
