@@ -1,6 +1,5 @@
 import {TagUrlSchema} from "@/schemas/data";
 import {Lang} from "@/dictionaries/get-dictionary";
-import {ProductTypeType} from "@/components/Container/FilterMenu/ProductType";
 
 export interface TagUrl {
   url: string
@@ -33,7 +32,12 @@ export type FilterMenuPriceType = {
   minValue: number
   maxValue: number
 }
-export type FilterProductType = 'shoes' | null
+
+export type FilterProductType = null | 'shoes'
+export const isProductType = (productType: string | null): productType is FilterProductType => {
+  return [null, 'shoes'].includes(productType)
+}
+
 export type FilterMenuType = {
   filterMenuPriceType: FilterMenuPriceType
   filterProductType: FilterProductType

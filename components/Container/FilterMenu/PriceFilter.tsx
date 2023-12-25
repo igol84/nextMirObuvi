@@ -19,7 +19,7 @@ export interface PriceFilterProps {
   onMobileMenuClose?: () => void
 }
 
-const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => {
+const PriceFilter = ({priceFilterData}: PriceFilterProps) => {
   const {minInitial, min, onMinChange, maxInitial, max, onMaxChange, onSubmit} = priceFilterData
   const dg = useDictionaryTranslate("global")
   const d = useDictionaryTranslate("filter")

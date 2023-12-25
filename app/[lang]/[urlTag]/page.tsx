@@ -2,7 +2,7 @@ import React from 'react';
 import '@/app/theme/style.scss'
 import {Lang} from "@/dictionaries/get-dictionary";
 import {redirect} from "next/navigation";
-import {convertToTagUrlFromDB, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {convertToTagUrlFromDB, isProductType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctions";
 import ProductsList from "@/components/base/productsList";
 import TagPage from "@/app/[lang]/[urlTag]/TagPage";
@@ -87,16 +87,18 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     products = searchProductsByTag(products, tagData.search)
   if (search)
     products = searchProducts(products, search)
+  if (productType && isProductType(productType))
+    products = filterProductsByProductType(products, productType)
+
   const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue, productType)
+
   if (minPriceValue)
     products = filterProductsByMinPrice(products, minPriceValue)
   if (maxPriceValue)
     products = filterProductsByMaxPrice(products, maxPriceValue)
-  if (productType && productType === 'shoes')
-    products = filterProductsByProductType(products, productType)
+
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
-
   return (
     <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts} sortingBy={sortingBy}
              filterMenuType={filterMenuType}

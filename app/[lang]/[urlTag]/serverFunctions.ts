@@ -85,11 +85,13 @@ type GetFiltersType = {
 export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType) => {
   const minPrice = _.minBy(products, product => product.price)?.price
   const maxPrice = _.maxBy(products, product => product.price)?.price
+  const minInitial = minPrice ? minPrice: 0
+  const maxInitial = maxPrice ? maxPrice: 0
   const filterMenuPriceType: FilterMenuPriceType = {
-    minInitial: minPrice ? minPrice: 0,
-    maxInitial: maxPrice ? maxPrice: 0,
-    minValue: minValue ? minValue: 0,
-    maxValue: maxValue ? maxValue: 0,
+    minInitial,
+    maxInitial,
+    minValue: minValue ? minValue: minInitial,
+    maxValue: maxValue ? maxValue: maxInitial,
   }
   const filterProductType: FilterProductType  = productType === 'shoes' ? 'shoes' : null
   const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType}

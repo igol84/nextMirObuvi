@@ -155,6 +155,7 @@
   "filter": {
     "openFilterMenu": "Open filter menu",
     "minPrice": "minimally price",
-    "maxPrice": "maximally price"
+    "maxPrice": "maximally price",
+    "shoes": "Shoes"
   }
 }

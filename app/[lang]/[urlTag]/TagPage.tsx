@@ -9,9 +9,10 @@ import {SortingType} from "@/components/base/SortingSelect/types";
 import FilterMenu from "@/components/Container/FilterMenu";
 import {FaFilter} from "react-icons/fa";
 import DrawerMenu from "@/components/Container/FilterMenu/DrawerMenu";
-import {UseFilters, useScroll} from "@/app/[lang]/[urlTag]/hooks";
 import {FilterMenuType} from "@/app/[lang]/[urlTag]/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
+import useScroll from "@/app/[lang]/[urlTag]/hooks/useScroll";
+import useFilters from "@/app/[lang]/[urlTag]/hooks/useFilters";
 
 
 interface Props {
@@ -28,7 +29,8 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
 
   const mobileFilterMenu = useDisclosure();
   const {filterMenuPriceType, filterProductType} = filterMenuType
-  const {priceFilterType, productTypeType} = UseFilters(filterMenuPriceType, filterProductType)
+  console.log(filterMenuPriceType)
+  const {priceFilterType, productTypeType} = useFilters(filterMenuPriceType, filterProductType)
   const d = useDictionaryTranslate("filter")
   return (
     <Box>
@@ -56,7 +58,8 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
         </Box>
       )}
       <DrawerMenu isOpen={mobileFilterMenu.isOpen} onClose={mobileFilterMenu.onClose}>
-        <FilterMenu priceFilterType={priceFilterType} productTypeType={productTypeType} onMobileMenuClose={mobileFilterMenu.onClose}/>
+        <FilterMenu priceFilterType={priceFilterType} productTypeType={productTypeType}
+                    onMobileMenuClose={mobileFilterMenu.onClose}/>
       </DrawerMenu>
     </Box>
   );
