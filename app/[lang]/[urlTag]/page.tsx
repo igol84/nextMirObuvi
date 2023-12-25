@@ -9,6 +9,7 @@ import TagPage from "@/app/[lang]/[urlTag]/TagPage";
 import {
   filterProductsByMaxPrice,
   filterProductsByMinPrice,
+  filterProductsByProductType,
   getBreadCrumbData,
   getBreadCrumbDataSinglePage,
   getFiltersType,
@@ -34,6 +35,7 @@ type Props = {
     search?: string
     minPrice?: string
     maxPrice?: string
+    productType?: string
   }
 }
 
@@ -57,7 +59,7 @@ export async function generateStaticParams() {
 
 
 const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
-  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice} = searchParams
+  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType} = searchParams
   const minPriceValue = minPrice ? Number(minPrice) : undefined
   const maxPriceValue = maxPrice ? Number(maxPrice) : undefined
   const tagsUrlData = await getTagsUrlData()
@@ -85,11 +87,13 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     products = searchProductsByTag(products, tagData.search)
   if (search)
     products = searchProducts(products, search)
-  const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue)
+  const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue, productType)
   if (minPriceValue)
     products = filterProductsByMinPrice(products, minPriceValue)
   if (maxPriceValue)
     products = filterProductsByMaxPrice(products, maxPriceValue)
+  if (productType && productType === 'shoes')
+    products = filterProductsByProductType(products, productType)
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
 

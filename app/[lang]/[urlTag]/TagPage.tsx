@@ -27,8 +27,8 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
   useScroll()
 
   const mobileFilterMenu = useDisclosure();
-  const {filterMenuPriceType} = filterMenuType
-  const {priceFilterType} = UseFilters(filterMenuPriceType)
+  const {filterMenuPriceType, filterProductType} = filterMenuType
+  const {priceFilterType, productTypeType} = UseFilters(filterMenuPriceType, filterProductType)
   const d = useDictionaryTranslate("filter")
   return (
     <Box>
@@ -43,7 +43,7 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
       </Flex>
       <Flex gap={5}>
         <Box display={{base: "none", lg: "inline"}}>
-          <FilterMenu priceFilterType={priceFilterType}/>
+          <FilterMenu priceFilterType={priceFilterType} productTypeType={productTypeType}/>
         </Box>
         <Box>
           {children}
@@ -56,7 +56,7 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
         </Box>
       )}
       <DrawerMenu isOpen={mobileFilterMenu.isOpen} onClose={mobileFilterMenu.onClose}>
-        <FilterMenu priceFilterType={priceFilterType} onMobileMenuClose={mobileFilterMenu.onClose}/>
+        <FilterMenu priceFilterType={priceFilterType} productTypeType={productTypeType} onMobileMenuClose={mobileFilterMenu.onClose}/>
       </DrawerMenu>
     </Box>
   );

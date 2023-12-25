@@ -2,7 +2,13 @@ import 'server-only'
 
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import {FilterMenuPriceType, FilterMenuType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {
+  FilterMenuPriceType,
+  FilterMenuType,
+  FilterProductType,
+  ParentTagForBreadCrumb,
+  TagUrl
+} from "@/app/[lang]/[urlTag]/types";
 import {ProductType} from "@/components/Products/types";
 import _ from "lodash";
 
@@ -71,20 +77,22 @@ type GetFiltersType = {
   (
     products: ProductType[],
     minValue?: number,
-    maxValue?: number
+    maxValue?: number,
+    productType?: string
   ): FilterMenuType
 }
 
-export const getFiltersType: GetFiltersType = (products, minValue, maxValue) => {
+export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType) => {
   const minPrice = _.minBy(products, product => product.price)?.price
   const maxPrice = _.maxBy(products, product => product.price)?.price
   const filterMenuPriceType: FilterMenuPriceType = {
     minInitial: minPrice ? minPrice: 0,
     maxInitial: maxPrice ? maxPrice: 0,
-    minValue,
-    maxValue
+    minValue: minValue ? minValue: 0,
+    maxValue: maxValue ? maxValue: 0,
   }
-  const filterMenuType: FilterMenuType = {filterMenuPriceType}
+  const filterProductType: FilterProductType  = productType === 'shoes' ? 'shoes' : null
+  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType}
   return filterMenuType
 }
 
@@ -97,5 +105,11 @@ export const filterProductsByMinPrice = (products: ProductType[], minPrice: numb
 export const filterProductsByMaxPrice = (products: ProductType[], maxPrice: number): ProductType[] => {
   return products.filter(product => {
     return product.price <= maxPrice
+  })
+}
+
+export const filterProductsByProductType = (products: ProductType[], productType: FilterProductType): ProductType[] => {
+  return products.filter(product => {
+    return product.type === productType
   })
 }

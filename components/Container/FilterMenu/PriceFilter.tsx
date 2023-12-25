@@ -11,12 +11,12 @@ export type PriceFilterType = {
   maxInitial: number
   max: number
   onMaxChange: (max: number) => void
-  onSubmit: () => void
+  onSubmit: (value: number[]) => void
 }
 
 export interface PriceFilterProps {
   priceFilterData: PriceFilterType
-  onMobileMenuClose?: () =>void
+  onMobileMenuClose?: () => void
 }
 
 const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => {
@@ -36,16 +36,13 @@ const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => 
   const getAriaValueText = (index: number) => {
     return index === 0 ? d('minPrice') : d('maxPrice')
   }
-  const onChangeEnd = () => {
-    onMobileMenuClose && onMobileMenuClose()
-    onSubmit()
-  }
+
   return (
     <Box>
       <Text>{_.upperFirst(dg('price'))}: {headerText}</Text>
       <Box>
         <RangeSlider getAriaValueText={getAriaValueText} value={[min, max]} onChange={onChange} min={minInitial}
-                     max={maxInitial} step={10} onChangeEnd={onChangeEnd}
+                     max={maxInitial} step={10} onChangeEnd={onSubmit}
         >
           <RangeSliderTrack>
             <RangeSliderFilledTrack/>

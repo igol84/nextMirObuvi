@@ -1,5 +1,6 @@
 import {TagUrlSchema} from "@/schemas/data";
 import {Lang} from "@/dictionaries/get-dictionary";
+import {ProductTypeType} from "@/components/Container/FilterMenu/ProductType";
 
 export interface TagUrl {
   url: string
@@ -29,9 +30,11 @@ export interface ParentTagForBreadCrumb {
 export type FilterMenuPriceType = {
   minInitial: number
   maxInitial: number
-  minValue?: number
-  maxValue?: number
+  minValue: number
+  maxValue: number
 }
+export type FilterProductType = 'shoes' | null
 export type FilterMenuType = {
   filterMenuPriceType: FilterMenuPriceType
+  filterProductType: FilterProductType
 }
