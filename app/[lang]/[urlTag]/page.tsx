@@ -9,14 +9,14 @@ import TagPage from "@/app/[lang]/[urlTag]/TagPage";
 import {
   filterProductsByMaxPrice,
   filterProductsByMinPrice,
-  filterProductsByProductType,
+  filterProductsByProductType, filterProductsBySize,
   getBreadCrumbData,
   getBreadCrumbDataSinglePage,
   getFiltersType,
   isSinglePage,
   searchProducts,
   searchProductsByTag
-} from "@/app/[lang]/[urlTag]/serverFunctions";
+} from "@/app/[lang]/[urlTag]/serverFunctions/serverFunctions";
 import {getViewedProducts} from "@/lib/productsGetter";
 import {ProductType} from "@/components/Products/types";
 import {createProduct} from "@/lib/productCardData";
@@ -36,6 +36,7 @@ type Props = {
     minPrice?: string
     maxPrice?: string
     productType?: string
+    size?: string | string[]
   }
 }
 
@@ -59,7 +60,7 @@ export async function generateStaticParams() {
 
 
 const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
-  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType} = searchParams
+  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType, size} = searchParams
   const minPriceValue = minPrice ? Number(minPrice) : undefined
   const maxPriceValue = maxPrice ? Number(maxPrice) : undefined
   const tagsUrlData = await getTagsUrlData()
@@ -90,18 +91,29 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
   if (productType && isProductType(productType))
     products = filterProductsByProductType(products, productType)
 
-  const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue, productType)
+
+
+  const {
+    filterMenuPriceType,
+    filterSizesType
+  } = getFiltersType(products, minPriceValue, maxPriceValue, productType, size)
+
+  if(filterSizesType.selectedSizes?.length){
+    products = filterProductsBySize(products, filterSizesType.selectedSizes)
+  }
 
   if (minPriceValue)
     products = filterProductsByMinPrice(products, minPriceValue)
   if (maxPriceValue)
     products = filterProductsByMaxPrice(products, maxPriceValue)
 
+  const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue, productType, size, filterSizesType.sizesList)
+
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
   return (
     <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts} sortingBy={sortingBy}
-             filterMenuType={filterMenuType}
+             filterMenuType={{...filterMenuType, filterMenuPriceType}}
     >
       <ProductsList products={productsSlice} paginationBar={paginationBar}/>
     </TagPage>

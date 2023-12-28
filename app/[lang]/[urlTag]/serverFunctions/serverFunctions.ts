@@ -2,15 +2,11 @@ import 'server-only'
 
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import {
-  FilterMenuPriceType,
-  FilterMenuType,
-  FilterProductType,
-  ParentTagForBreadCrumb,
-  TagUrl
-} from "@/app/[lang]/[urlTag]/types";
-import {ProductType} from "@/components/Products/types";
+import {FilterMenuType, FilterProductType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {isShoes, ProductType} from "@/components/Products/types";
 import _ from "lodash";
+import getFilterMenuPrice from "@/app/[lang]/[urlTag]/serverFunctions/getFilterMenuPrice";
+import getFilterSizes from "@/app/[lang]/[urlTag]/serverFunctions/getFilterSizes";
 
 export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
 
@@ -73,28 +69,23 @@ export const searchProducts = (products: ProductType[], searchValue: string): Pr
   })
 }
 
+
 type GetFiltersType = {
   (
     products: ProductType[],
     minValue?: number,
     maxValue?: number,
-    productType?: string
+    productType?: string,
+    size?: string | string[],
+    sizesAllList?: number[]
   ): FilterMenuType
 }
 
-export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType) => {
-  const minPrice = _.minBy(products, product => product.price)?.price
-  const maxPrice = _.maxBy(products, product => product.price)?.price
-  const minInitial = minPrice ? minPrice: 0
-  const maxInitial = maxPrice ? maxPrice: 0
-  const filterMenuPriceType: FilterMenuPriceType = {
-    minInitial,
-    maxInitial,
-    minValue: minValue ? minValue: minInitial,
-    maxValue: maxValue ? maxValue: maxInitial,
-  }
-  const filterProductType: FilterProductType  = productType === 'shoes' ? 'shoes' : null
-  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType}
+export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType, size, sizesAllList) => {
+  const filterMenuPriceType = getFilterMenuPrice(products, minValue, maxValue)
+  const filterProductType: FilterProductType = productType === 'shoes' ? 'shoes' : null
+  const filterSizesType = getFilterSizes(products, size, sizesAllList)
+  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType}
   return filterMenuType
 }
 
@@ -113,5 +104,17 @@ export const filterProductsByMaxPrice = (products: ProductType[], maxPrice: numb
 export const filterProductsByProductType = (products: ProductType[], productType: FilterProductType): ProductType[] => {
   return products.filter(product => {
     return product.type === productType
+  })
+}
+
+export const filterProductsBySize = (products: ProductType[], sizes: number[]): ProductType[] => {
+  return products.filter(product => {
+    if (isShoes(product)) {
+      for (const size of sizes) {
+        if (product.sizes.includes(size))
+          return true
+      }
+      return false
+    }
   })
 }

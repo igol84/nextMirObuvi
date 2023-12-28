@@ -34,11 +34,19 @@ export type FilterMenuPriceType = {
 }
 
 export type FilterProductType = null | 'shoes'
+
 export const isProductType = (productType: string | null): productType is FilterProductType => {
   return [null, 'shoes'].includes(productType)
+}
+
+export type FilterSizesType = {
+  sizesAllList: number[]
+  sizesList: number[]
+  selectedSizes: number[]
 }
 
 export type FilterMenuType = {
   filterMenuPriceType: FilterMenuPriceType
   filterProductType: FilterProductType
+  filterSizesType: FilterSizesType
 }
