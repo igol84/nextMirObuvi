@@ -19,7 +19,7 @@ export interface PriceFilterProps {
   onMobileMenuClose?: () => void
 }
 
-const PriceFilter = ({priceFilterData}: PriceFilterProps) => {
+const PriceFilter = ({priceFilterData, onMobileMenuClose}: PriceFilterProps) => {
   const {minInitial, min, onMinChange, maxInitial, max, onMaxChange, onSubmit} = priceFilterData
   const dg = useDictionaryTranslate("global")
   const d = useDictionaryTranslate("filter")
@@ -37,12 +37,17 @@ const PriceFilter = ({priceFilterData}: PriceFilterProps) => {
     return index === 0 ? d('minPrice') : d('maxPrice')
   }
 
+  const onChangeEnd = (value: number[]) => {
+    onMobileMenuClose && onMobileMenuClose()
+    onSubmit(value)
+  }
+
   return (
     <Box>
       <Text>{_.upperFirst(dg('price'))}: {headerText}</Text>
       <Box>
         <RangeSlider getAriaValueText={getAriaValueText} value={[min, max]} onChange={onChange} min={minInitial}
-                     max={maxInitial} step={10} onChangeEnd={onSubmit}
+                     max={maxInitial} step={10} onChangeEnd={onChangeEnd}
         >
           <RangeSliderTrack>
             <RangeSliderFilledTrack/>

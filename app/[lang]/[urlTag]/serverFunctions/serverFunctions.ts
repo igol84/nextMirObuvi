@@ -7,6 +7,7 @@ import {isShoes, ProductType} from "@/components/Products/types";
 import _ from "lodash";
 import getFilterMenuPrice from "@/app/[lang]/[urlTag]/serverFunctions/getFilterMenuPrice";
 import getFilterSizes from "@/app/[lang]/[urlTag]/serverFunctions/getFilterSizes";
+import getFilterProductType from "@/app/[lang]/[urlTag]/serverFunctions/getFilterProductType";
 
 export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
 
@@ -83,7 +84,7 @@ type GetFiltersType = {
 
 export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType, size, sizesAllList) => {
   const filterMenuPriceType = getFilterMenuPrice(products, minValue, maxValue)
-  const filterProductType: FilterProductType = productType === 'shoes' ? 'shoes' : null
+  const filterProductType = getFilterProductType(products, productType)
   const filterSizesType = getFilterSizes(products, size, sizesAllList)
   const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType}
   return filterMenuType

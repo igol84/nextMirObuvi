@@ -36,7 +36,7 @@ const DrawerMenu = ({children, isOpen, onClose}: Props) => {
 
         <DrawerFooter>
           <Button variant='outline' mr={3} onClick={onClose}>
-            {d('cancel')}
+            {d('close')}
           </Button>
         </DrawerFooter>
       </DrawerContent>

@@ -13,11 +13,11 @@ export interface FilterMenuProps {
 }
 
 const FilterMenu = ({priceFilterType, productTypeType, onMobileMenuClose, shoesMenuType}: FilterMenuProps) => {
-  const isShoesType = productTypeType.selectedType === 'shoes'
+  const isShoesType = productTypeType.filterProductType === 'shoes'
   return (
     <Flex whiteSpace='nowrap' w={240} gap={3} direction='column'>
       <PriceFilter priceFilterData={priceFilterType} onMobileMenuClose={onMobileMenuClose}/>
-      <ProductType productTypeType={productTypeType}/>
+      <ProductType productTypeType={productTypeType} onMobileMenuClose={onMobileMenuClose}/>
       {isShoesType && <ShoesMenu shoesMenuType={shoesMenuType}/>}
 
     </Flex>

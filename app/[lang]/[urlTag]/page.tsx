@@ -9,7 +9,8 @@ import TagPage from "@/app/[lang]/[urlTag]/TagPage";
 import {
   filterProductsByMaxPrice,
   filterProductsByMinPrice,
-  filterProductsByProductType, filterProductsBySize,
+  filterProductsByProductType,
+  filterProductsBySize,
   getBreadCrumbData,
   getBreadCrumbDataSinglePage,
   getFiltersType,
@@ -92,13 +93,12 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     products = filterProductsByProductType(products, productType)
 
 
-
   const {
     filterMenuPriceType,
     filterSizesType
   } = getFiltersType(products, minPriceValue, maxPriceValue, productType, size)
 
-  if(filterSizesType.selectedSizes?.length){
+  if (filterSizesType.selectedSizes && filterSizesType.selectedSizes.length > 0) {
     products = filterProductsBySize(products, filterSizesType.selectedSizes)
   }
 
@@ -107,7 +107,9 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
   if (maxPriceValue)
     products = filterProductsByMaxPrice(products, maxPriceValue)
 
-  const filterMenuType = getFiltersType(products, minPriceValue, maxPriceValue, productType, size, filterSizesType.sizesList)
+  const filterMenuType = getFiltersType(
+    products, minPriceValue, maxPriceValue, productType, size, filterSizesType.sizesList
+  )
 
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))

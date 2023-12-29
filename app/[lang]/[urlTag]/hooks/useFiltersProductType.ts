@@ -6,10 +6,7 @@ import {createUrl} from "@/lib/format";
 type UseFiltersProductType = {
   (
     filterProductType: FilterProductType
-  ): {
-    filterProductTypeOnSubmit: Omit<ProductTypeType, 'onChangeType'>,
-    onSubmitProductType: (selected: FilterProductType) => void
-  }
+  ): ProductTypeType
 }
 
 const useFiltersProductType: UseFiltersProductType = (filterProductType) => {
@@ -17,8 +14,7 @@ const useFiltersProductType: UseFiltersProductType = (filterProductType) => {
   const pathname = usePathname()
   const router = useRouter()
   let params = new URLSearchParams(searchParams.toString())
-  const filterProductTypeOnSubmit: Omit<ProductTypeType, 'onChangeType'> = {selectedType: filterProductType}
-  const onSubmitProductType = (selected: FilterProductType) => {
+  const onChangeType = (selected: FilterProductType) => {
     params.delete('page')
     params.delete('minPrice')
     params.delete('maxPrice')
@@ -30,7 +26,8 @@ const useFiltersProductType: UseFiltersProductType = (filterProductType) => {
     const url = createUrl(pathname, params.toString())
     router.push(url)
   }
-  return {filterProductTypeOnSubmit, onSubmitProductType}
+  const productTypeType: ProductTypeType = {filterProductType, onChangeType}
+  return productTypeType
 }
 
 export default useFiltersProductType

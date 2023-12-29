@@ -20,12 +20,9 @@ type UseFilters = {
 }
 
 const useFilters: UseFilters = (filterMenuPriceType, filterProductType, filterMenuType) => {
-  const {priceFilterTypeWithoutOnSubmit, onSubmitPrice} = useFiltersPrice(filterMenuPriceType)
-  const {filterProductTypeOnSubmit, onSubmitProductType} = useFiltersProductType(filterProductType)
-  const {sizesType} = useShoesMenu(filterMenuType)
-  const priceFilterType: PriceFilterType = {...priceFilterTypeWithoutOnSubmit, onSubmit: onSubmitPrice}
-  const productTypeType: ProductTypeType = {...filterProductTypeOnSubmit, onChangeType: onSubmitProductType}
-  const shoesMenuType: ShoesMenuType = {sizesType}
+  const priceFilterType = useFiltersPrice(filterMenuPriceType)
+  const productTypeType = useFiltersProductType(filterProductType)
+  const shoesMenuType = useShoesMenu(filterMenuType)
   return {priceFilterType, productTypeType, shoesMenuType}
 }
 

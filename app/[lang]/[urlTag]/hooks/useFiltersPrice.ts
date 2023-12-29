@@ -7,10 +7,7 @@ import {createUrl} from "@/lib/format";
 type UseFiltersPrice = {
   (
     filterMenuPriceType: FilterMenuPriceType
-  ): {
-    priceFilterTypeWithoutOnSubmit: Omit<PriceFilterType, 'onSubmit'>,
-    onSubmitPrice: (value: number[]) => void
-  }
+  ): PriceFilterType
 }
 
 const useFiltersPrice: UseFiltersPrice = (filterMenuPriceType) => {
@@ -43,13 +40,11 @@ const useFiltersPrice: UseFiltersPrice = (filterMenuPriceType) => {
   const onMaxChange = (max: number) => {
     setMax(max)
   }
-  const priceFilterTypeWithoutOnSubmit: Omit<PriceFilterType, 'onSubmit'> = {
-    minInitial, min, onMinChange, maxInitial, max, onMaxChange
-  }
+
   const minPrice = min === minInitial ? undefined : min
   const maxPrice = max === maxInitial ? undefined : max
 
-  const onSubmitPrice = () => {
+  const onSubmit = () => {
     params.delete('page')
     if (minPrice !== undefined) {
       params.set('minPrice', String(minPrice))
@@ -64,7 +59,10 @@ const useFiltersPrice: UseFiltersPrice = (filterMenuPriceType) => {
     const url = createUrl(pathname, params.toString())
     router.push(url)
   }
-  return {priceFilterTypeWithoutOnSubmit, onSubmitPrice}
+  const priceFilterType: PriceFilterType = {
+    minInitial, min, onMinChange, maxInitial, max, onMaxChange, onSubmit
+  }
+  return priceFilterType
 }
 
 export default useFiltersPrice

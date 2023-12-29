@@ -4,21 +4,24 @@ import Shoes from "./Shoes";
 import {FilterProductType} from "@/app/[lang]/[urlTag]/types";
 
 export type ProductTypeType = {
-  selectedType: FilterProductType
+  filterProductType: FilterProductType
   onChangeType: (selected: FilterProductType) => void
 }
 
 interface Props {
   productTypeType: ProductTypeType
+  onMobileMenuClose?: () => void
 }
 
-const ProductType = ({productTypeType: {selectedType, onChangeType}}: Props) => {
+const ProductType = ({productTypeType: {filterProductType, onChangeType}, onMobileMenuClose}: Props) => {
   const onChangeShoes = (checked: boolean) => {
+
     onChangeType(checked ? 'shoes' : null)
+    onMobileMenuClose && onMobileMenuClose()
   }
   return (
     <Box>
-      <Shoes isChecked={selectedType === 'shoes'} onChange={onChangeShoes}/>
+      <Shoes isChecked={filterProductType === 'shoes'} onChange={onChangeShoes}/>
     </Box>
   );
 };
