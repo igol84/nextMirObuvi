@@ -89,14 +89,14 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     products = searchProductsByTag(products, tagData.search)
   if (search)
     products = searchProducts(products, search)
-  if (productType && isProductType(productType))
-    products = filterProductsByProductType(products, productType)
-
 
   const {
     filterMenuPriceType,
+    filterProductType,
     filterSizesType
   } = getFiltersType(products, minPriceValue, maxPriceValue, productType, size)
+  if (productType && isProductType(productType))
+    products = filterProductsByProductType(products, productType)
 
   if (filterSizesType.selectedSizes && filterSizesType.selectedSizes.length > 0) {
     products = filterProductsBySize(products, filterSizesType.selectedSizes)
@@ -108,7 +108,7 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     products = filterProductsByMaxPrice(products, maxPriceValue)
 
   const filterMenuType = getFiltersType(
-    products, minPriceValue, maxPriceValue, productType, size, filterSizesType.sizesList
+    products, minPriceValue, maxPriceValue, productType, size, filterSizesType.sizesList, filterProductType.hidden
   )
 
   products = sortingProducts(products, sortingBy)

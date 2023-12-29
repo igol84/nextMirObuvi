@@ -33,9 +33,14 @@ export type FilterMenuPriceType = {
   maxValue: number
 }
 
-export type FilterProductType = null | 'shoes'
+export type FilterProductTypeType =  null | 'shoes'
 
-export const isProductType = (productType: string | null): productType is FilterProductType => {
+export type FilterProductType = {
+  productType: FilterProductTypeType
+  hidden: boolean
+}
+
+export const isProductType = (productType: string | null): productType is FilterProductTypeType => {
   return [null, 'shoes'].includes(productType)
 }
 

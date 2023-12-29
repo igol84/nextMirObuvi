@@ -1,15 +1,18 @@
-import {FilterProductType} from "@/app/[lang]/[urlTag]/types";
+import {FilterProductType, FilterProductTypeType as ProductTypeType} from "@/app/[lang]/[urlTag]/types";
 import {isShoes, ProductType} from "@/components/Products/types";
+
 
 type GetFilterProductType = {
   (
     products: ProductType[],
-    productType: string | undefined,
+    selectedProductType: string | undefined,
+    hiddenInit?: boolean
   ): FilterProductType
 }
 
-const getFilterProductType: GetFilterProductType = (products, productType) => {
-  let filterProductType: FilterProductType = productType === 'shoes' ? 'shoes' : null
+const getFilterProductType: GetFilterProductType = (products, selectedProductType, hiddenInit) => {
+  let productType: ProductTypeType = selectedProductType === 'shoes' ? 'shoes' : null
+  let hidden = false
   const productTypes: Set<string> = new Set()
 
   products.forEach(product => {
@@ -22,9 +25,13 @@ const getFilterProductType: GetFilterProductType = (products, productType) => {
 
   if (productTypes.size === 1) {
     if (productTypes.has('shoes')) {
-      filterProductType = 'shoes'
+      productType = 'shoes'
+      hidden = true
     }
   }
+  if(hiddenInit!==undefined)
+    hidden = hiddenInit
+  const filterProductType: FilterProductType = {productType, hidden}
   return filterProductType
 }
 

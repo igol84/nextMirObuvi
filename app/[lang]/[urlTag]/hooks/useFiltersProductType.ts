@@ -1,4 +1,4 @@
-import {FilterProductType} from "@/app/[lang]/[urlTag]/types";
+import {FilterProductType, FilterProductTypeType} from "@/app/[lang]/[urlTag]/types";
 import {ProductTypeType} from "@/components/Container/FilterMenu/ProductType";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {createUrl} from "@/lib/format";
@@ -14,11 +14,12 @@ const useFiltersProductType: UseFiltersProductType = (filterProductType) => {
   const pathname = usePathname()
   const router = useRouter()
   let params = new URLSearchParams(searchParams.toString())
-  const onChangeType = (selected: FilterProductType) => {
+  const onChangeType = (productType: FilterProductTypeType) => {
     params.delete('page')
     params.delete('minPrice')
     params.delete('maxPrice')
-    if (selected === 'shoes') {
+    params.delete('size')
+    if (productType === 'shoes') {
       params.set('productType', String('shoes'))
     } else {
       params.delete('productType')

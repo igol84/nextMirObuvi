@@ -2,7 +2,7 @@ import 'server-only'
 
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import {FilterMenuType, FilterProductType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {FilterMenuType, FilterProductTypeType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {isShoes, ProductType} from "@/components/Products/types";
 import _ from "lodash";
 import getFilterMenuPrice from "@/app/[lang]/[urlTag]/serverFunctions/getFilterMenuPrice";
@@ -78,13 +78,14 @@ type GetFiltersType = {
     maxValue?: number,
     productType?: string,
     size?: string | string[],
-    sizesAllList?: number[]
+    sizesAllList?: number[],
+    hiddenProductTypeMenu?: boolean
   ): FilterMenuType
 }
 
-export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType, size, sizesAllList) => {
+export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType, size, sizesAllList, hiddenProductTypeMenu) => {
   const filterMenuPriceType = getFilterMenuPrice(products, minValue, maxValue)
-  const filterProductType = getFilterProductType(products, productType)
+  const filterProductType = getFilterProductType(products, productType, hiddenProductTypeMenu)
   const filterSizesType = getFilterSizes(products, size, sizesAllList)
   const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType}
   return filterMenuType
@@ -102,7 +103,7 @@ export const filterProductsByMaxPrice = (products: ProductType[], maxPrice: numb
   })
 }
 
-export const filterProductsByProductType = (products: ProductType[], productType: FilterProductType): ProductType[] => {
+export const filterProductsByProductType = (products: ProductType[], productType: FilterProductTypeType): ProductType[] => {
   return products.filter(product => {
     return product.type === productType
   })
