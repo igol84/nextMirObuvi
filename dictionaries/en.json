@@ -158,5 +158,9 @@
     "minPrice": "minimally price",
     "maxPrice": "maximally price",
     "shoes": "Shoes"
+  },
+  "filterGender": {
+    "men's": "Men's",
+    "women's": "Women's"
   }
 }

@@ -9,7 +9,7 @@ type UseGender = {
   ): GenderType
 }
 
-const useGender: UseGender = (filterGenderType) => {
+const useFiltersGender: UseGender = (filterGenderType) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -29,4 +29,4 @@ const useGender: UseGender = (filterGenderType) => {
   return genderType
 }
 
-export default useGender
+export default useFiltersGender

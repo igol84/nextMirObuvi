@@ -50,10 +50,10 @@ export type FilterSizesType = {
   selectedSizes: number[]
 }
 export type FilterGender = "men's" | "women's"
-
+export const allGenders: FilterGender[] = ["men's", "women's"]
 export const isGender = (gender: any): gender is FilterGender => gender === "men's" || gender === "women's" || gender === null
-
 export type FilterGenderType = {
+  genders: FilterGender[]
   selectedGender: FilterGender | null
 }
 export type FilterMenuType = {

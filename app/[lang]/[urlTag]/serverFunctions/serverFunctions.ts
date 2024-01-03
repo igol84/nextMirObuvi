@@ -2,19 +2,13 @@ import 'server-only'
 
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import {
-  FilterGenderType,
-  FilterMenuType,
-  FilterProductTypeType,
-  isGender,
-  ParentTagForBreadCrumb,
-  TagUrl
-} from "@/app/[lang]/[urlTag]/types";
+import {FilterMenuType, FilterProductTypeType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {isShoes, ProductType} from "@/components/Products/types";
 import _ from "lodash";
 import getFilterMenuPrice from "@/app/[lang]/[urlTag]/serverFunctions/getFilterMenuPrice";
 import getFilterSizes from "@/app/[lang]/[urlTag]/serverFunctions/getFilterSizes";
 import getFilterProductType from "@/app/[lang]/[urlTag]/serverFunctions/getFilterProductType";
+import getFilterGender from "@/app/[lang]/[urlTag]/serverFunctions/getFiterGender";
 
 export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
 
@@ -97,8 +91,7 @@ export const getFiltersType: GetFiltersType = (
   const filterMenuPriceType = getFilterMenuPrice(products, minValue, maxValue)
   const filterProductType = getFilterProductType(products, productType, hiddenProductTypeMenu)
   const filterSizesType = getFilterSizes(products, size, sizesAllList)
-  const filterGenderType: FilterGenderType = isGender(gender) ?
-    {selectedGender: gender} : {selectedGender: null}
+  const filterGenderType = getFilterGender(products, gender)
   const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType, filterGenderType}
   return filterMenuType
 }
