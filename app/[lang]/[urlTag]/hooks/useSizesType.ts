@@ -5,16 +5,15 @@ import {SizesType} from "@/components/Container/FilterMenu/ShoesMenu/Sizes";
 
 type UseSizesType = {
   (
-    filterSizesType: FilterSizesType
+    filterSizes: FilterSizesType
   ): SizesType
 }
 
-const useSizesType: UseSizesType = (filterSizesType) => {
+const useSizesType: UseSizesType = (filterSizes) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
   let params = new URLSearchParams(searchParams.toString())
-  const filterSizes = filterSizesType
   const onSelectSize = (size: number) => {
     params.delete('page')
     const sizeStr = String(size)

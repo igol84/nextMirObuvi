@@ -2,7 +2,14 @@ import 'server-only'
 
 import {BreadCrumbData} from "@/components/base/BreadCrumb";
 import {getDictionary, Lang} from "@/dictionaries/get-dictionary";
-import {FilterMenuType, FilterProductTypeType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {
+  FilterGenderType,
+  FilterMenuType,
+  FilterProductTypeType,
+  isGender,
+  ParentTagForBreadCrumb,
+  TagUrl
+} from "@/app/[lang]/[urlTag]/types";
 import {isShoes, ProductType} from "@/components/Products/types";
 import _ from "lodash";
 import getFilterMenuPrice from "@/app/[lang]/[urlTag]/serverFunctions/getFilterMenuPrice";
@@ -78,16 +85,21 @@ type GetFiltersType = {
     maxValue?: number,
     productType?: string,
     size?: string | string[],
+    gender?: string,
     sizesAllList?: number[],
     hiddenProductTypeMenu?: boolean
   ): FilterMenuType
 }
 
-export const getFiltersType: GetFiltersType = (products, minValue, maxValue, productType, size, sizesAllList, hiddenProductTypeMenu) => {
+export const getFiltersType: GetFiltersType = (
+  products, minValue, maxValue, productType, size, gender, sizesAllList, hiddenProductTypeMenu
+) => {
   const filterMenuPriceType = getFilterMenuPrice(products, minValue, maxValue)
   const filterProductType = getFilterProductType(products, productType, hiddenProductTypeMenu)
   const filterSizesType = getFilterSizes(products, size, sizesAllList)
-  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType}
+  const filterGenderType: FilterGenderType = isGender(gender) ?
+    {selectedGender: gender} : {selectedGender: null}
+  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType, filterGenderType}
   return filterMenuType
 }
 
@@ -118,5 +130,11 @@ export const filterProductsBySize = (products: ProductType[], sizes: number[]): 
       }
       return false
     }
+  })
+}
+
+export const filterProductsByGender = (products: ProductType[], gender: string): ProductType[] => {
+  return products.filter(product => {
+    return _.words(product.tags).includes(gender)
   })
 }

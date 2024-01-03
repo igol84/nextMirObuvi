@@ -2,11 +2,18 @@ import React from 'react';
 import '@/app/theme/style.scss'
 import {Lang} from "@/dictionaries/get-dictionary";
 import {redirect} from "next/navigation";
-import {convertToTagUrlFromDB, isProductType, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
+import {
+  convertToTagUrlFromDB,
+  isGender,
+  isProductType,
+  ParentTagForBreadCrumb,
+  TagUrl
+} from "@/app/[lang]/[urlTag]/types";
 import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctions";
 import ProductsList from "@/components/base/productsList";
 import TagPage from "@/app/[lang]/[urlTag]/TagPage";
 import {
+  filterProductsByGender,
   filterProductsByMaxPrice,
   filterProductsByMinPrice,
   filterProductsByProductType,
@@ -38,6 +45,7 @@ type Props = {
     maxPrice?: string
     productType?: string
     size?: string | string[]
+    gender?: string
   }
 }
 
@@ -61,7 +69,7 @@ export async function generateStaticParams() {
 
 
 const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
-  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType, size} = searchParams
+  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType, size, gender} = searchParams
   const minPriceValue = minPrice ? Number(minPrice) : undefined
   const maxPriceValue = maxPrice ? Number(maxPrice) : undefined
   const tagsUrlData = await getTagsUrlData()
@@ -102,13 +110,18 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     products = filterProductsBySize(products, filterSizesType.selectedSizes)
   }
 
+  if (isGender(gender)) {
+    products = filterProductsByGender(products, gender)
+  }
+
   if (minPriceValue)
     products = filterProductsByMinPrice(products, minPriceValue)
   if (maxPriceValue)
     products = filterProductsByMaxPrice(products, maxPriceValue)
 
   const filterMenuType = getFiltersType(
-    products, minPriceValue, maxPriceValue, productType, size, filterSizesType.sizesList, filterProductType.hidden
+    products, minPriceValue, maxPriceValue, productType, size, gender, filterSizesType.sizesList,
+    filterProductType.hidden
   )
 
   products = sortingProducts(products, sortingBy)

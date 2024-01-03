@@ -1,11 +1,12 @@
 import React from 'react';
-import {Box} from "@chakra-ui/react";
+import {Flex} from "@chakra-ui/react";
 import Sizes, {SizesType} from "@/components/Container/FilterMenu/ShoesMenu/Sizes";
+import Gender, {GenderType} from "@/components/Container/FilterMenu/ShoesMenu/Gender";
 
 
 export type ShoesMenuType = {
   sizesType: SizesType
-
+  genderType: GenderType
 }
 
 export interface ShoesMenuProps {
@@ -14,9 +15,10 @@ export interface ShoesMenuProps {
 
 const ShoesMenu = ({shoesMenuType}: ShoesMenuProps) => {
   return (
-    <Box>
+    <Flex gap={1} direction='column'>
+      <Gender genderType={shoesMenuType.genderType}/>
       <Sizes sizesType={shoesMenuType.sizesType}/>
-    </Box>
+    </Flex>
   )
 }
 

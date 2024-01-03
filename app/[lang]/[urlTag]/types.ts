@@ -33,7 +33,7 @@ export type FilterMenuPriceType = {
   maxValue: number
 }
 
-export type FilterProductTypeType =  null | 'shoes'
+export type FilterProductTypeType = null | 'shoes'
 
 export type FilterProductType = {
   productType: FilterProductTypeType
@@ -49,9 +49,18 @@ export type FilterSizesType = {
   sizesList: number[]
   selectedSizes: number[]
 }
+export type FilterGender = "men's" | "women's"
 
+export const isGender = (gender: any): gender is FilterGender => gender === "men's" || gender === "women's" || gender === null
+
+export type FilterGenderType = {
+  selectedGender: FilterGender | null
+}
 export type FilterMenuType = {
   filterMenuPriceType: FilterMenuPriceType
   filterProductType: FilterProductType
   filterSizesType: FilterSizesType
+  filterGenderType: FilterGenderType
 }
+
+
