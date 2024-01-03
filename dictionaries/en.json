@@ -160,6 +160,7 @@
     "shoes": "Shoes"
   },
   "filterGender": {
+    "gender": "Gender",
     "men's": "Men's",
     "women's": "Women's"
   }

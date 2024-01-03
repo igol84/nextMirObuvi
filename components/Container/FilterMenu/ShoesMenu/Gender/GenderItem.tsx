@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "@chakra-ui/react";
+import {Center} from "@chakra-ui/react";
 import {FilterGender} from "@/app/[lang]/[urlTag]/types";
 
 
@@ -7,16 +7,19 @@ interface Props {
   gender: FilterGender
   label: string
   selected: boolean
+  active: boolean
   onClick: (gender: FilterGender) => void
 }
 
-const GenderItem = ({gender, selected, label, onClick}: Props) => {
-  const color = selected ? 'primary.300' : undefined
+const GenderItem = ({gender, selected, label, active, onClick}: Props) => {
+  const layerStyle = active ? selected ? 'shoesSizeSelected' : 'shoesSize' : 'shoesSizeEmpty'
   const onClickGender = () => {
     onClick(gender)
   }
   return (
-    <Link color={color} onClick={onClickGender} >{label}</Link>
+    <Center onClick={onClickGender} layerStyle={layerStyle}>
+      {label}
+    </Center>
   );
 };
 

@@ -160,7 +160,8 @@
     "shoes": "Взуття"
   },
   "filterGender": {
+    "gender": "Стать",
     "men's": "Чоловічі",
-    "women's": "Жіночий"
+    "women's": "Жіночі"
   }
 }
