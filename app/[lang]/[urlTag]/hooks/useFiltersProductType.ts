@@ -19,6 +19,8 @@ const useFiltersProductType: UseFiltersProductType = (filterProductType) => {
     params.delete('minPrice')
     params.delete('maxPrice')
     params.delete('size')
+    params.delete('gender')
+    params.delete('color')
     if (productType === 'shoes') {
       params.set('productType', String('shoes'))
     } else {

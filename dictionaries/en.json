@@ -163,5 +163,16 @@
     "gender": "Gender",
     "men's": "Men's",
     "women's": "Women's"
+  },
+  "filterColor": {
+    "black": "black",
+    "white": "white",
+    "blackWhite": "black-white",
+    "green": "green",
+    "yellow": "yellow",
+    "red": "red",
+    "blue": "blue",
+    "purple": "purple",
+    "brown": "brown"
   }
 }

@@ -9,6 +9,7 @@ import getFilterMenuPrice from "@/app/[lang]/[urlTag]/serverFunctions/getFilterM
 import getFilterSizes from "@/app/[lang]/[urlTag]/serverFunctions/getFilterSizes";
 import getFilterProductType from "@/app/[lang]/[urlTag]/serverFunctions/getFilterProductType";
 import getFilterGender from "@/app/[lang]/[urlTag]/serverFunctions/getFiterGender";
+import getFilterColor from "@/app/[lang]/[urlTag]/serverFunctions/getFiterColor";
 
 export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
 
@@ -80,19 +81,21 @@ type GetFiltersType = {
     productType?: string,
     size?: string | string[],
     gender?: string,
+    color?: string,
     sizesAllList?: number[],
     hiddenProductTypeMenu?: boolean
   ): FilterMenuType
 }
 
 export const getFiltersType: GetFiltersType = (
-  products, minValue, maxValue, productType, size, gender, sizesAllList, hiddenProductTypeMenu
+  products, minValue, maxValue, productType, size, gender, color, sizesAllList, hiddenProductTypeMenu
 ) => {
   const filterMenuPriceType = getFilterMenuPrice(products, minValue, maxValue)
   const filterProductType = getFilterProductType(products, productType, hiddenProductTypeMenu)
   const filterSizesType = getFilterSizes(products, size, sizesAllList)
   const filterGenderType = getFilterGender(products, gender)
-  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType, filterGenderType}
+  const filterColorType = getFilterColor(products, color)
+  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType, filterGenderType, filterColorType}
   return filterMenuType
 }
 
@@ -126,8 +129,8 @@ export const filterProductsBySize = (products: ProductType[], sizes: number[]): 
   })
 }
 
-export const filterProductsByGender = (products: ProductType[], gender: string): ProductType[] => {
+export const filterProductsByTag = (products: ProductType[], tag: string): ProductType[] => {
   return products.filter(product => {
-    return _.words(product.tags.toLowerCase()).includes(gender)
+    return _.words(product.tags.toLowerCase()).includes(tag.toLowerCase())
   })
 }

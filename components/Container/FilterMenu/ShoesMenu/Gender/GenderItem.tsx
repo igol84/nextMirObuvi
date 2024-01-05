@@ -14,7 +14,8 @@ interface Props {
 const GenderItem = ({gender, selected, label, active, onClick}: Props) => {
   const layerStyle = active ? selected ? 'shoesSizeSelected' : 'shoesSize' : 'shoesSizeEmpty'
   const onClickGender = () => {
-    onClick(gender)
+    if(active)
+      onClick(gender)
   }
   return (
     <Center onClick={onClickGender} layerStyle={layerStyle}>

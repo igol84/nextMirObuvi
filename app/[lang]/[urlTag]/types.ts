@@ -49,18 +49,32 @@ export type FilterSizesType = {
   sizesList: number[]
   selectedSizes: number[]
 }
+
 export type FilterGender = "men's" | "women's"
 export const allGenders: FilterGender[] = ["men's", "women's"]
-export const isGender = (gender: any): gender is FilterGender => gender === "men's" || gender === "women's" || gender === null
+export const isGender = (gender: any): gender is FilterGender => allGenders.includes(gender)
 export type FilterGenderType = {
   genders: FilterGender[]
   selectedGender: FilterGender | null
 }
+
+export type FilterColor = "black" | "white" | "blackWhite" | "green" | "yellow" | "red" | "blue" | "gray" | "purple"
+  | "brown"
+export const allColors: FilterColor[] = [
+  "black", "white", "green", "blackWhite", "yellow", "red", "blue", "gray", "purple", "brown"
+]
+export const isColor = (color: any): color is FilterColor => allColors.includes(color)
+export type FilterColorType = {
+  colors: FilterColor[]
+  selectedColor: FilterColor | null
+}
+
 export type FilterMenuType = {
   filterMenuPriceType: FilterMenuPriceType
   filterProductType: FilterProductType
   filterSizesType: FilterSizesType
   filterGenderType: FilterGenderType
+  filterColorType: FilterColorType
 }
 
 

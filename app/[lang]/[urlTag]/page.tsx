@@ -3,7 +3,7 @@ import '@/app/theme/style.scss'
 import {Lang} from "@/dictionaries/get-dictionary";
 import {redirect} from "next/navigation";
 import {
-  convertToTagUrlFromDB,
+  convertToTagUrlFromDB, isColor,
   isGender,
   isProductType,
   ParentTagForBreadCrumb,
@@ -13,11 +13,10 @@ import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctio
 import ProductsList from "@/components/base/productsList";
 import TagPage from "@/app/[lang]/[urlTag]/TagPage";
 import {
-  filterProductsByGender,
   filterProductsByMaxPrice,
   filterProductsByMinPrice,
   filterProductsByProductType,
-  filterProductsBySize,
+  filterProductsBySize, filterProductsByTag,
   getBreadCrumbData,
   getBreadCrumbDataSinglePage,
   getFiltersType,
@@ -46,6 +45,7 @@ type Props = {
     productType?: string
     size?: string | string[]
     gender?: string
+    color?: string
   }
 }
 
@@ -69,7 +69,7 @@ export async function generateStaticParams() {
 
 
 const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
-  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType, size, gender} = searchParams
+  const {page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType, size, gender, color} = searchParams
   const minPriceValue = minPrice ? Number(minPrice) : undefined
   const maxPriceValue = maxPrice ? Number(maxPrice) : undefined
   const tagsUrlData = await getTagsUrlData()
@@ -102,7 +102,7 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     filterMenuPriceType,
     filterProductType,
     filterSizesType
-  } = getFiltersType(products, minPriceValue, maxPriceValue, productType, size)
+  } = getFiltersType(products, minPriceValue, maxPriceValue, productType, size, gender, color)
   if (productType && isProductType(productType))
     products = filterProductsByProductType(products, productType)
 
@@ -111,7 +111,11 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
   }
 
   if (isGender(gender)) {
-    products = filterProductsByGender(products, gender)
+    products = filterProductsByTag(products, gender)
+  }
+
+  if (isColor(color)) {
+    products = filterProductsByTag(products, color)
   }
 
   if (minPriceValue)
@@ -120,7 +124,7 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
     products = filterProductsByMaxPrice(products, maxPriceValue)
 
   const filterMenuType = getFiltersType(
-    products, minPriceValue, maxPriceValue, productType, size, gender, filterSizesType.sizesList,
+    products, minPriceValue, maxPriceValue, productType, size, gender, color, filterSizesType.sizesList,
     filterProductType.hidden
   )
 
