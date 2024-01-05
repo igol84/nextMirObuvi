@@ -128,6 +128,6 @@ export const filterProductsBySize = (products: ProductType[], sizes: number[]): 
 
 export const filterProductsByGender = (products: ProductType[], gender: string): ProductType[] => {
   return products.filter(product => {
-    return _.words(product.tags).includes(gender)
+    return _.words(product.tags.toLowerCase()).includes(gender)
   })
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Flex} from "@chakra-ui/react";
+import {Divider, Flex} from "@chakra-ui/react";
 import Sizes, {SizesType} from "@/components/Container/FilterMenu/ShoesMenu/Sizes";
 import Gender, {GenderType} from "@/components/Container/FilterMenu/ShoesMenu/Gender";
 
@@ -15,8 +15,9 @@ export interface ShoesMenuProps {
 
 const ShoesMenu = ({shoesMenuType}: ShoesMenuProps) => {
   return (
-    <Flex gap={1} direction='column'>
+    <Flex gap={3} direction='column'>
       <Gender genderType={shoesMenuType.genderType}/>
+      <Divider />
       <Sizes sizesType={shoesMenuType.sizesType}/>
     </Flex>
   )

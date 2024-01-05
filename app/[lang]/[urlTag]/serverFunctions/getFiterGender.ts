@@ -15,12 +15,11 @@ const getFilterGender: GetFilterGender = (products, gender) => {
 
   allGenders.forEach(gender => {
     const productsIncludeGender = products.find(product => {
-      return _.words(product.tags).includes(gender)
+      return _.words(product.tags.toLowerCase()).includes(gender)
     })
     if (productsIncludeGender)
       genders.push(gender)
   })
-
 
   return {selectedGender, genders}
 }
