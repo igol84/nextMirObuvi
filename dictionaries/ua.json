@@ -175,6 +175,10 @@
     "gray": "сірий",
     "purple": "фіолетовий",
     "brown": "коричневий"
-
+  },
+  "filterSeason": {
+    "summer": "літо",
+    "autumn": "осінь",
+    "winter": "зима"
   }
 }

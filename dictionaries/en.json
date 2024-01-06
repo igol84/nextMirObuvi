@@ -174,5 +174,10 @@
     "blue": "blue",
     "purple": "purple",
     "brown": "brown"
+  },
+  "filterSeason": {
+    "summer": "summer",
+    "autumn": "autumn",
+    "winter": "winter"
   }
 }

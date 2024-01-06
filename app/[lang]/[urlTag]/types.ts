@@ -69,12 +69,22 @@ export type FilterColorType = {
   selectedColor: FilterColor | null
 }
 
+export type FilterSeason = "summer" | "autumn" | "winter"
+export const allSeasons: FilterSeason[] = [
+  "summer", "autumn", "winter"
+]
+export const isSeason = (season: any): season is FilterSeason => allSeasons.includes(season)
+export type FilterSeasonType = {
+  seasons: FilterSeason[]
+  selectedSeason: FilterSeason | null
+}
 export type FilterMenuType = {
   filterMenuPriceType: FilterMenuPriceType
   filterProductType: FilterProductType
   filterSizesType: FilterSizesType
   filterGenderType: FilterGenderType
   filterColorType: FilterColorType
+  filterSeasonType: FilterSeasonType
 }
 
 

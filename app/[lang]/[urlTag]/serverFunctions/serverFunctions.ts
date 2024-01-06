@@ -10,6 +10,7 @@ import getFilterSizes from "@/app/[lang]/[urlTag]/serverFunctions/getFilterSizes
 import getFilterProductType from "@/app/[lang]/[urlTag]/serverFunctions/getFilterProductType";
 import getFilterGender from "@/app/[lang]/[urlTag]/serverFunctions/getFiterGender";
 import getFilterColor from "@/app/[lang]/[urlTag]/serverFunctions/getFiterColor";
+import getFilterSeason from "@/app/[lang]/[urlTag]/serverFunctions/getFiterSeason";
 
 export const isSinglePage = (tagData: TagUrl): boolean => tagData.search === ''
 
@@ -82,20 +83,24 @@ type GetFiltersType = {
     size?: string | string[],
     gender?: string,
     color?: string,
+    season?: string,
     sizesAllList?: number[],
     hiddenProductTypeMenu?: boolean
   ): FilterMenuType
 }
 
 export const getFiltersType: GetFiltersType = (
-  products, minValue, maxValue, productType, size, gender, color, sizesAllList, hiddenProductTypeMenu
+  products, minValue, maxValue, productType, size, gender, color, season, sizesAllList, hiddenProductTypeMenu
 ) => {
   const filterMenuPriceType = getFilterMenuPrice(products, minValue, maxValue)
   const filterProductType = getFilterProductType(products, productType, hiddenProductTypeMenu)
   const filterSizesType = getFilterSizes(products, size, sizesAllList)
   const filterGenderType = getFilterGender(products, gender)
   const filterColorType = getFilterColor(products, color)
-  const filterMenuType: FilterMenuType = {filterMenuPriceType, filterProductType, filterSizesType, filterGenderType, filterColorType}
+  const filterSeasonType = getFilterSeason(products, season)
+  const filterMenuType: FilterMenuType = {
+    filterMenuPriceType, filterProductType, filterSizesType, filterGenderType, filterColorType, filterSeasonType
+  }
   return filterMenuType
 }
 
