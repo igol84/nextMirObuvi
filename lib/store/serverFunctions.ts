@@ -9,13 +9,15 @@ type GetPageData = {
   <T>(
     items: T[],
     currentPage: number,
+    withoutOneProduct?: boolean
   ): Promise<[
     itemsSlice: T[],
     paginationBar: PaginationBarProps,
   ]>
 }
-const itemsOnPage = 25
-export const getPageData: GetPageData = async (items:  any[], currentPage: number) => {
+const defaultItemsOnPage = 25
+export const getPageData: GetPageData = async (items, currentPage, withoutOneProduct = false) => {
+  const itemsOnPage = withoutOneProduct ? defaultItemsOnPage - 1 : defaultItemsOnPage
   const totalProductsCount = items.length
   const totalPages = Math.ceil(totalProductsCount / itemsOnPage)
   currentPage = currentPage > totalPages ? totalPages : currentPage

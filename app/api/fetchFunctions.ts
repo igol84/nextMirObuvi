@@ -20,7 +20,7 @@ export async function getBrandData(name: string): Promise<BrandSchema | undefine
     if (res.ok)
       return await res.json()
   } catch (error) {
-    console.log('There was an error', error);
+    console.log('There was an error', error)
   }
 }
 

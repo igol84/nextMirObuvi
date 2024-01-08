@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {ProductType} from "@/components/Products/types";
 import {Center, Text, Wrap, WrapItem} from "@chakra-ui/react";

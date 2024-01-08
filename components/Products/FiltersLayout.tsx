@@ -11,12 +11,12 @@ import {FaFilter} from "react-icons/fa";
 import DrawerMenu from "@/components/Container/FilterMenu/DrawerMenu";
 import {FilterMenuType} from "@/app/[lang]/[urlTag]/types";
 import {useDictionaryTranslate} from "@/dictionaries/hooks";
-import useScroll from "@/app/[lang]/[urlTag]/hooks/useScroll";
-import useFilters from "@/app/[lang]/[urlTag]/hooks/useFilters";
+import useScroll from "@/lib/store/filters/hooks/useScroll";
+import useFilters from "@/lib/store/filters/hooks/useFilters";
 
 
 interface Props {
-  children?: React.ReactNode
+  children: React.ReactNode
   desc: string
   sortingBy: SortingType
   breadCrumbs: BreadCrumbData[]
@@ -24,11 +24,10 @@ interface Props {
   filterMenuType: FilterMenuType
 }
 
-const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProducts, filterMenuType}: Props) => {
-  useScroll()
-
-  const mobileFilterMenu = useDisclosure();
+const FiltersLayout = ({children, desc, sortingBy, breadCrumbs, viewedProducts, filterMenuType}: Props) => {
   const {filterMenuPriceType, filterProductType} = filterMenuType
+  useScroll()
+  const mobileFilterMenu = useDisclosure();
   const {
     priceFilterType,
     productTypeType,
@@ -47,14 +46,14 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
         </Flex>
       </Flex>
       <Flex gap={5}>
-        <Box display={{base: "none", lg: "inline"}}>
-          <FilterMenu priceFilterType={priceFilterType} productTypeType={productTypeType}
-                      shoesMenuType={shoesMenuType}/>
-        </Box>
-        <Box>
-          {children}
-        </Box>
-      </Flex>
+      <Box display={{base: "none", lg: "inline"}}>
+        <FilterMenu priceFilterType={priceFilterType} productTypeType={productTypeType}
+                    shoesMenuType={shoesMenuType}/>
+      </Box>
+      <Box>
+        {children}
+      </Box>
+    </Flex>
       <div className='desc' dangerouslySetInnerHTML={{__html: desc}}/>
       {viewedProducts.length > 0 && (
         <Box pt={4}>
@@ -69,4 +68,4 @@ const TagPage = ({children = undefined, desc, sortingBy, breadCrumbs, viewedProd
   );
 };
 
-export default TagPage;
+export default FiltersLayout

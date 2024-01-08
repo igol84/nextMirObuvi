@@ -2,37 +2,25 @@ import React from 'react';
 import '@/app/theme/style.scss'
 import {Lang} from "@/dictionaries/get-dictionary";
 import {redirect} from "next/navigation";
-import {
-  convertToTagUrlFromDB,
-  isColor,
-  isGender,
-  isProductType,
-  isSeason,
-  ParentTagForBreadCrumb,
-  TagUrl
-} from "@/app/[lang]/[urlTag]/types";
+import {convertToTagUrlFromDB, ParentTagForBreadCrumb, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {getProducts, getTagsUrlData, getTagUrlData} from "@/app/api/fetchFunctions";
-import ProductsList from "@/components/base/productsList";
-import TagPage from "@/app/[lang]/[urlTag]/TagPage";
-import {
-  filterProductsByMaxPrice,
-  filterProductsByMinPrice,
-  filterProductsByProductType,
-  filterProductsBySize,
-  filterProductsByTag,
-  getBreadCrumbData,
-  getBreadCrumbDataSinglePage,
-  getFiltersType,
-  isSinglePage,
-  searchProducts,
-  searchProductsByTag
-} from "@/app/[lang]/[urlTag]/serverFunctions/serverFunctions";
+import ProductsList from "@/components/Products/productsList";
+import {getFilterProducts,} from "@/lib/store/filters/serverFunctions/serverFunctions";
 import {getViewedProducts} from "@/lib/productsGetter";
 import {ProductType} from "@/components/Products/types";
 import {createProduct} from "@/lib/productCardData";
 import {getPageData, sortingProducts} from "@/lib/store/serverFunctions";
 import {SortingType} from "@/components/base/SortingSelect/types";
 import SimplePage from "@/app/[lang]/[urlTag]/SimplePage";
+import {
+  getBreadCrumbData,
+  getBreadCrumbDataSinglePage,
+  isSinglePage,
+  searchProducts,
+  searchProductsByTag
+} from "@/app/[lang]/[urlTag]/serverFunctions";
+import {FiltersValues} from "@/lib/store/filters/serverFunctions/types";
+import FiltersLayout from "@/components/Products/FiltersLayout";
 
 type Props = {
   params: {
@@ -43,14 +31,7 @@ type Props = {
     page?: string
     sortingBy?: SortingType
     search?: string
-    minPrice?: string
-    maxPrice?: string
-    productType?: string
-    size?: string | string[]
-    gender?: string
-    color?: string
-    season?: string
-  }
+  } & FiltersValues
 }
 
 export async function generateMetadata({params: {lang, urlTag}}: Props) {
@@ -74,10 +55,8 @@ export async function generateStaticParams() {
 
 const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
   const {
-    page = '1', sortingBy = 'byOrder', search, minPrice, maxPrice, productType, size, gender, color, season
+    page = '1', sortingBy = 'byOrder', search, ...filtersValues
   } = searchParams
-  const minPriceValue = minPrice ? Number(minPrice) : undefined
-  const maxPriceValue = maxPrice ? Number(maxPrice) : undefined
   const tagsUrlData = await getTagsUrlData()
   const fetchData = tagsUrlData.find(tag => tag.url === urlTag)
   if (!fetchData) redirect(`/`)
@@ -104,48 +83,17 @@ const Page = async ({params: {lang, urlTag}, searchParams}: Props) => {
   if (search)
     products = searchProducts(products, search)
 
-  const {
-    filterMenuPriceType,
-    filterProductType,
-    filterSizesType
-  } = getFiltersType(products, minPriceValue, maxPriceValue, productType, size, gender, color, season)
-  if (productType && isProductType(productType))
-    products = filterProductsByProductType(products, productType)
-
-  if (filterSizesType.selectedSizes && filterSizesType.selectedSizes.length > 0) {
-    products = filterProductsBySize(products, filterSizesType.selectedSizes)
-  }
-
-  if (isGender(gender)) {
-    products = filterProductsByTag(products, gender)
-  }
-
-  if (isColor(color)) {
-    products = filterProductsByTag(products, color)
-  }
-
-  if (isSeason(season)) {
-    products = filterProductsByTag(products, season)
-  }
-
-  if (minPriceValue)
-    products = filterProductsByMinPrice(products, minPriceValue)
-  if (maxPriceValue)
-    products = filterProductsByMaxPrice(products, maxPriceValue)
-
-  const filterMenuType = getFiltersType(
-    products, minPriceValue, maxPriceValue, productType, size, gender, color, season, filterSizesType.sizesList,
-    filterProductType.hidden
-  )
+  const filterProducts = getFilterProducts(products, filtersValues)
+  products = filterProducts.products
 
   products = sortingProducts(products, sortingBy)
   const [productsSlice, paginationBar] = await getPageData(products, parseInt(page))
   return (
-    <TagPage desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts} sortingBy={sortingBy}
-             filterMenuType={{...filterMenuType, filterMenuPriceType}}
+    <FiltersLayout desc={tagData.text} breadCrumbs={breadCrumbs} viewedProducts={viewedProducts} sortingBy={sortingBy}
+                   filterMenuType={filterProducts.filterMenuType}
     >
       <ProductsList products={productsSlice} paginationBar={paginationBar}/>
-    </TagPage>
+    </FiltersLayout>
   )
 };
 
