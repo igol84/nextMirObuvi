@@ -15,7 +15,7 @@ import {userConvertFromDB} from "@/lib/store/user";
 import {convertToTagUrlFromDB, TagUrl} from "@/app/[lang]/[urlTag]/types";
 import {TagUrlSchema} from "@/schemas/data";
 import _ from "lodash";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import {SpeedInsights} from "@vercel/speed-insights/next"
 
 export const dynamic = 'force-dynamic'
 
@@ -80,12 +80,12 @@ export default async function RootLayout(
   return (
     <html lang={lang} suppressHydrationWarning={true}>
     <body className={roboto.className} suppressHydrationWarning={true}>
-    <SpeedInsights/>
     <Providers dict={dict} lang={lang} isAdmin={isAdmin}>
       <Container brands={brandsData} cartProducts={cartProducts} user={user} tagsUrl={tagsUrl}>
         {children}
       </Container>
     </Providers>
+    <SpeedInsights/>
     </body>
     </html>
   )
