@@ -30,7 +30,7 @@ const PaginationBar = ({currentPage, totalPages}: PaginationBarProps) => {
   const lastHref = createUrl(pathname, params.toString())
   if (totalPages <= 1) return null
   return (
-    <ButtonGroup size='sm' isAttached boxShadow='2xl'>
+    <ButtonGroup isAttached boxShadow='2xl'>
       <IconButton as={NextLink} aria-label='First Page' icon={<BiFirstPage/>} variant={'pagination' + variantFirstPage}
                   href={firstHref}/>
       {pagesArray.map(page => {
