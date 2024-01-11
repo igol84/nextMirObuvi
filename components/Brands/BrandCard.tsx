@@ -14,7 +14,7 @@ const BrandCard = ({brandId, brandName, url, isFirst}: BrandCardPropsWithFirst) 
         <Box borderRadius={50} borderColor={'black'}>
           <ChakraNextImage priority={isFirst}
             shadow='base' borderRadius={[30, 15]} as={NextImage}
-            width={249} height={249} alt={brandName}
+            width={249} height={249} alt={`photo ${brandName}`}
             src={`https://mirobuvi.com.ua/ftp_brands/${brandId}.jpg`}
           />
         </Box>

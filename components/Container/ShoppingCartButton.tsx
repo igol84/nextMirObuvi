@@ -40,7 +40,7 @@ export default function ShoppingCartButton({children, totalData, isOpen, onToggl
   }
   return (
     <Popover isOpen={isOpen} onClose={onClose} placement='bottom' autoFocus={false}>
-      <PopoverTrigger>
+      <PopoverTrigger aria-label='Cart'>
         <Box position='relative' onClick={onToggle}>
           <IconButton isRound={true} aria-label='Cart' fontSize={[20, 25, 30, 35]} icon={<PiShoppingCart/>}
                       minW={[1, 2]}/>

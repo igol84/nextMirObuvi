@@ -6,6 +6,7 @@ import {ProductType} from "@/components/Products/types";
 import NewIcon from "@/components/Products/NewIcon";
 import {useFavorite} from "@/components/Products/favorirwHooks";
 import dynamic from "next/dynamic";
+
 const FavoriteIcon = dynamic(() => import('@/components/Products/FavoriteIcon'), {ssr: false})
 
 

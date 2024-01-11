@@ -28,7 +28,7 @@ const SortingSelect = ({value}: SortingProps) => {
       <Box whiteSpace='nowrap'>
         <Text>{d('sortingBy')}</Text>
       </Box>
-      <Select value={selectedValue} size='sm' onChange={onChange}>
+      <Select value={selectedValue} size='sm' onChange={onChange} aria-label="Sorting By">
         {stringValues.map(value => (
           <option key={value} value={value}>{d(value as string)}</option>
         ))}

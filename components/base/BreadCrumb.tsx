@@ -22,7 +22,7 @@ const BreadCrumb = ({breadCrumbs}: Props) => {
 
       <BreadcrumbItem>
         <BreadcrumbLink display='flex' alignItems='center' as={NextLink} href={`/${lang}`}>
-          <Icon as={AiFillHome}/>
+          <Icon as={AiFillHome} aria-label="Home"/>
         </BreadcrumbLink>
       </BreadcrumbItem>
 

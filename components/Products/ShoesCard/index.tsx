@@ -21,11 +21,11 @@ const ShoesCard = ({product}: Props) => {
   const filter = product.qty > 0 ? undefined : 'auto'
   const brightness = product.qty > 0 ? undefined : '40%'
   return (
-    <Flex flexDirection='column' gap={4} w={product.page === 'viewed' ? [200, 249] : 249}>
+    <Flex flexDirection='column' gap={4} w={249}>
       <Link as={NextLink} href={`/${lang}/products/${url}`} _hover={{color: 'hoverLinkTextColor'}}>
         <ChakraNextImage
-          borderRadius={[30, 15]} as={NextImage} width={0} height={0} sizes="100vw" alt={name} filter={filter}
-          brightness={brightness} style={{width: '100%', height: 'auto'}}
+          borderRadius={[30, 15]} as={NextImage} width={249} height={249} alt={name} filter={filter}
+          brightness={brightness}
           src={`https://mirobuvi.com.ua/ftp_products/${product_key}/02.jpg`}
         />
         <Center><Text>{name}</Text></Center>

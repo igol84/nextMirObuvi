@@ -17,7 +17,7 @@ const Products = ({brandData, productsData}: Props) => {
   return (
     <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={[0, 0, 0, 1, 0]}>
       {!!brandData && (
-        <WrapItem flexDirection="column" p={[1, 1, 1, 0, 1]} >
+        <WrapItem flexDirection="column" p={[1, 1, 1, 0, 1]}>
           <ChakraNextImage
             as={NextImage} borderRadius={[30, 15]} width={249} height={249} alt={brandData.brandName}
             src={`https://mirobuvi.com.ua/ftp_brands/${brandData.brandId}.jpg`} priority={true}
@@ -27,8 +27,10 @@ const Products = ({brandData, productsData}: Props) => {
       )}
       {productsData.map(product => {
         return (
-          <WrapItem as='article' key={product.id}>
-            <Product product={product}/>
+          <WrapItem key={product.id}>
+            <article>
+              <Product product={product}/>
+            </article>
           </WrapItem>
         )
       })}

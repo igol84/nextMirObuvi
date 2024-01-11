@@ -24,9 +24,9 @@ const ProductsList = ({products, brandData, paginationBar}: Props) => {
     <Flex flexDirection='column' gap={4} pb={{base: 4, sm: 0}}>
       <Wrap justify={{base: 'center', lg: 'flex-start'}} spacing={[0, 0, 0, 1, 0]}>
         {!!brandData && (
-          <WrapItem flexDirection="column" p={[1, 1, 1, 0, 1]} >
+          <WrapItem flexDirection="column" p={[1, 1, 1, 0, 1]}>
             <ChakraNextImage
-              as={NextImage} borderRadius={[30, 15]} width={249} height={249} alt={brandData.brandName}
+              as={NextImage} borderRadius={[30, 15]} width={249} height={249} alt={`brand ${brandData.brandName}`}
               src={`https://mirobuvi.com.ua/ftp_brands/${brandData.brandId}.jpg`} priority={true}
             />
             <Center width={249}><Text fontSize='2rem' fontWeight='bold'>{brandData.brandName}</Text></Center>
@@ -34,8 +34,10 @@ const ProductsList = ({products, brandData, paginationBar}: Props) => {
         )}
         {products.map(product => {
           return (
-            <WrapItem as='article' key={product.id}>
-              <Product product={product}/>
+            <WrapItem key={product.id}>
+              <article>
+                <Product product={product}/>
+              </article>
             </WrapItem>
           )
         })}
