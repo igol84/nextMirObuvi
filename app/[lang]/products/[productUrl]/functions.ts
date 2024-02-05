@@ -6,7 +6,9 @@ export const saveViewedProducts = (url: string) => {
   const setProductsUrl = new Set(viewedProducts)
   setProductsUrl.delete(url)
   setProductsUrl.add(url)
-  const newViewedProducts = Array.from(setProductsUrl)
+  let newViewedProducts = Array.from(setProductsUrl)
+  if (newViewedProducts.length > 3)
+    newViewedProducts = newViewedProducts.slice(-3)
   const newViewedProductsJSON = JSON.stringify(newViewedProducts)
   Cookies.set('viewedProducts', newViewedProductsJSON)
 }
