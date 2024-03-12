@@ -7,6 +7,7 @@ const envSchema = zod.object({
   NEXTAUTH_URL: zod.string(),
   NEXTAUTH_SECRET: zod.string(),
   URL: zod.string(),
+  API_URL: zod.string(),
   ADMINS: zod.string(),
 });
 

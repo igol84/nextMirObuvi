@@ -6,8 +6,10 @@ import {
   ProductWithoutDescriptionSchema,
   TagUrlSchema
 } from "@/schemas/data";
+import {env} from "@/lib/env";
 
-const api = 'https://31.148.245.50'
+
+const api = env.API_URL
 
 export async function getBrandsData(): Promise<BrandSchema[]> {
   const res = await fetch(`${api}/brand/`, {next: {revalidate: 3600}})
